@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>簡単お見積り | G3 -GenGorouGames-</title>
+<meta name="description" content="Unityゲーム開発のお手伝い。項目と規模を選ぶだけで概算金額がわかる簡単お見積りページです。">
+<meta property="og:title" content="簡単お見積り | G3 -GenGorouGames-">
+<meta property="og:description" content="項目と規模を選ぶだけで概算金額がわかります。そのままご相談まで。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gengorougames.com/estimate/">
+<meta property="og:image" content="https://gengorougames.com/img/ogp.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: トップページと同じ「居間」のトーン。左に手順、下に金額バー。げんちゃんが金額に一言つっこむ */
+:root{
+  color-scheme: light;
+  --paper:#f2f3f8; --card:#ffffff; --ink:#262b5e; --ink-2:#5d6392; --ink-3:#8a8fb6;
+  --line:#d8dbea; --line-hi:#b9bdd6;
+  --pink:#f19aac; --pink-soft:#fde8ec; --pink-ink:#c94a68; --teal:#1aa9b1; --teal-ink:#127f86;
+  --warn:#c4553a;
+  --r:16px;
+  --f-display:"Dela Gothic One","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;
+  --f-voice:"Yusei Magic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --f-dot:"DotGothic16","MS Gothic",monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.8;padding-bottom:112px}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--pink-ink)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:940px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance}
+
+.say{font-family:var(--f-voice);font-size:1rem;line-height:1.5;background:var(--card);color:var(--ink);padding:.5em .85em;border-radius:14px;border:2px solid var(--ink);position:relative;display:inline-block}
+.say::after{content:"";position:absolute;width:11px;height:11px;background:var(--card);border:2px solid var(--ink);border-top:0;border-left:0;transform:rotate(45deg);bottom:-7px;left:20px}
+.say.r::after{left:auto;right:20px}
+
+/* header */
+.top .wrap{padding-block:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-size:1.3rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.5em}
+.brand i{font-style:normal;font-family:var(--f-dot);font-size:.75rem;color:var(--ink-2)}
+.top a.back{font-size:13px;font-weight:700;color:var(--ink-2);text-decoration:none}
+.top a.back:hover{color:var(--pink-ink)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:20px;align-items:end;padding-block:28px 8px}
+.hero h1{font-size:clamp(28px,6vw,44px);line-height:1.25;margin:0 0 14px}
+.hero h1 span{color:var(--pink-ink)}
+.hero p{color:var(--ink-2);margin:0 0 18px;max-width:40em}
+.hero-gen{position:relative;padding-top:58px}
+.hero-gen .say{position:absolute;top:0;right:0;white-space:nowrap}
+.badges{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--f-dot);font-size:13px;color:var(--ink-2)}
+.badge::before{content:"✓ ";color:var(--teal)}
+@media(max-width:640px){.hero{grid-template-columns:1fr}.hero-gen{max-width:200px;justify-self:end;margin-top:-10px}}
+
+/* sections */
+section{padding-block:36px}
+.stephead{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.stepno{flex:none;font-family:var(--f-dot);font-size:14px;color:var(--teal-ink)}
+.stephead h2{font-size:24px;margin:0}
+.sublead{color:var(--ink-2);font-size:14px;margin:0 0 20px}
+
+/* scale */
+.scales{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:680px){.scales{grid-template-columns:1fr}}
+.scale{text-align:left;cursor:pointer;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:var(--r);padding:16px 16px 14px;font:inherit;transition:border-color .15s,background .15s}
+.scale:hover{border-color:var(--line-hi)}
+.scale[aria-pressed="true"]{border-color:var(--ink);background:var(--pink-soft)}
+.scale .nm{font-family:var(--f-display);font-size:24px;line-height:1.2;margin-bottom:2px}
+.scale .tag{font-size:12.5px;color:var(--ink-2);margin-bottom:8px;font-weight:700}
+.scale ul{margin:0;padding-left:17px;font-size:12.5px;color:var(--ink-2);line-height:1.85}
+
+/* items */
+.items{display:grid;gap:10px}
+.item{border:2px solid var(--line);background:var(--card);border-radius:var(--r);overflow:hidden;transition:border-color .15s}
+.item.on{border-color:var(--ink)}
+.itemhead{display:flex;align-items:flex-start;gap:13px;padding:15px 16px;cursor:pointer}
+.itemhead input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:2px 0 0;border-radius:6px;border:2px solid var(--line-hi);background:var(--card);cursor:pointer;position:relative;transition:background .15s,border-color .15s}
+.itemhead input:checked{background:var(--ink);border-color:var(--ink)}
+.itemhead input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(42deg)}
+.itmain{flex:1;min-width:0}
+.itname{font-weight:700;font-size:15.5px;line-height:1.5}
+.itunit{font-size:12px;color:var(--ink-3);margin-top:2px}
+.itprice{flex:none;text-align:right;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;padding-top:1px}
+.item.on .itprice{color:var(--pink-ink)}
+.itprice small{display:block;font-size:11px;font-weight:500;color:var(--ink-3)}
+.itbody{border-top:1px dashed var(--line);padding:14px 16px 16px 51px;font-size:13.5px;background:#fafbfd}
+@media(max-width:560px){.itbody{padding-left:16px}}
+.itbody dl{margin:0;display:grid;gap:9px}
+.itbody dt{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--teal-ink)}
+.itbody dt.ng{color:var(--warn)}
+.itbody dt.at{color:var(--pink-ink)}
+.itbody dd{margin:2px 0 0;color:var(--ink-2);line-height:1.8}
+.plans{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px;padding-top:12px;border-top:1px dashed var(--line)}
+.plans .lbl{width:100%;font-size:12px;font-weight:700;color:var(--ink-3);margin-bottom:2px}
+.plan{font:inherit;font-size:12.5px;cursor:pointer;padding:6px 12px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink-2);transition:.15s}
+.plan[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);background:var(--pink-soft);font-weight:700}
+
+/* form */
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media(max-width:680px){.grid2{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-size:13px;font-weight:700;color:var(--ink)}
+.f label .req{color:var(--pink-ink);font-size:11px;margin-left:6px}
+.f input,.f select,.f textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:12px;padding:11px 13px;width:100%;transition:border-color .15s}
+.f textarea{min-height:130px;resize:vertical;line-height:1.7}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--ink)}
+.f input::placeholder,.f textarea::placeholder{color:var(--ink-3)}
+.f select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink-2) 50%),linear-gradient(135deg,var(--ink-2) 50%,transparent 50%);background-position:calc(100% - 19px) 21px,calc(100% - 14px) 21px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;cursor:pointer}
+.f .hint{font-size:12px;color:var(--ink-3)}
+.err{color:var(--warn);font-size:13.5px;font-weight:700;margin-top:12px;display:none}
+.err.show{display:block}
+.actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:22px}
+.btn{font:inherit;font-weight:700;font-size:15px;cursor:pointer;border-radius:12px;padding:14px 26px;border:2px solid transparent;transition:.15s}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.primary:hover{background:#3a4183;border-color:#3a4183}
+.btn.ghost{background:var(--card);color:var(--ink);border-color:var(--line-hi)}
+.btn.ghost:hover{border-color:var(--ink)}
+
+.preview{margin-top:22px;border:2px dashed var(--line-hi);border-radius:var(--r);background:var(--card);padding:16px 18px}
+.preview h3{margin:0 0 10px;font-family:var(--f-dot);font-size:13px;color:var(--ink-2)}
+.preview pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--f-body);font-size:13px;color:var(--ink-2);line-height:1.85}
+
+/* works */
+.works{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media(max-width:680px){.works{grid-template-columns:1fr}}
+.work{border:2px solid var(--line);background:var(--card);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.work .ph{aspect-ratio:460/215;max-width:100%;background:var(--ink);position:relative;overflow:hidden}
+.work .ph img{width:100%;height:100%;object-fit:cover}
+.work .ph.mf{display:flex;gap:6px;padding:8px;justify-content:center}
+.work .ph.mf img{width:auto;height:100%;object-fit:contain;border-radius:6px}
+.work .bd{padding:15px 16px 17px;flex:1;display:flex;flex-direction:column;gap:8px}
+.work h3{margin:0;font-size:18px;line-height:1.4}
+.work .meta{font-family:var(--f-dot);font-size:12px;color:var(--ink-2)}
+.work p{margin:0;font-size:13.5px;color:var(--ink-2);flex:1}
+.work .lnks{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:4px;font-size:13px;font-weight:700}
+.work .lnks a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--pink);text-decoration-thickness:2px;text-underline-offset:3px}
+
+/* terms */
+.terms{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:11px}
+@media(max-width:680px){.terms{grid-template-columns:1fr}}
+.term{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:14px 16px}
+.term .k{font-size:12px;font-weight:700;color:var(--ink-3);margin-bottom:4px}
+.term .v{font-size:14px;line-height:1.7}
+.term .v.good{color:var(--teal-ink);font-weight:700}
+.term .v.bad{color:var(--warn)}
+.note{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:13px 16px;font-size:13.5px;color:var(--ink-2);line-height:1.8}
+.note + .note{margin-top:10px}
+.note b{color:var(--ink)}
+
+/* sticky bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--ink);color:#fff;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bar .wrap{padding-block:12px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+.bar .l{min-width:0;display:flex;align-items:center;gap:14px}
+.bar .face{flex:none;width:56px;height:56px;border-radius:50%;background:var(--pink-soft) url(/img/genchan_face.webp) center/cover no-repeat}
+.bar .cap{font-size:11.5px;color:#c5c8e6}
+.bar .amt{font-family:var(--f-display);font-size:26px;color:#fff;font-variant-numeric:tabular-nums;line-height:1.25}
+.bar .amt small{font-family:var(--f-body);font-size:14px;margin-left:2px}
+.bar .cnt{font-family:var(--f-voice);font-size:13px;color:var(--pink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .btn{padding:12px 22px;font-size:14.5px;white-space:nowrap;background:var(--pink);color:var(--ink);border-color:var(--pink)}
+.bar .btn:hover{background:#fff;border-color:#fff}
+@media(max-width:480px){.bar .amt{font-size:21px}.bar .btn{padding:11px 14px;font-size:13.5px}.bar .face{width:44px;height:44px}}
+
+footer{margin-top:20px;padding-block:26px;color:var(--ink-2);font-size:12.5px;border-top:2px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:space-between}
+footer a{color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/">G3<i>GenGorouGames</i></a>
+    <a class="back" href="/">← ホームページに戻る</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+   <div>
+    <h1>ゲーム制作、<span>いくらかかるか</span><br>その場でわかります。</h1>
+    <p>Unityでのゲーム開発をお手伝いしています。依頼したい内容と規模を選ぶだけで概算金額が出て、そのままご相談まで進めます。もちろん、見積りだけで終わっても大丈夫です。</p>
+    <div class="badges">
+      <span class="badge">Unity専門</span>
+      <span class="badge">著作権譲渡OK</span>
+      <span class="badge">商用利用OK</span>
+      <span class="badge">リテイク無制限</span>
+      <span class="badge">Steamリリース実績あり</span>
+    </div>
+   </div>
+   <div class="hero-gen"><div class="say r">高いと思ったら、相談して。</div><img src="/img/pose_point.webp" alt="げんちゃん" width="480" height="698"></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <section id="step1">
+    <div class="stephead"><span class="stepno">STEP 1</span><h2>ゲームの規模を選ぶ</h2></div>
+    <p class="sublead">迷ったら近いほうで大丈夫です。あとで調整できます。</p>
+    <div class="scales" id="scales"></div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section id="step2">
+    <div class="stephead"><span class="stepno">STEP 2</span><h2>依頼したい項目を選ぶ</h2></div>
+    <p class="sublead">複数選べます。チェックすると「どこまで対応できるか」が開きます。</p>
+    <div class="items" id="items"></div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section id="step3">
+    <div class="stephead"><span class="stepno">STEP 3</span><h2>詳しい内容を入力する</h2></div>
+    <p class="sublead">わかる範囲で大丈夫です。空欄が多くても受け付けています。</p>
+
+    <div class="grid2">
+      <div class="f">
+        <label for="f-name">お名前 / 会社名・チーム名<span class="req">必須</span></label>
+        <input id="f-name" type="text" placeholder="例：佐々木 / 〇〇スタジオ" autocomplete="name">
+      </div>
+      <div class="f">
+        <label for="f-mail">メールアドレス<span class="req">必須</span></label>
+        <input id="f-mail" type="email" placeholder="例：you@example.com" autocomplete="email">
+      </div>
+      <div class="f">
+        <label for="f-contact">その他の連絡手段</label>
+        <input id="f-contact" type="text" placeholder="例：X @xxxx / Discord xxxx">
+        <span class="hint">メールより連絡が取りやすい場合はこちらへ</span>
+      </div>
+      <div class="f">
+        <label for="f-deadline">希望納期</label>
+        <input id="f-deadline" type="text" placeholder="例：2026年12月末 / 急ぎではない">
+      </div>
+      <div class="f">
+        <label for="f-budget">ご予算</label>
+        <input id="f-budget" type="text" placeholder="例：10万円くらい / 未定">
+        <span class="hint">概算と合わなくても大丈夫です。調整できる場合があります</span>
+      </div>
+      <div class="f">
+        <label for="f-source">どこで知りましたか<span class="req">必須</span></label>
+        <select id="f-source">
+          <option value="">選んでください</option>
+          <option>X（旧Twitter）</option>
+          <option>Steam</option>
+          <option>ココナラ</option>
+          <option>知人・友人の紹介</option>
+          <option>学校・DreamCraft関係</option>
+          <option>イベント（TGSなど）</option>
+          <option>YouTube</option>
+          <option>検索エンジン</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div class="f full">
+        <label for="f-detail">ご依頼の詳細<span class="req">必須</span></label>
+        <textarea id="f-detail" placeholder="例：Unityで作っている2Dアクションのボス戦を実装したいです。プレイヤー側はできていて、ボスのAIと攻撃パターンが未実装です。3体分お願いしたいです。&#10;&#10;・使用エンジン / バージョン：&#10;・現在の進捗：&#10;・お願いしたいこと："></textarea>
+        <span class="hint">仕様書がなくても大丈夫です。やりたいことの概要だけでも構いません。</span>
+      </div>
+    </div>
+
+    <div class="err" id="err"></div>
+
+    <div class="preview">
+      <h3>送信される内容</h3>
+      <pre id="preview"></pre>
+    </div>
+
+    <div class="actions">
+      <button class="btn primary" id="send">この内容で相談する</button>
+      <button class="btn ghost" id="copy">内容をコピー</button>
+    </div>
+    <p class="sublead" style="padding-left:0;margin-top:14px">
+      送信すると入力内容が入った状態のフォームが開きます。うまく開かない場合は「内容をコピー」して
+      <a href="mailto:gengorougames@gmail.com">gengorougames@gmail.com</a> までお送りください。
+    </p>
+  </section>
+
+  <!-- 実績 -->
+  <section id="works">
+    <div class="stephead" style="gap:0"><h2>制作実績</h2></div>
+    <p class="sublead" style="padding-left:0">実際にリリース・配信準備まで通した作品です。</p>
+    <div class="works">
+      <article class="work">
+        <div class="ph">
+          <img src="/img/guild_header.webp" alt="がむしゃらギルド -Scrappy Guild-" loading="lazy">
+        </div>
+        <div class="bd">
+          <h3>がむしゃらギルド -Scrappy Guild-</h3>
+          <div class="meta">Steam / 2027年3月15日 発売予定 ・ オンライン協力 2〜4人</div>
+          <p>パーティ全員でエネルギーを共有する協力型デッキ構築ローグライク。作戦会議が勝敗を分けます。企画・プログラム・オンライン実装・ストアページまで担当。</p>
+          <div class="lnks">
+            <a href="https://store.steampowered.com/app/4842440/Scrappy_Guild/" target="_blank" rel="noopener">Steamストアページ</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="ph mf">
+          <img src="/img/makefall_1.webp" alt="MakeFALLの画面" loading="lazy"><img src="/img/makefall_2.webp" alt="" loading="lazy"><img src="/img/makefall_3.webp" alt="" loading="lazy">
+        </div>
+        <div class="bd">
+          <h3>MakeFALL</h3>
+          <div class="meta">iOS / Android ・ リリース済み</div>
+          <p>スマートフォン向けにリリースしたタイトル。企画から制作、ストア申請・配信、広告実装までを一通り担当しました。</p>
+          <div class="lnks">
+            <a href="https://sites.google.com/view/makefallsite/" target="_blank" rel="noopener">公式サイト</a>
+            <a href="https://apps.apple.com/jp/app/makefall/id6760619572" target="_blank" rel="noopener">App Store</a>
+            <a href="https://play.google.com/store/apps/details?id=com.DefaultCompany.kzunokosi" target="_blank" rel="noopener">Google Play</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 条件 -->
+  <section id="terms">
+    <div class="stephead" style="gap:0"><h2>お受けする条件</h2></div>
+    <p class="sublead" style="padding-left:0">先に知っておいてほしいことをまとめました。</p>
+    <div class="terms">
+      <div class="term"><div class="k">対応エンジン</div><div class="v">Unity のみ</div></div>
+      <div class="term"><div class="k">著作権</div><div class="v good">譲渡します / 商用利用OK</div></div>
+      <div class="term"><div class="k">修正・リテイク</div><div class="v good">何度でも無料</div></div>
+      <div class="term"><div class="k">実績としての公開</div><div class="v">OK（非公開のご希望も相談できます）</div></div>
+      <div class="term"><div class="k">稼働できる時間</div><div class="v">週 25〜35時間</div></div>
+      <div class="term"><div class="k">対応できないもの</div><div class="v bad">シナリオ制作 / アダルト作品 / ノベルゲーム / イラストの描き起こし / サウンド制作 / 月額の運用保守</div></div>
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="note">
+        <b>金額について</b><br>
+        表示されるのはあくまで<b>概算の目安</b>です。正式なお見積りは、内容をうかがったうえで改めてお出しします。表示金額はすべて税込です。
+      </div>
+      <div class="note">
+        <b>生成AIの利用について</b><br>
+        プログラム実装・3Dモデル制作では生成AIを活用して、費用と納期を抑えています。3Dモデルについては、<b>Steamで配信する場合にストアページでのAI生成コンテンツの申告対象</b>になります。ご了承のうえでご依頼ください。
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>G3 -GenGorouGames- / 佐々木</span>
+    <span><a href="mailto:gengorougames@gmail.com">gengorougames@gmail.com</a> ・ <a href="/">ホームページ</a></span>
+  </div>
+</footer>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="l">
+      <div class="face" aria-hidden="true"></div>
+      <div style="min-width:0">
+        <div class="cap">概算金額の目安</div>
+        <div class="amt" id="total">— <small>円</small></div>
+        <div class="cnt" id="count">…項目、選んで。</div>
+      </div>
+    </div>
+    <button class="btn primary" id="jump">相談へ進む</button>
+  </div>
+</div>
+
+<textarea class="sr" id="clip" aria-hidden="true" tabindex="-1"></textarea>
+
+<script>
+/* =========================================================================
+   Googleフォーム連携の設定
+   フォームを作成したら、以下の baseUrl と entries を埋めてください。
+   未設定の場合はメール（gengorougames@gmail.com）での送信に自動で切り替わります。
+   ========================================================================= */
+var FORM_CONFIG = {
+  baseUrl: "https://docs.google.com/forms/d/e/1FAIpQLScIfFbDhM75f04zwuBBbw3KpbVSJtE4-QmT48UyfXC1ISZ8sA/viewform?usp=pp_url",
+  entries: {
+    name:     "entry.750009393",   // 1 お名前 / 会社名・チーム名
+    email:    "entry.772076747",   // 2 メールアドレス
+    contact:  "entry.762788405",   // 3 その他の連絡手段
+    scale:    "entry.1428991655",  // 4 ゲームの規模
+    items:    "entry.727097395",   // 5 依頼項目
+    total:    "entry.74222380",    // 6 概算合計
+    deadline: "entry.1358860953",  // 7 希望納期
+    budget:   "entry.1148990644",  // 8 ご予算
+    source:   "entry.48801565",    // 9 どこで知りましたか
+    detail:   "entry.1593048339"   // 10 ご依頼の詳細
+  }
+};
+var MAIL_TO = "gengorougames@gmail.com";
+
+/* ========================= データ ========================= */
+var SCALES = [
+  { id:"s", name:"小", tag:"プロトタイプ / ゲームジャム規模",
+    lines:["想定プレイ時間 10分以内","画面数 1〜3枚","期間 2週間以内"] },
+  { id:"m", name:"中", tag:"個人〜少人数でのリリース規模",
+    lines:["想定プレイ時間 1〜3時間","Steam・スマホでの配信を想定","期間 1〜3ヶ月"] },
+  { id:"l", name:"大", tag:"商業規模",
+    lines:["想定プレイ時間 5時間以上","チーム複数人で制作","期間 3ヶ月以上"] }
+];
+
+var ITEMS = [
+  {
+    id:"prog", name:"ゲーム制作協力（プログラム）", scaled:true,
+    price:{s:15000,m:55000,l:200000},
+    can:"Unityでの機能実装全般をお受けします。生成AIを活用してスピードを出しています。ReadMe（仕様・引き継ぎ資料）もあわせて作成します。仕様書がなくても、やりたいことの概要を伝えていただければ、すり合わせながら形にします。",
+    ng:"Unity以外のエンジンは対応できません。"
+  },
+  {
+    id:"plan", name:"ゲーム制作協力（企画・仕様書）", scaled:true,
+    price:{s:10000,m:33000,l:120000},
+    can:"ゲームの企画立案と仕様書の作成。仕様書はExcelで共有し、そのまま制作に使える形でお渡しします。",
+    ng:"シナリオ・ストーリーの制作は対応できません。"
+  },
+  {
+    id:"ui", name:"ゲーム制作協力（UIデザイン）", scaled:true,
+    price:{s:7500,m:27000,l:100000},
+    can:"Photoshopでボタン・フレーム・パネルなど、シンプルで見やすいUIパーツを作成します。Unityへの組み込みまで対応可能です。",
+    ng:"イラストは描けません。キャラクター絵や凝った装飾が必要なUIは対応外です。"
+  },
+  {
+    id:"consult", name:"ゲーム企画相談", scaled:false,
+    plans:[{k:"s",label:"1時間",price:2500},{k:"m",label:"3時間",price:10000},{k:"l",label:"月契約",price:30000}],
+    can:"システム面をどう面白くするか、テーマをどう見せるか。オンライン通話で一緒に考えます。作りかけの企画でも、まだ何もなくても大丈夫です。",
+    ng:"アダルト（エロ）作品、ノベルゲームは対応できません。"
+  },
+  {
+    id:"model", name:"ゲームで使用する3Dモデル", scaled:true,
+    price:{s:4000,m:20000,l:80000},
+    unit:{s:"小物1点",m:"キャラクター1体",l:"キャラクター＋モーション"},
+    can:"生成AIで作ったモデルをBlenderで調整して納品します。シンプルな形状のものに限ります。",
+    ng:"ハイポリゴンのモデル、複雑なリギング・モーションは対応外です。",
+    at:"生成AIを使用しているため、Steamで配信する場合はAI生成コンテンツの申告対象になります。"
+  },
+  {
+    id:"img", name:"Steamなどに使用する画像", scaled:true,
+    price:{s:5000,m:17000,l:50000},
+    unit:{s:"カプセル画像一式",m:"＋各種バナー",l:"ストアページ画像一式"},
+    can:"ゲーム内のスクリーンショットを撮り、Photoshopなどで加工してカプセル画像・バナーを作成します。Steamの規定サイズにすべて合わせます。",
+    ng:"イラストは描けません。描き起こしのキービジュアルは対応外です。"
+  },
+  {
+    id:"pv", name:"PV制作", scaled:true,
+    price:{s:15000,m:40000,l:120000},
+    unit:{s:"30秒",m:"1分",l:"1分＋撮影用素材の作成"},
+    can:"ゲームをキャプチャして、Premiere Proで編集します。シンプルで見やすい構成のPVを作ります。",
+    ng:"凝ったモーショングラフィックス、実写撮影、オリジナル楽曲は対応外です。BGMはフリー素材か、ご支給の素材を使用します。"
+  },
+  {
+    id:"debug", name:"デバッグ・プレイテスト", scaled:true,
+    price:{s:2500,m:10000,l:40000},
+    can:"実際にプレイしてバグを洗い出し、再現手順つきのレポートで報告します。あわせて、ゲームクリエイター目線で「ここがもったいない」という改善意見も出します。",
+    ng:"自動テストの構築は別途ご相談ください。"
+  },
+  {
+    id:"full", name:"ゲーム企画〜制作〜配信 一括", scaled:true,
+    price:{s:75000,m:270000,l:800000},
+    can:"企画からUnityでの制作、Steam / iOS / Google Play への配信まで一通りお受けします。広告の実装・配置も対応可能です。",
+    ng:"シナリオ制作、本格的なイラスト・サウンドは対応外です（ご支給いただくか、別途外注をお願いします）。",
+    at:"スケジュールの都合上、同時にお受けできる件数に限りがあります。まずご相談ください。"
+  },
+  {
+    id:"net", name:"オンラインマルチプレイ実装", scaled:true,
+    price:{s:25000,m:80000,l:300000},
+    can:"Unityでのオンライン対戦・協力プレイの実装。生成AIを活用しつつ、実際にオンライン協力ゲームを作った経験をもとに対応します。",
+    at:"通信まわりは仕様によって工数が大きく変わります。金額は目安として見てください。"
+  },
+  {
+    id:"fix", name:"既存ゲームのバグ修正・最適化", scaled:true,
+    price:{s:5000,m:20000,l:80000},
+    unit:{s:"調査・原因特定まで",m:"調査＋修正",l:"調査＋修正＋最適化"},
+    can:"Unityプロジェクトの不具合調査・修正、動作が重い箇所の最適化。生成AIを活用して対応します。",
+    at:"プロジェクト一式を共有していただく必要があります。「小」は調査と原因特定までで、修正は別途となります。"
+  },
+  {
+    id:"lesson", name:"技術レクチャー・メンター", scaled:false,
+    plans:[{k:"s",label:"1時間",price:3000},{k:"m",label:"月4回",price:13000},{k:"l",label:"月8回",price:40000}],
+    can:"Unityの使い方、実装の考え方、個人開発の進め方を、自分が実際にやってきた経験ベースで教えます。オンライン通話で対応します。",
+    ng:"学校の課題そのものの代行は対応できません。"
+  },
+  {
+    id:"steam", name:"Steamリリース作業の代行・同伴", scaled:false,
+    plans:[{k:"s",label:"同伴サポート",price:10000},{k:"m",label:"代行",price:17000},{k:"l",label:"申請〜リリース一括",price:50000}],
+    can:"Steamworksの設定、ストアページの作成、ビルドの提出、審査対応。こちらで代行することも、画面共有しながら一緒に進めて覚えてもらうこともできます。",
+    at:"Steam Directの登録手数料のお支払い、銀行口座・税務情報の登録はご本人の対応が必要です。"
+  }
+];
+
+/* ========================= 状態 ========================= */
+var state = { scale:"m", picked:{}, plans:{} };
+ITEMS.forEach(function(it){ if(!it.scaled) state.plans[it.id] = "s"; });
+
+var yen = function(n){ return n.toLocaleString("ja-JP"); };
+var $ = function(id){ return document.getElementById(id); };
+
+function priceOf(it){
+  if(it.scaled) return it.price[state.scale];
+  var k = state.plans[it.id];
+  for(var i=0;i<it.plans.length;i++) if(it.plans[i].k===k) return it.plans[i].price;
+  return 0;
+}
+function unitOf(it){
+  if(it.scaled) return it.unit ? it.unit[state.scale] : "";
+  var k = state.plans[it.id];
+  for(var i=0;i<it.plans.length;i++) if(it.plans[i].k===k) return it.plans[i].label;
+  return "";
+}
+function scaleObj(){ for(var i=0;i<SCALES.length;i++) if(SCALES[i].id===state.scale) return SCALES[i]; }
+
+/* ========================= 描画：規模 ========================= */
+(function renderScales(){
+  var box = $("scales");
+  SCALES.forEach(function(s){
+    var b = document.createElement("button");
+    b.type="button"; b.className="scale"; b.setAttribute("aria-pressed", s.id===state.scale);
+    b.innerHTML = '<div class="nm">'+s.name+'</div><div class="tag">'+s.tag+'</div><ul>'+
+      s.lines.map(function(l){return "<li>"+l+"</li>";}).join("")+'</ul>';
+    b.addEventListener("click", function(){
+      state.scale = s.id;
+      Array.prototype.forEach.call(box.children, function(c,i){
+        c.setAttribute("aria-pressed", SCALES[i].id===state.scale);
+      });
+      refreshItems(); update();
+    });
+    box.appendChild(b);
+  });
+})();
+
+/* ========================= 描画：項目 ========================= */
+(function renderItems(){
+  var box = $("items");
+  ITEMS.forEach(function(it){
+    var card = document.createElement("div");
+    card.className = "item"; card.dataset.id = it.id;
+
+    var head = document.createElement("label");
+    head.className = "itemhead";
+    head.innerHTML =
+      '<input type="checkbox" aria-label="'+it.name+'を選択">'+
+      '<div class="itmain"><div class="itname">'+it.name+'</div>'+
+        '<div class="itunit" data-unit></div></div>'+
+      '<div class="itprice" data-price></div>';
+    head.querySelector("input").addEventListener("change", function(e){
+      state.picked[it.id] = e.target.checked;
+      card.classList.toggle("on", e.target.checked);
+      body.hidden = !e.target.checked;
+      update();
+    });
+
+    var body = document.createElement("div");
+    body.className = "itbody"; body.hidden = true;
+    var dl = '<dl>';
+    if(it.can) dl += '<dt>できること</dt><dd>'+it.can+'</dd>';
+    if(it.ng)  dl += '<dt class="ng">できないこと</dt><dd>'+it.ng+'</dd>';
+    if(it.at)  dl += '<dt class="at">ご注意</dt><dd>'+it.at+'</dd>';
+    dl += '</dl>';
+    body.innerHTML = dl;
+
+    if(!it.scaled){
+      var pw = document.createElement("div");
+      pw.className = "plans";
+      pw.innerHTML = '<span class="lbl">プランを選んでください（ゲームの規模とは別です）</span>';
+      it.plans.forEach(function(p){
+        var pb = document.createElement("button");
+        pb.type="button"; pb.className="plan";
+        pb.setAttribute("aria-pressed", p.k===state.plans[it.id]);
+        pb.textContent = p.label+"　"+yen(p.price)+"円";
+        pb.addEventListener("click", function(){
+          state.plans[it.id] = p.k;
+          Array.prototype.forEach.call(pw.querySelectorAll(".plan"), function(x,i){
+            x.setAttribute("aria-pressed", it.plans[i].k===state.plans[it.id]);
+          });
+          refreshItems(); update();
+        });
+        pw.appendChild(pb);
+      });
+      body.appendChild(pw);
+    }
+
+    card.appendChild(head); card.appendChild(body);
+    box.appendChild(card);
+  });
+  refreshItems();
+})();
+
+function refreshItems(){
+  ITEMS.forEach(function(it){
+    var card = document.querySelector('.item[data-id="'+it.id+'"]');
+    if(!card) return;
+    card.querySelector("[data-price]").innerHTML =
+      yen(priceOf(it))+"<small>円〜</small>";
+    var u = unitOf(it);
+    var ue = card.querySelector("[data-unit]");
+    ue.textContent = u ? "（"+u+"）" : "";
+  });
+}
+
+/* ========================= 集計 ========================= */
+function selected(){ return ITEMS.filter(function(it){ return state.picked[it.id]; }); }
+
+function update(){
+  var sel = selected();
+  var sum = sel.reduce(function(a,it){ return a + priceOf(it); }, 0);
+  $("total").innerHTML = sel.length ? yen(sum)+' <small>円〜</small>' : '— <small>円</small>';
+  $("count").textContent = sel.length
+    ? "規模" + scaleObj().name + "・" + sel.length + "項目　" + mutter(sum)
+    : "…項目、選んで。";
+  $("preview").textContent = summary();
+}
+
+/* げんちゃんのつぶやき（金額で変わる。見た目だけで、計算には関係しない） */
+function mutter(sum){
+  if(sum < 20000)  return "…お手頃。";
+  if(sum < 100000) return "…まあ、そんなもんでしょ。";
+  if(sum < 400000) return "…本気だね。";
+  return "…大作の予感。";
+}
+
+function summary(){
+  var sel = selected();
+  var L = [];
+  L.push("【お見積り内容】");
+  L.push("ゲームの規模：" + scaleObj().name + "（" + scaleObj().tag + "）");
+  if(sel.length){
+    L.push("依頼したい項目：");
+    sel.forEach(function(it){
+      var u = unitOf(it);
+      L.push("  ・" + it.name + (u ? "（"+u+"）" : "") + " … " + yen(priceOf(it)) + "円");
+    });
+    L.push("概算合計：" + yen(sel.reduce(function(a,it){return a+priceOf(it);},0)) + "円〜");
+  } else {
+    L.push("依頼したい項目：（未選択）");
+  }
+  L.push("");
+  L.push("【ご依頼者】");
+  L.push("お名前：" + ($("f-name").value || "（未記入）"));
+  L.push("メール：" + ($("f-mail").value || "（未記入）"));
+  L.push("その他の連絡手段：" + ($("f-contact").value || "（未記入）"));
+  L.push("希望納期：" + ($("f-deadline").value || "（未記入）"));
+  L.push("ご予算：" + ($("f-budget").value || "（未記入）"));
+  L.push("どこで知ったか：" + ($("f-source").value || "（未記入）"));
+  L.push("");
+  L.push("【ご依頼の詳細】");
+  L.push($("f-detail").value || "（未記入）");
+  return L.join("\n");
+}
+
+["f-name","f-mail","f-contact","f-deadline","f-budget","f-source","f-detail"].forEach(function(id){
+  $(id).addEventListener("input", update);
+  $(id).addEventListener("change", update);
+});
+
+/* ========================= 送信 ========================= */
+function validate(){
+  var miss = [];
+  if(!selected().length) miss.push("依頼したい項目");
+  if(!$("f-name").value.trim()) miss.push("お名前");
+  if(!$("f-mail").value.trim()) miss.push("メールアドレス");
+  if(!$("f-source").value) miss.push("どこで知ったか");
+  if(!$("f-detail").value.trim()) miss.push("ご依頼の詳細");
+  var e = $("err");
+  if(miss.length){
+    e.textContent = "次の項目が未入力です：" + miss.join(" / ");
+    e.classList.add("show");
+    return false;
+  }
+  e.classList.remove("show");
+  return true;
+}
+
+function formUrl(){
+  var c = FORM_CONFIG;
+  if(!c.baseUrl || !c.entries.detail) return null;
+  var sel = selected();
+  var vals = {
+    name:     $("f-name").value,
+    email:    $("f-mail").value,
+    contact:  $("f-contact").value,
+    scale:    scaleObj().name,
+    items:    sel.map(function(it){
+                var u = unitOf(it);
+                return "・" + it.name + (u ? "（"+u+"）" : "") + " … " + yen(priceOf(it)) + "円";
+              }).join("\n"),
+    total:    yen(sel.reduce(function(a,it){return a+priceOf(it);},0)) + "円",
+    deadline: $("f-deadline").value,
+    budget:   $("f-budget").value,
+    source:   $("f-source").value,
+    detail:   $("f-detail").value
+  };
+  var q = [];
+  Object.keys(c.entries).forEach(function(k){
+    if(c.entries[k] && vals[k]) q.push(c.entries[k] + "=" + encodeURIComponent(vals[k]));
+  });
+  return c.baseUrl + (c.baseUrl.indexOf("?") >= 0 ? "&" : "?") + q.join("&");
+}
+
+$("send").addEventListener("click", function(){
+  if(!validate()){ $("err").scrollIntoView({behavior:"smooth", block:"center"}); return; }
+  var url = formUrl();
+  if(url){ window.open(url, "_blank", "noopener"); return; }
+  var sub = "【お見積り相談】" + ($("f-name").value || "お問い合わせ");
+  window.location.href = "mailto:" + MAIL_TO +
+    "?subject=" + encodeURIComponent(sub) +
+    "&body=" + encodeURIComponent(summary());
+});
+
+$("copy").addEventListener("click", function(){
+  var t = summary(), btn = $("copy"), ok = function(){
+    btn.textContent = "コピーしました";
+    setTimeout(function(){ btn.textContent = "内容をコピー"; }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(ok).catch(fallback);
+  } else { fallback(); }
+  function fallback(){
+    var ta = $("clip"); ta.value = t; ta.select();
+    try{ document.execCommand("copy"); ok(); }catch(e){ btn.textContent = "コピーできませんでした"; }
+  }
+});
+
+$("jump").addEventListener("click", function(){
+  var t = selected().length ? "step3" : "step2";
+  $(t).scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+update();
+</script>
+</body>
+</html>

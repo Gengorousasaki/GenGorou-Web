@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="G3（ゲンゴロウゲームズ）は東京のインディーゲームチーム。がむしゃらギルド、Final Tower Ⅶ、MakeFALL などを作っています。ゲーム制作のお仕事も受付中。">
+<meta property="og:title" content="G3 -GenGorouGames-">
+<meta property="og:description" content="今夜、なにで遊ぶ？ G3（ゲンゴロウゲームズ）のゲームとお知らせ。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gengorougames.com/">
+<meta property="og:image" content="https://gengorougames.com/img/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>G3 -GenGorouGames- | インディーゲームチーム</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Yusei+Magic&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: 居間のテレビ。最初の画面はゲームを「チャンネル」で切り替えるテレビ、その前でげんちゃんが居眠り。下の各セクションにも、げんちゃんが一言ずつ口を出す */
+:root{
+  color-scheme: light;
+  --paper:#f2f3f8;   /* 地：げんちゃんの撮影背景と同じ、ほんのり青い白 */
+  --card:#ffffff;
+  --ink:#262b5e;     /* 文字：げんちゃんの手足の紺 */
+  --ink-2:#5d6392;   /* 補足 */
+  --line:#d8dbea;
+  --pink:#f19aac;    /* げんちゃんの体 */
+  --pink-ink:#c94a68;/* ピンクの文字用（白地で読める濃さ） */
+  --teal:#1aa9b1;    /* ヘッドホンの縁 */
+  --tv:#262b5e;      /* テレビの枠 */
+  --f-display:"Dela Gothic One","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-voice:"Yusei Magic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --f-dot:"DotGothic16","MS Gothic",monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.8}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:1120px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.25;text-wrap:balance;margin:0}
+
+/* げんちゃんの吹き出し（全セクション共通） */
+.say{font-family:var(--f-voice);font-size:1.05rem;line-height:1.5;background:var(--card);color:var(--ink);padding:.55em .9em;border-radius:16px;border:2px solid var(--ink);position:relative;display:inline-block;max-width:16em}
+.say::after{content:"";position:absolute;width:12px;height:12px;background:var(--card);border:2px solid var(--ink);border-top:0;border-left:0;transform:rotate(45deg);bottom:-8px;left:22px}
+.say.r::after{left:auto;right:22px}
+
+/* ヘッダー */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(8px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo{font-family:var(--f-display);font-size:1.35rem;text-decoration:none;display:flex;align-items:center;gap:.55em}
+.logo i{font-style:normal;font-family:var(--f-dot);font-size:.75rem;color:var(--ink-2)}
+nav{display:flex;gap:22px;flex-wrap:wrap;font-weight:700;font-size:.9rem}
+nav a{text-decoration:none}
+nav a:hover{color:var(--pink-ink)}
+nav .est{color:var(--pink-ink)}
+
+/* 最初の画面：テレビ */
+.hero{padding-block:20px 40px}
+.hero-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.hero h1{font-size:clamp(2rem,5.2vw,3.6rem)}
+.hero-head p{margin:0;color:var(--ink-2);max-width:26em}
+.room{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:0;align-items:end}
+.tv{background:var(--tv);border-radius:26px;padding:14px;position:relative;min-width:0}
+.tv::after{content:"";position:absolute;left:50%;bottom:-18px;width:28%;height:18px;transform:translateX(-50%);background:var(--tv);border-radius:0 0 10px 10px;clip-path:polygon(12% 0,88% 0,100% 100%,0 100%)}
+.screen{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:14px;overflow:hidden;background:#0d0f24}
+.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s}
+.screen img.on{opacity:1}
+.screen .noise{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+.osd{position:absolute;left:0;right:0;bottom:0;padding:42px 20px 16px;background:linear-gradient(transparent,rgba(13,15,36,.85));color:#fff;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.osd-ch{font-family:var(--f-dot);font-size:.85rem;color:#8ff1f5;letter-spacing:.08em}
+.osd h2{font-size:clamp(1.4rem,3.2vw,2.2rem);color:#fff}
+.osd p{margin:.2em 0 0;font-size:.95rem;max-width:30em;color:#e6e7f5}
+.osd a{flex:none;background:var(--pink);color:var(--ink);font-weight:700;text-decoration:none;padding:.6em 1.2em;border-radius:10px;font-size:.95rem}
+.osd a:hover{background:#fff}
+.ch-dot{position:absolute;top:14px;right:16px;font-family:var(--f-dot);color:#8ff1f5;font-size:1.1rem;text-shadow:0 0 6px rgba(143,241,245,.6)}
+
+.remote{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:34px;padding-right:300px}
+.remote button{font:inherit;text-align:left;cursor:pointer;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px;display:grid;gap:6px;color:var(--ink);transition:border-color .2s}
+.remote button[aria-pressed="true"]{border-color:var(--ink)}
+.remote img{aspect-ratio:460/215;width:100%;object-fit:cover;border-radius:6px;background:var(--paper)}
+.remote span{font-family:var(--f-dot);font-size:.75rem;color:var(--ink-2)}
+.remote b{font-size:.85rem;line-height:1.3}
+
+.genchan{position:relative;height:420px;margin-left:-40px;min-width:0}
+#gl{position:absolute;inset:0;width:100%;height:100%;cursor:pointer}
+.genchan .say{position:absolute;top:6px;left:24px;z-index:2}
+.genchan .hint{position:absolute;bottom:0;left:0;right:0;text-align:center;font-family:var(--f-dot);font-size:.75rem;color:var(--ink-2)}
+.fallback{position:absolute;inset:40px 0 20px;background:url(/img/pose_tired.webp) center bottom/contain no-repeat}
+
+/* セクション */
+section{padding-block:72px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:36px}
+.sec-head h2{font-size:clamp(1.9rem,4vw,2.8rem)}
+.sec-head p{margin:0;color:var(--ink-2)}
+
+/* 作品：1本ずつ大きく、げんちゃんが横から口を出す */
+.games{display:grid;gap:72px}
+.game{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
+.game:nth-child(even) .shot{order:2}
+.shot{position:relative;min-width:0}
+.shot .frame{border-radius:16px;overflow:hidden;border:3px solid var(--ink);background:var(--ink);aspect-ratio:16/9;max-width:100%}
+.shot .frame img{width:100%;height:100%;object-fit:cover}
+.shot .frame.phone{aspect-ratio:auto;display:flex;gap:6px;padding:6px;justify-content:center;background:var(--ink)}
+.shot .frame.phone img{width:31%;height:auto;object-fit:contain;border-radius:8px}
+.shot .frame.watch{display:grid;grid-template-columns:auto auto;gap:24px;place-content:center;align-items:center;background:#0b0b10;color:#e9e6f2}
+.shot .frame.watch img{width:120px;height:auto;border-radius:12px;border:1px solid #2a2a38}
+.shot .frame.watch span{font-family:var(--f-dot);font-size:clamp(1.6rem,3.4vw,2.4rem);letter-spacing:.3em;line-height:1.2}
+.shot .frame.watch small{display:block;font-size:.8rem;letter-spacing:.1em;color:#9a96ad;margin-top:6px}
+.shot .gen{position:absolute;width:24%;max-width:160px;bottom:-40px;right:-22px;filter:drop-shadow(0 6px 10px rgba(38,43,94,.18))}
+.game:nth-child(even) .shot .gen{right:auto;left:-26px}
+.shot .gen .say{position:absolute;bottom:92%;right:30%;white-space:nowrap;font-size:.95rem;max-width:none}
+.game:nth-child(even) .shot .gen .say{right:auto;left:30%}
+.ginfo{min-width:0;display:grid;gap:12px;align-content:center}
+.gmeta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-family:var(--f-dot);font-size:.85rem;color:var(--ink-2)}
+.gmeta .st{color:var(--teal)}
+.gmeta .st.soon{color:var(--pink-ink)}
+.ginfo h3{font-size:clamp(1.7rem,3.4vw,2.4rem)}
+.ginfo p{margin:0;max-width:32em}
+.glinks{display:flex;gap:18px;flex-wrap:wrap;font-weight:700}
+.glinks a{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:var(--pink)}
+.glinks a:hover{color:var(--pink-ink)}
+
+/* お知らせ */
+.news{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:40px;align-items:start}
+.log{list-style:none;margin:0;padding:0;background:var(--card);border-radius:16px;border:2px solid var(--line)}
+.log li{display:grid;grid-template-columns:7.2em minmax(0,1fr);gap:16px;padding:16px 22px;border-bottom:1px dashed var(--line)}
+.log li:last-child{border-bottom:0}
+.log time{font-family:var(--f-dot);color:var(--teal);font-variant-numeric:tabular-nums}
+.log span{display:block;font-size:.8rem;color:var(--ink-2)}
+.log b{font-weight:700}
+.news-gen{position:relative;padding-top:56px}
+.news-gen .say{position:absolute;top:0;left:10px}
+.news-gen img{width:100%}
+
+/* お仕事依頼：ピンクの帯 */
+.work{background:var(--pink)}
+.work .in{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;align-items:center}
+.work-gen{position:relative;padding-top:64px}
+.work-gen .say{position:absolute;top:0;left:0}
+.work h2{font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:14px}
+.work p{margin:0 0 18px;max-width:34em}
+.svc{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 24px;padding:0;list-style:none;font-size:.92rem;font-weight:500}
+.svc li::before{content:"・"}
+.conds{font-family:var(--f-dot);font-size:.85rem;margin-bottom:22px}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;padding:.85em 1.6em;border-radius:12px}
+.btn:hover{background:#3a4183}
+
+/* G3について */
+.about .in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.about .creed{font-family:var(--f-display);font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.3}
+.about .creed em{font-style:normal;color:var(--pink-ink)}
+.about p{margin:0 0 12px;max-width:34em}
+.sns{display:flex;gap:20px;flex-wrap:wrap;font-weight:700;margin-top:18px}
+.sns a{text-decoration:underline;text-decoration-color:var(--teal);text-decoration-thickness:2px;text-underline-offset:4px}
+
+footer{position:relative;background:var(--ink);color:#d9dbf0;padding-block:96px 28px;margin-top:80px;font-size:.85rem}
+.sleeper{position:absolute;top:-78px;left:50%;transform:translateX(-50%);width:230px}
+.sleeper .say{position:absolute;top:-24px;right:-74px;font-size:.95rem}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .room{grid-template-columns:1fr}
+  .genchan{height:300px;margin:-60px 0 0;width:240px;justify-self:end}
+  .remote{padding-right:0;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:8px}
+  .game,.news,.work .in,.about .in{grid-template-columns:1fr;gap:28px}
+  .game:nth-child(even) .shot{order:0}
+  .shot .gen{width:34%;right:-6px;bottom:-30px}
+  .game:nth-child(even) .shot .gen{left:-6px}
+  .news-gen{max-width:260px;justify-self:center}
+  .work-gen{max-width:220px}
+  nav{gap:14px;font-size:.82rem}
+  .logo i{display:none}
+}
+@media (max-width:520px){
+  nav a:not(.est){display:none}
+  .osd p{display:none}
+  .log li{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top">G3<i>GenGorouGames</i></a>
+    <nav aria-label="メニュー">
+      <a href="#games">作品</a><a href="#news">お知らせ</a><a href="#about">G3について</a><a class="est" href="#work">お仕事依頼</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="hero-head">
+      <h1>今夜、なにで遊ぶ？</h1>
+      <p>G3（ゲンゴロウゲームズ）が作ったゲームを置いています。ひとりでも、友達とでも。</p>
+    </div>
+    <div class="room">
+      <div>
+        <div class="tv">
+          <div class="screen" id="screen">
+            <div class="ch-dot" id="chdot">CH 1</div>
+            <div class="noise"></div>
+            <div class="osd">
+              <div>
+                <div class="osd-ch" id="osdch">CH 1 / STEAM</div>
+                <h2 id="osdt">がむしゃらギルド</h2>
+                <p id="osdp"></p>
+              </div>
+              <a id="osda" href="#" target="_blank" rel="noopener">Steamで見る</a>
+            </div>
+          </div>
+        </div>
+        <div class="remote" id="remote" aria-label="チャンネル"></div>
+      </div>
+      <div class="genchan">
+        <canvas id="gl" aria-label="G3のマスコット、げんちゃん。クリックすると起きる"></canvas>
+        <div class="say r" id="bubble">…すう。</div>
+        <div class="fallback" id="fb" hidden></div>
+        <div class="hint" id="hint">クリックで起こす</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="games">
+    <div class="wrap">
+      <div class="sec-head"><h2>作品</h2><p>Unityで作っています。全部、げんちゃんがどこかに出てきます。</p></div>
+      <div class="games" id="gameList"></div>
+    </div>
+  </section>
+
+  <section id="news">
+    <div class="wrap news">
+      <div>
+        <div class="sec-head"><h2>お知らせ</h2><p>出展と配信の記録</p></div>
+        <ul class="log" id="topicList"></ul>
+      </div>
+      <div class="news-gen">
+        <div class="say">最近、イベント出すぎ。</div>
+        <img src="/img/genchan_sign.webp" alt="看板を持つげんちゃん" width="560" height="688">
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="work">
+    <div class="wrap in">
+      <div class="work-gen">
+        <div class="say">見積りは無料。…ほんとに。</div>
+        <img src="/img/pose_wave.webp" alt="手を振るげんちゃん" width="520" height="673">
+      </div>
+      <div>
+        <h2>ゲーム作り、手伝います</h2>
+        <p>個人・法人・インディーを問わず受け付けています。企画から実装、Steamやスマホへのリリースまで一通りやってきたので、どの段階からでも相談できます。</p>
+        <ul class="svc">
+          <li>プログラム</li><li>企画・仕様書</li><li>UIデザイン</li><li>企画相談</li><li>3Dモデル</li><li>ストア画像・バナー</li><li>PV制作</li><li>デバッグ・プレイテスト</li><li>企画〜配信まで一括</li><li>オンラインマルチ実装</li><li>バグ修正・最適化</li><li>技術レクチャー</li><li>Steamリリース代行</li>
+        </ul>
+        <div class="conds">Unity専門 ／ 著作権譲渡OK ／ 商用利用OK ／ リテイク無料</div>
+        <a class="btn" href="/estimate/">項目を選んで見積もる</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap in">
+      <div class="creed">悪ふざけを、<br><em>本気で</em>作る。</div>
+      <div>
+        <p>G3（GenGorouGames）は、東京でゲームを作っている小さなチームです。友達の家に集まって、一台を囲んで遊んだあの感じを目指しています。</p>
+        <p>マスコットのげんちゃんは、だいたい眠そうで、だいたい何かに文句を言っています。</p>
+        <div class="sns">
+          <a href="https://x.com/gengorou__game" target="_blank" rel="noopener">X</a>
+          <a href="https://www.youtube.com/@GenGorouGames" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.instagram.com/gengorougames/?hl=ja" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@user7437230911988" target="_blank" rel="noopener">TikTok</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="sleeper"><img src="/img/pose_sleep.webp" alt="寝ているげんちゃん" width="520" height="360"><div class="say">おやすみ。</div></div>
+  <div class="wrap foot">
+    <span>© G3 -GenGorouGames-</span>
+    <span>お仕事のご相談：gengorougames@gmail.com</span>
+  </div>
+</footer>
+
+<script>
+/* サイトの中身。本番ではこの部分を管理画面から書き換える */
+const GAMES=[
+  {id:"guild",t:"がむしゃらギルド",s:"仲間と知恵を出し合い、最強のデッキで魔王に挑む協力デッキ構築ローグライク。友達との話し合いが、そのまま強さになる。",st:"2027.3.15 発売予定",soon:true,plat:"Steam / 2〜4人協力",
+   shots:["/img/guild_ss0.webp","/img/guild_ss1.webp","/img/guild_ss3.webp"],thumb:"/img/guild_header.webp",
+   links:[["Steamでウィッシュリスト","https://store.steampowered.com/app/4842440/Scrappy_Guild/"]],gen:"/img/pose_point.webp",say:"作戦会議でケンカしないでね。"},
+  {id:"tower",t:"Final Tower Ⅶ",s:"積み上げた塔が、そのまま戦場になる。ブロックを落として塔を作り、動力をつないで武器を起動する物理タワーディフェンス。",st:"体験版配信中",plat:"Steam",
+   shots:["/img/tower_ss3.webp","/img/tower_ss2.webp","/img/tower_ss0.webp"],thumb:"/img/tower_header.webp",
+   links:[["Steamで体験版を遊ぶ","https://store.steampowered.com/app/5213250/Final_Tower_VII/"]],gen:"/img/pose_shrug.webp",say:"積めば勝てる。…たぶん。"},
+  {id:"makefall",t:"MakeFALL",s:"落ちてくるものを食べて、避けて、コインを稼ぐ。電車の待ち時間にちょうどいい長さ。",st:"配信中",plat:"iOS / Android",
+   phone:["/img/makefall_1.webp","/img/makefall_2.webp","/img/makefall_3.webp"],thumb:"/img/makefall_0.webp",
+   links:[["App Store","https://apps.apple.com/jp/app/makefall/id6760619572"],["Google Play","https://play.google.com/store/apps/details?id=com.DefaultCompany.kzunokosi"],["公式サイト","https://sites.google.com/view/makefallsite/"]],gen:"/img/pose_tired.webp",say:"落ちてくるの、だいたい食べた。"},
+  {id:"watch",t:"Watch",s:"「体験する映画」がコンセプトのホラーゲーム。ブラウザですぐ遊べます。",st:"体験版配信中",plat:"unityroom（ブラウザ）",
+   watch:"/img/watch_og.webp",thumb:"/img/watch_og.webp",
+   links:[["unityroomで遊ぶ","https://unityroom.com/games/watch_game"]],gen:"/img/pose_point.webp",flip:true,say:"…ひとりで見ないほうがいい。"}
+];
+const TOPICS=[
+  {d:"2026.10.26",p:"がむしゃらギルド",t:"DREAMSCAPE5 に出展しました"},
+  {d:"2026.09.17",p:"Final Tower Ⅶ",t:"東京ゲームショウ2026 に出展しました"},
+  {d:"2026.08.08",p:"がむしゃらギルド",t:"ゲームダンジョン に出展しました"},
+  {d:"2026.07.25",p:"がむしゃらギルド",t:"CREATORS PLAYGROUND に出展しました"},
+  {d:"2026.06.07",p:"MakeFALL",t:"コミティア に出展しました"},
+  {d:"2025.10.02",p:"MakeFALL",t:"配信を開始しました"},
+  {d:"2025.07.15",p:"Watch",t:"体験版を配信開始しました"}
+];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* 作品の一覧 */
+document.getElementById('gameList').innerHTML=GAMES.map(g=>{
+  let media;
+  if(g.phone) media=`<div class="frame phone">${g.phone.map(s=>`<img src="${s}" alt="${esc(g.t)}の画面" loading="lazy">`).join('')}</div>`;
+  else if(g.watch) media=`<div class="frame watch"><img src="${g.watch}" alt="${esc(g.t)}のアイコン" loading="lazy"><span>WATCH<small>体験する映画</small></span></div>`;
+  else media=`<div class="frame"><img src="${g.shots[0]}" alt="${esc(g.t)}のゲーム画面" loading="lazy"></div>`;
+  return `<article class="game">
+    <div class="shot">${media}<div class="gen"><div class="say">${esc(g.say)}</div><img src="${g.gen}" alt="" loading="lazy"${g.flip?' style="transform:scaleX(-1)"':''}></div></div>
+    <div class="ginfo">
+      <div class="gmeta"><span class="st ${g.soon?'soon':''}">${esc(g.st)}</span><span>${esc(g.plat)}</span></div>
+      <h3>${esc(g.t)}</h3><p>${esc(g.s)}</p>
+      <div class="glinks">${g.links.map(([l,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}</a>`).join('')}</div>
+    </div></article>`}).join('');
+
+/* お知らせ */
+document.getElementById('topicList').innerHTML=TOPICS.map(x=>`<li><time>${esc(x.d)}</time><div><span>${esc(x.p)}</span><b>${esc(x.t)}</b></div></li>`).join('');
+
+/* テレビ：チャンネル切り替え */
+(function(){
+  const scr=document.getElementById('screen'), remote=document.getElementById('remote');
+  const tvGames=GAMES.filter(g=>g.shots||g.phone||g.watch);
+  const slides=tvGames.map(g=>{const i=new Image(); i.src=(g.shots?g.shots[0]:g.phone?g.thumb:g.watch); i.alt=g.t+"の画面"; if(!g.shots){i.style.objectFit='contain';i.style.background='#0d0f24'} scr.insertBefore(i,scr.firstChild); return i});
+  remote.innerHTML=tvGames.map((g,i)=>`<button type="button" aria-pressed="false" data-i="${i}"><img src="${g.thumb}" alt=""><span>CH ${i+1}</span><b>${esc(g.t)}</b></button>`).join('');
+  let cur=-1, timer;
+  function tune(i){
+    cur=i; const g=tvGames[i];
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    [...remote.children].forEach((b,k)=>b.setAttribute('aria-pressed',k===i));
+    document.getElementById('chdot').textContent='CH '+(i+1);
+    document.getElementById('osdch').textContent='CH '+(i+1)+' / '+g.plat.split(' ')[0].toUpperCase();
+    document.getElementById('osdt').textContent=g.t;
+    document.getElementById('osdp').textContent=g.s;
+    const a=document.getElementById('osda'); a.href=g.links[0][1]; a.textContent=g.links[0][0];
+  }
+  function auto(){clearInterval(timer); if(!matchMedia('(prefers-reduced-motion: reduce)').matches) timer=setInterval(()=>tune((cur+1)%tvGames.length),6000)}
+  remote.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; tune(+b.dataset.i); auto()});
+  tune(0); auto();
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="/genchan.js"></script>
+<script>
+/* 3Dのげんちゃん：普段は居眠り、クリックで起きて手を振る */
+(function(){
+  const canvas=document.getElementById('gl'), bubble=document.getElementById('bubble'), hint=document.getElementById('hint');
+  const fail=()=>{document.getElementById('fb').hidden=false;canvas.hidden=true;hint.hidden=true};
+  if(!window.THREE||!THREE.GLTFLoader||!window.GENCHAN_GLB){fail();return}
+  let renderer;
+  try{renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true})}catch(e){fail();return}
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.outputEncoding=THREE.sRGBEncoding; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=0.9;
+  const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(26,1,.1,50);
+  cam.position.set(-0.6,1.1,6.2); cam.lookAt(0,0.8,0);
+  scene.add(new THREE.HemisphereLight(0xffffff,0xc9cde6,0.75));
+  const key=new THREE.DirectionalLight(0xffffff,1.2); key.position.set(-2.5,3,4); scene.add(key);
+  const rim=new THREE.DirectionalLight(0x8ff1f5,1.0); rim.position.set(2.5,2.5,-3); scene.add(rim);
+  const bin=Uint8Array.from(atob(window.GENCHAN_GLB),c=>c.charCodeAt(0)).buffer;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sleepy=["…すう。","…ねむ。","5分だけ…"], awake=["…なに。","起こさないで。","今日もバグ直してる。","テレビ、勝手に変えないで。","見積り？…下にあるよ。"];
+  let mixer,intro,sleep,root,busy=false;
+  new THREE.GLTFLoader().parse(bin,'',g=>{
+    root=g.scene; root.rotation.y=-0.35; scene.add(root);
+    const clip=g.animations[0]; mixer=new THREE.AnimationMixer(root);
+    sleep=mixer.clipAction(THREE.AnimationUtils.subclip(clip,'sleep',0,24,30)); sleep.setLoop(THREE.LoopPingPong); sleep.play();
+    intro=mixer.clipAction(clip); intro.setLoop(THREE.LoopOnce); intro.clampWhenFinished=true;
+    mixer.addEventListener('finished',e=>{ if(e.action!==intro) return;
+      setTimeout(()=>{busy=false; bubble.textContent=sleepy[Math.random()*3|0]; hint.textContent='クリックで起こす'; sleep.reset().play(); intro.crossFadeTo(sleep,.8,false)},2600)});
+  },fail);
+  canvas.addEventListener('click',()=>{ if(!intro||busy) return; busy=true; hint.textContent='';
+    sleep.stop(); intro.reset().play(); bubble.textContent="…ん。";
+    setTimeout(()=>bubble.textContent=awake[Math.random()*awake.length|0],2400)});
+  function size(){const w=canvas.clientWidth,h=canvas.clientHeight; if(!w) return; renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix()}
+  new ResizeObserver(size).observe(canvas); size();
+  const clock=new THREE.Clock();
+  (function loop(){requestAnimationFrame(loop); const dt=clock.getDelta(); if(mixer) mixer.update(reduce?0:dt); renderer.render(scene,cam)})();
+})();
+</script>
+
+</body>
+</html>
