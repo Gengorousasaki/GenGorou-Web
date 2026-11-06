@@ -371,6 +371,17 @@ footer a{color:var(--ink)}
 <textarea class="sr" id="clip" aria-hidden="true" tabindex="-1"></textarea>
 
 <script>
+/* content/*.json（管理画面で編集する中身）を読み込んでから、下のスクリプトを動かす */
+(function(){
+  var srcs = [["/content/estimate.json","__ITEMS"]], done = 0;
+  function run(){ var m=document.getElementById("est-main"); var s=document.createElement("script"); s.textContent=m.textContent; m.parentNode.insertBefore(s,m.nextSibling); }
+  srcs.forEach(function(x){
+    fetch(x[0],{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){ if(j&&j.items&&j.items.length) window[x[1]]=j.items; })
+    .catch(function(){}).then(function(){ if(++done===srcs.length) run(); });
+  });
+})();
+</script>
+<script type="text/plain" id="est-main">
 /* =========================================================================
    Googleフォーム連携の設定
    フォームを作成したら、以下の baseUrl と entries を埋めてください。
@@ -403,7 +414,8 @@ var SCALES = [
     lines:["想定プレイ時間 5時間以上","チーム複数人で制作","期間 3ヶ月以上"] }
 ];
 
-var ITEMS = [
+/* 依頼項目と料金は content/estimate.json（管理画面で編集）。ここは読み込めなかったときの予備 */
+var ITEMS = window.__ITEMS || [
   {
     id:"prog", name:"ゲーム制作協力（プログラム）", scaled:true,
     price:{s:15000,m:55000,l:200000},

@@ -1,0 +1,137 @@
+# G3 公式サイトの管理画面の設定（Sveltia CMS）
+# 編集すると GitHub の main ブランチに直接保存され、数分でサイトに反映されます。
+
+backend:
+  name: github
+  repo: Gengorousasaki/gengorou-web
+  branch: main
+  commit_messages:
+    create: "管理画面：{{collection}}「{{slug}}」を作成"
+    update: "管理画面：{{collection}}「{{slug}}」を更新"
+    delete: "管理画面：{{collection}}「{{slug}}」を削除"
+    uploadMedia: "管理画面：画像「{{path}}」を追加"
+    deleteMedia: "管理画面：画像「{{path}}」を削除"
+
+# 管理画面からアップロードした画像の置き場所
+media_folder: img/uploads
+public_folder: /img/uploads
+
+site_url: https://gengorougames.com
+display_url: https://gengorougames.com
+
+collections:
+  - name: site
+    label: サイトの中身
+    files:
+
+      # ───────── お知らせ ─────────
+      - name: topics
+        label: お知らせ
+        file: content/topics.json
+        fields:
+          - name: items
+            label: お知らせ一覧（日付の新しい順に自動で並びます）
+            label_singular: お知らせ
+            widget: list
+            summary: "{{fields.d}}　{{fields.t}}"
+            fields:
+              - { name: d, label: 日付, widget: string, hint: "「2026.11.06」の形で入力（ゼロ埋め）。この順で並びます" }
+              - { name: p, label: 作品名, widget: string, hint: "例：がむしゃらギルド" }
+              - { name: t, label: 内容, widget: string, hint: "例：東京ゲームショウ2026 に出展しました" }
+
+      # ───────── 作品 ─────────
+      - name: games
+        label: 作品
+        file: content/games.json
+        fields:
+          - name: items
+            label: 作品一覧（この順番でトップに並び、テレビのチャンネルにもなります）
+            label_singular: 作品
+            widget: list
+            summary: "{{fields.t}}（{{fields.st}}）"
+            fields:
+              - { name: id, label: ID, widget: string, hint: "半角英数字。作品ごとに別の名前にする（例：guild）" }
+              - { name: t, label: 作品名, widget: string }
+              - { name: s, label: 紹介文, widget: text, hint: "1〜2文。テレビの画面にも出ます" }
+              - { name: st, label: 状況, widget: string, hint: "例：配信中 / 体験版配信中 / 2027.3.15 発売予定" }
+              - { name: soon, label: 発売前（状況をピンクで表示）, widget: boolean, default: false }
+              - { name: plat, label: 対応機種, widget: string, hint: "例：Steam / 2〜4人協力" }
+              - name: shots
+                label: ゲーム画面（横長）
+                label_singular: 画面
+                widget: list
+                required: false
+                hint: "PC向け作品はここに入れる。1枚目がトップとテレビに出ます"
+                field: { name: src, label: 画像, widget: image }
+              - name: phone
+                label: スマホ画面（縦長・3枚）
+                label_singular: 画面
+                widget: list
+                required: false
+                hint: "スマホ作品はここに3枚入れる（ゲーム画面より優先されます）"
+                field: { name: src, label: 画像, widget: image }
+              - { name: watch, label: アイコンだけで見せる場合の画像, widget: image, required: false, hint: "画面写真がない作品用（Watchなど）" }
+              - { name: thumb, label: チャンネルボタンの小さい画像, widget: image, hint: "横長（Steamのヘッダー画像など）" }
+              - name: links
+                label: リンク
+                label_singular: リンク
+                widget: list
+                hint: "1つ目のリンクがテレビのボタンになります"
+                summary: "{{fields.label}}"
+                fields:
+                  - { name: label, label: ボタンの文字, widget: string, hint: "例：Steamでウィッシュリスト" }
+                  - { name: url, label: URL, widget: string }
+              - name: gen
+                label: 横にいるげんちゃん
+                widget: select
+                options:
+                  - { label: 指さし, value: /img/pose_point.webp }
+                  - { label: 肩をすくめる, value: /img/pose_shrug.webp }
+                  - { label: しょんぼり, value: /img/pose_tired.webp }
+                  - { label: 手を振る, value: /img/pose_wave.webp }
+              - { name: flip, label: げんちゃんを左右反転, widget: boolean, default: false }
+              - { name: say, label: げんちゃんの一言, widget: string, hint: "短く。例：積めば勝てる。…たぶん。" }
+
+      # ───────── 見積りの項目と料金 ─────────
+      - name: estimate
+        label: 見積りの項目と料金
+        file: content/estimate.json
+        fields:
+          - name: items
+            label: 依頼項目（この順番で見積りページに並びます）
+            label_singular: 依頼項目
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: id, label: ID, widget: string, hint: "半角英数字。一度決めたら変えない（例：prog）" }
+              - { name: name, label: 項目名, widget: string }
+              - { name: scaled, label: ゲームの規模（小・中・大）で金額が変わる, widget: boolean, default: true, hint: "オフにすると、下の「プラン」で金額を決めます" }
+              - name: price
+                label: 金額（規模で変わる項目）
+                widget: object
+                required: false
+                fields:
+                  - { name: s, label: 小（円）, widget: number, value_type: int, required: false }
+                  - { name: m, label: 中（円）, widget: number, value_type: int, required: false }
+                  - { name: l, label: 大（円）, widget: number, value_type: int, required: false }
+              - name: unit
+                label: 規模ごとの単位・内容（任意）
+                widget: object
+                required: false
+                fields:
+                  - { name: s, label: 小, widget: string, required: false, hint: "例：小物1点" }
+                  - { name: m, label: 中, widget: string, required: false }
+                  - { name: l, label: 大, widget: string, required: false }
+              - name: plans
+                label: プラン（規模で変わらない項目）
+                label_singular: プラン
+                widget: list
+                required: false
+                summary: "{{fields.label}} {{fields.price}}円"
+                fields:
+                  - { name: k, label: 並び, widget: select, options: [ { label: "1つ目", value: s }, { label: "2つ目", value: m }, { label: "3つ目", value: l } ] }
+                  - { name: label, label: プラン名, widget: string, hint: "例：1時間" }
+                  - { name: price, label: 金額（円）, widget: number, value_type: int }
+              - { name: can, label: できること, widget: text, required: false }
+              - { name: ng, label: できないこと, widget: text, required: false }
+              - { name: at, label: ご注意, widget: text, required: false }

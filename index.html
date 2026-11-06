@@ -295,8 +295,19 @@ footer{position:relative;background:var(--ink);color:#d9dbf0;padding-block:96px 
 </footer>
 
 <script>
-/* サイトの中身。本番ではこの部分を管理画面から書き換える */
-const GAMES=[
+/* content/*.json（管理画面で編集する中身）を読み込んでから、下のスクリプトを動かす */
+(function(){
+  var srcs = [["/content/games.json","__GAMES"],["/content/topics.json","__TOPICS"]], done = 0;
+  function run(){ var m=document.getElementById("site-main"); var s=document.createElement("script"); s.textContent=m.textContent; m.parentNode.insertBefore(s,m.nextSibling); }
+  srcs.forEach(function(x){
+    fetch(x[0],{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){ if(j&&j.items&&j.items.length) window[x[1]]=j.items; })
+    .catch(function(){}).then(function(){ if(++done===srcs.length) run(); });
+  });
+})();
+</script>
+<script type="text/plain" id="site-main">
+/* サイトの中身は content/games.json と content/topics.json（管理画面で編集）。ここは読み込めなかったときの予備 */
+const GAMES=window.__GAMES||[
   {id:"guild",t:"がむしゃらギルド",s:"仲間と知恵を出し合い、最強のデッキで魔王に挑む協力デッキ構築ローグライク。友達との話し合いが、そのまま強さになる。",st:"2027.3.15 発売予定",soon:true,plat:"Steam / 2〜4人協力",
    shots:["/img/guild_ss0.webp","/img/guild_ss1.webp","/img/guild_ss3.webp"],thumb:"/img/guild_header.webp",
    links:[["Steamでウィッシュリスト","https://store.steampowered.com/app/4842440/Scrappy_Guild/"]],gen:"/img/pose_point.webp",say:"作戦会議でケンカしないでね。"},
@@ -310,7 +321,7 @@ const GAMES=[
    watch:"/img/watch_og.webp",thumb:"/img/watch_og.webp",
    links:[["unityroomで遊ぶ","https://unityroom.com/games/watch_game"]],gen:"/img/pose_point.webp",flip:true,say:"…ひとりで見ないほうがいい。"}
 ];
-const TOPICS=[
+const TOPICS=window.__TOPICS||[
   {d:"2026.10.26",p:"がむしゃらギルド",t:"DREAMSCAPE5 に出展しました"},
   {d:"2026.09.17",p:"Final Tower Ⅶ",t:"東京ゲームショウ2026 に出展しました"},
   {d:"2026.08.08",p:"がむしゃらギルド",t:"ゲームダンジョン に出展しました"},
@@ -319,6 +330,8 @@ const TOPICS=[
   {d:"2025.10.02",p:"MakeFALL",t:"配信を開始しました"},
   {d:"2025.07.15",p:"Watch",t:"体験版を配信開始しました"}
 ];
+const lk=x=>Array.isArray(x)?x:[x.label,x.url];
+TOPICS.sort((a,b)=>String(b.d).localeCompare(String(a.d)));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 /* 作品の一覧 */
@@ -332,7 +345,7 @@ document.getElementById('gameList').innerHTML=GAMES.map(g=>{
     <div class="ginfo">
       <div class="gmeta"><span class="st ${g.soon?'soon':''}">${esc(g.st)}</span><span>${esc(g.plat)}</span></div>
       <h3>${esc(g.t)}</h3><p>${esc(g.s)}</p>
-      <div class="glinks">${g.links.map(([l,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}</a>`).join('')}</div>
+      <div class="glinks">${g.links.map(lk).map(([l,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}</a>`).join('')}</div>
     </div></article>`}).join('');
 
 /* お知らせ */
@@ -353,7 +366,7 @@ document.getElementById('topicList').innerHTML=TOPICS.map(x=>`<li><time>${esc(x.
     document.getElementById('osdch').textContent='CH '+(i+1)+' / '+g.plat.split(' ')[0].toUpperCase();
     document.getElementById('osdt').textContent=g.t;
     document.getElementById('osdp').textContent=g.s;
-    const a=document.getElementById('osda'); a.href=g.links[0][1]; a.textContent=g.links[0][0];
+    const a=document.getElementById('osda'); const L0=lk(g.links[0]); a.href=L0[1]; a.textContent=L0[0];
   }
   function auto(){clearInterval(timer); if(!matchMedia('(prefers-reduced-motion: reduce)').matches) timer=setInterval(()=>tune((cur+1)%tvGames.length),6000)}
   remote.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; tune(+b.dataset.i); auto()});
