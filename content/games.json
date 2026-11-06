@@ -4,7 +4,7 @@
       "id": "guild",
       "t": "がむしゃらギルド",
       "s": "仲間と知恵を出し合い、最強のデッキで魔王に挑む協力デッキ構築ローグライク。友達との話し合いが、そのまま強さになる。",
-      "st": "2027.3.15 発売予定",
+      "st": "2027.3.16 発売予定 【体験版配信中】",
       "soon": true,
       "plat": "Steam / 2〜4人協力",
       "shots": [
@@ -12,6 +12,8 @@
         "/img/guild_ss1.webp",
         "/img/guild_ss3.webp"
       ],
+      "phone": [],
+      "watch": "",
       "thumb": "/img/guild_header.webp",
       "links": [
         {
@@ -20,20 +22,23 @@
         }
       ],
       "gen": "/img/pose_point.webp",
-      "say": "作戦会議でケンカしないでね。",
-      "flip": false
+      "flip": false,
+      "say": "作戦会議でケンカしないでね。"
     },
     {
       "id": "tower",
       "t": "Final Tower Ⅶ",
       "s": "積み上げた塔が、そのまま戦場になる。ブロックを落として塔を作り、動力をつないで武器を起動する物理タワーディフェンス。",
       "st": "体験版配信中",
+      "soon": true,
       "plat": "Steam",
       "shots": [
         "/img/tower_ss3.webp",
         "/img/tower_ss2.webp",
         "/img/tower_ss0.webp"
       ],
+      "phone": [],
+      "watch": "",
       "thumb": "/img/tower_header.webp",
       "links": [
         {
@@ -42,21 +47,23 @@
         }
       ],
       "gen": "/img/pose_shrug.webp",
-      "say": "積めば勝てる。…たぶん。",
       "flip": false,
-      "soon": false
+      "say": "積めば勝てる。…たぶん。"
     },
     {
       "id": "makefall",
       "t": "MakeFALL",
       "s": "落ちてくるものを食べて、避けて、コインを稼ぐ。電車の待ち時間にちょうどいい長さ。",
       "st": "配信中",
+      "soon": false,
       "plat": "iOS / Android",
+      "shots": [],
       "phone": [
         "/img/makefall_1.webp",
         "/img/makefall_2.webp",
         "/img/makefall_3.webp"
       ],
+      "watch": "",
       "thumb": "/img/makefall_0.webp",
       "links": [
         {
@@ -73,16 +80,18 @@
         }
       ],
       "gen": "/img/pose_tired.webp",
-      "say": "落ちてくるの、だいたい食べた。",
       "flip": false,
-      "soon": false
+      "say": "落ちてくるの、だいたい食べた。"
     },
     {
       "id": "watch",
       "t": "Watch",
       "s": "「体験する映画」がコンセプトのホラーゲーム。ブラウザですぐ遊べます。",
       "st": "体験版配信中",
+      "soon": false,
       "plat": "unityroom（ブラウザ）",
+      "shots": [],
+      "phone": [],
       "watch": "/img/watch_og.webp",
       "thumb": "/img/watch_og.webp",
       "links": [
@@ -93,8 +102,7 @@
       ],
       "gen": "/img/pose_point.webp",
       "flip": true,
-      "say": "…ひとりで見ないほうがいい。",
-      "soon": false
+      "say": "…ひとりで見ないほうがいい。"
     }
   ]
 }
