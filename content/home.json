@@ -4,7 +4,7 @@
       "type": "tv",
       "show": true,
       "id": "top",
-      "title": "今夜、なにで遊ぶ？",
+      "title": "今日、なにで遊ぶ？",
       "lead": "G3（ゲンゴロウゲームズ）が作ったゲームを置いています。ひとりでも、友達とでも。",
       "sleep": [
         "…すう。",
@@ -26,7 +26,8 @@
       "show": true,
       "id": "games",
       "title": "作品",
-      "lead": "Unityで作っています。全部、げんちゃんがどこかに出てきます。"
+      "lead": "Unityで作っています。全部、げんちゃんがどこかに出てきます。",
+      "bg": "paper"
     },
     {
       "type": "news",
@@ -34,8 +35,8 @@
       "id": "news",
       "title": "お知らせ",
       "lead": "出展と配信の記録",
-      "limit": 10,
       "bg": "paper",
+      "limit": 10,
       "gen": {
         "pose": "sign",
         "say": "最近、イベント出すぎ。",
@@ -49,8 +50,16 @@
       "type": "work",
       "show": true,
       "id": "work",
-      "bg": "pink",
       "title": "ゲーム作り、手伝います",
+      "bg": "pink",
+      "gen": {
+        "pose": "wave",
+        "say": "見積りは無料。…ほんとに。",
+        "side": "left",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      },
       "body": "個人・法人・インディーを問わず受け付けています。企画から実装、Steamやスマホへのリリースまで一通りやってきたので、どの段階からでも相談できます。",
       "services": [
         "プログラム",
@@ -71,25 +80,14 @@
       "button": {
         "label": "項目を選んで見積もる",
         "href": "/estimate/"
-      },
-      "gen": {
-        "pose": "wave",
-        "say": "見積りは無料。…ほんとに。",
-        "side": "left",
-        "size": "m",
-        "shift": "normal",
-        "flip": false
       }
     },
     {
       "type": "about",
       "show": true,
       "id": "about",
-      "bg": "paper",
-      "big": "悪ふざけを、\n*本気で*作る。",
       "title": "",
-      "body": "G3（GenGorouGames）は、東京でゲームを作っている小さなチームです。友達の家に集まって、一台を囲んで遊んだあの感じを目指しています。\n\nマスコットのげんちゃんは、だいたい眠そうで、だいたい何かに文句を言っています。",
-      "showSns": true,
+      "bg": "paper",
       "gen": {
         "pose": "none",
         "say": "",
@@ -97,7 +95,10 @@
         "size": "m",
         "shift": "normal",
         "flip": false
-      }
+      },
+      "body": "G3（GenGorouGames）は、東京でゲームを作っている小さなチームです。\n友達の家に集まって、一台を囲んで遊んだあの感じを目指しています。\n\nマスコットのげんちゃんは、だいたい眠そうで、だいたい何かに文句を言っています。",
+      "big": "悪ふざけを、\n*本気で*作る。",
+      "showSns": true
     }
   ]
 }
