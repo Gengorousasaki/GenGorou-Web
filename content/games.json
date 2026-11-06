@@ -14,10 +14,11 @@
       ],
       "phone": [],
       "watch": "",
+      "tagline": "",
       "thumb": "/img/guild_header.webp",
       "links": [
         {
-          "label": "Steamでウィッシュリスト",
+          "label": "Steamで体験版を遊ぶ",
           "url": "https://store.steampowered.com/app/4842440/Scrappy_Guild/"
         }
       ],
@@ -39,6 +40,7 @@
       ],
       "phone": [],
       "watch": "",
+      "tagline": "",
       "thumb": "/img/tower_header.webp",
       "links": [
         {
@@ -64,6 +66,7 @@
         "/img/makefall_3.webp"
       ],
       "watch": "",
+      "tagline": "",
       "thumb": "/img/makefall_0.webp",
       "links": [
         {
@@ -93,6 +96,7 @@
       "shots": [],
       "phone": [],
       "watch": "/img/watch_og.webp",
+      "tagline": "体験する映画",
       "thumb": "/img/watch_og.webp",
       "links": [
         {
@@ -102,8 +106,7 @@
       ],
       "gen": "point",
       "flip": true,
-      "say": "…ひとりで見ないほうがいい。",
-      "tagline": "体験する映画"
+      "say": "…ひとりで見ないほうがいい。"
     }
   ]
 }
