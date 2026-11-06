@@ -1,137 +1,1185 @@
 # G3 公式サイトの管理画面の設定（Sveltia CMS）
-# 編集すると GitHub の main ブランチに直接保存され、数分でサイトに反映されます。
+# 保存すると GitHub の main ブランチに直接保存され、数分でサイトに反映されます。
+# このファイルは手で編集してもいいですが、壊すと管理画面が開かなくなるので注意。
 
 backend:
   name: github
   repo: Gengorousasaki/gengorou-web
   branch: main
   commit_messages:
-    create: "管理画面：{{collection}}「{{slug}}」を作成"
-    update: "管理画面：{{collection}}「{{slug}}」を更新"
-    delete: "管理画面：{{collection}}「{{slug}}」を削除"
-    uploadMedia: "管理画面：画像「{{path}}」を追加"
-    deleteMedia: "管理画面：画像「{{path}}」を削除"
-
-# 管理画面からアップロードした画像の置き場所
+    create: 管理画面：{{collection}}「{{slug}}」を作成
+    update: 管理画面：{{collection}}「{{slug}}」を更新
+    delete: 管理画面：{{collection}}「{{slug}}」を削除
+    uploadMedia: 管理画面：画像「{{path}}」を追加
+    deleteMedia: 管理画面：画像「{{path}}」を削除
 media_folder: img/uploads
 public_folder: /img/uploads
-
 site_url: https://gengorougames.com
 display_url: https://gengorougames.com
-
 collections:
+- name: home
+  label: トップページ
+  files:
   - name: site
-    label: サイトの中身
-    files:
-
-      # ───────── お知らせ ─────────
-      - name: topics
-        label: お知らせ
-        file: content/topics.json
+    label: サイト全体（メニュー・SNS・フッター）
+    file: content/site.json
+    fields:
+    - name: title
+      label: ブラウザのタブに出るサイト名
+      widget: string
+    - name: logo
+      label: ロゴの文字
+      widget: string
+      default: G3
+    - name: logoSub
+      label: ロゴの横の小さい文字
+      widget: string
+      required: false
+    - name: nav
+      label: 上部メニュー
+      widget: list
+      fields:
+      - name: label
+        label: 文字
+        widget: string
+      - name: href
+        label: リンク先
+        widget: string
+        hint: ページ内なら「#games」のように。外のサイトなら https://〜
+      - name: accent
+        label: ピンクで目立たせる
+        widget: boolean
+        default: false
+      label_singular: メニュー
+      summary: '{{fields.label}}'
+    - name: sns
+      label: SNSのリンク
+      widget: list
+      fields:
+      - name: label
+        label: 名前
+        widget: string
+        hint: 例：X
+      - name: url
+        label: URL
+        widget: string
+      label_singular: SNS
+      summary: '{{fields.label}}'
+    - name: footer
+      label: フッター
+      widget: object
+      fields:
+      - name: copy
+        label: 左の文字
+        widget: string
+        required: false
+      - name: contact
+        label: 右の文字
+        widget: string
+        required: false
+      - name: sleeper
+        label: 寝転がるげんちゃんを出す
+        widget: boolean
+        default: true
+      - name: say
+        label: げんちゃんのセリフ
+        widget: string
+        required: false
+  - name: layout
+    label: トップページの構成と文章
+    file: content/home.json
+    fields:
+    - name: blocks
+      label: トップページの構成（上から順に表示。ドラッグで並び替え）
+      widget: list
+      label_singular: ブロック
+      typeKey: type
+      summary: '{{fields.title}}'
+      types:
+      - name: tv
+        label: テレビ（最初の画面）
+        widget: object
+        summary: テレビ：{{fields.title}}
         fields:
-          - name: items
-            label: お知らせ一覧（日付の新しい順に自動で並びます）
-            label_singular: お知らせ
-            widget: list
-            summary: "{{fields.d}}　{{fields.t}}"
-            fields:
-              - { name: d, label: 日付, widget: string, hint: "「2026.11.06」の形で入力（ゼロ埋め）。この順で並びます" }
-              - { name: p, label: 作品名, widget: string, hint: "例：がむしゃらギルド" }
-              - { name: t, label: 内容, widget: string, hint: "例：東京ゲームショウ2026 に出展しました" }
-
-      # ───────── 作品 ─────────
+        - name: show
+          label: 表示する
+          widget: boolean
+          default: true
+        - name: id
+          label: ページ内リンク用の名前
+          widget: string
+          required: false
+          hint: 半角英字。メニューの「#名前」で、ここに飛べます（例：games）
+        - name: title
+          label: 見出し
+          widget: text
+          hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: lead
+          label: 説明文
+          widget: text
+          required: false
+        - name: sleep
+          label: 寝ているときのセリフ
+          widget: list
+          field:
+            name: v
+            label: セリフ
+            widget: string
+          hint: ランダムで1つ出ます
+        - name: wake
+          label: 起こしたときのセリフ
+          widget: list
+          field:
+            name: v
+            label: セリフ
+            widget: string
+          hint: ランダムで1つ出ます
+        - name: hint
+          label: げんちゃんの下の小さい案内
+          widget: string
+          required: false
+        - name: interval
+          label: チャンネルが切り替わる間隔（秒）
+          widget: number
+          value_type: int
+          default: 6
+          min: 2
+          max: 60
       - name: games
-        label: 作品
-        file: content/games.json
+        label: 作品一覧
+        widget: object
+        summary: 作品一覧：{{fields.title}}
         fields:
-          - name: items
-            label: 作品一覧（この順番でトップに並び、テレビのチャンネルにもなります）
-            label_singular: 作品
-            widget: list
-            summary: "{{fields.t}}（{{fields.st}}）"
-            fields:
-              - { name: id, label: ID, widget: string, hint: "半角英数字。作品ごとに別の名前にする（例：guild）" }
-              - { name: t, label: 作品名, widget: string }
-              - { name: s, label: 紹介文, widget: text, hint: "1〜2文。テレビの画面にも出ます" }
-              - { name: st, label: 状況, widget: string, hint: "例：配信中 / 体験版配信中 / 2027.3.15 発売予定" }
-              - { name: soon, label: 発売前（状況をピンクで表示）, widget: boolean, default: false }
-              - { name: plat, label: 対応機種, widget: string, hint: "例：Steam / 2〜4人協力" }
-              - name: shots
-                label: ゲーム画面（横長）
-                label_singular: 画面
-                widget: list
-                required: false
-                hint: "PC向け作品はここに入れる。1枚目がトップとテレビに出ます"
-                field: { name: src, label: 画像, widget: image }
-              - name: phone
-                label: スマホ画面（縦長・3枚）
-                label_singular: 画面
-                widget: list
-                required: false
-                hint: "スマホ作品はここに3枚入れる（ゲーム画面より優先されます）"
-                field: { name: src, label: 画像, widget: image }
-              - { name: watch, label: アイコンだけで見せる場合の画像, widget: image, required: false, hint: "画面写真がない作品用（Watchなど）" }
-              - { name: thumb, label: チャンネルボタンの小さい画像, widget: image, hint: "横長（Steamのヘッダー画像など）" }
-              - name: links
-                label: リンク
-                label_singular: リンク
-                widget: list
-                hint: "1つ目のリンクがテレビのボタンになります"
-                summary: "{{fields.label}}"
-                fields:
-                  - { name: label, label: ボタンの文字, widget: string, hint: "例：Steamでウィッシュリスト" }
-                  - { name: url, label: URL, widget: string }
-              - name: gen
-                label: 横にいるげんちゃん
-                widget: select
-                options:
-                  - { label: 指さし, value: /img/pose_point.webp }
-                  - { label: 肩をすくめる, value: /img/pose_shrug.webp }
-                  - { label: しょんぼり, value: /img/pose_tired.webp }
-                  - { label: 手を振る, value: /img/pose_wave.webp }
-              - { name: flip, label: げんちゃんを左右反転, widget: boolean, default: false }
-              - { name: say, label: げんちゃんの一言, widget: string, hint: "短く。例：積めば勝てる。…たぶん。" }
-
-      # ───────── 見積りの項目と料金 ─────────
-      - name: estimate
-        label: 見積りの項目と料金
-        file: content/estimate.json
+        - name: show
+          label: 表示する
+          widget: boolean
+          default: true
+        - name: id
+          label: ページ内リンク用の名前
+          widget: string
+          required: false
+          hint: 半角英字。メニューの「#名前」で、ここに飛べます（例：games）
+        - name: title
+          label: 見出し
+          widget: text
+          hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: lead
+          label: 説明文
+          widget: text
+          required: false
+        - name: bg
+          label: 背景色
+          widget: select
+          options:
+          - label: うすい青白（基本）
+            value: paper
+          - label: 白
+            value: white
+          - label: ピンク
+            value: pink
+          - label: 紺
+            value: navy
+          default: paper
+      - name: news
+        label: お知らせ
+        widget: object
+        summary: お知らせ：{{fields.title}}
         fields:
-          - name: items
-            label: 依頼項目（この順番で見積りページに並びます）
-            label_singular: 依頼項目
-            widget: list
-            summary: "{{fields.name}}"
-            fields:
-              - { name: id, label: ID, widget: string, hint: "半角英数字。一度決めたら変えない（例：prog）" }
-              - { name: name, label: 項目名, widget: string }
-              - { name: scaled, label: ゲームの規模（小・中・大）で金額が変わる, widget: boolean, default: true, hint: "オフにすると、下の「プラン」で金額を決めます" }
-              - name: price
-                label: 金額（規模で変わる項目）
-                widget: object
-                required: false
-                fields:
-                  - { name: s, label: 小（円）, widget: number, value_type: int, required: false }
-                  - { name: m, label: 中（円）, widget: number, value_type: int, required: false }
-                  - { name: l, label: 大（円）, widget: number, value_type: int, required: false }
-              - name: unit
-                label: 規模ごとの単位・内容（任意）
-                widget: object
-                required: false
-                fields:
-                  - { name: s, label: 小, widget: string, required: false, hint: "例：小物1点" }
-                  - { name: m, label: 中, widget: string, required: false }
-                  - { name: l, label: 大, widget: string, required: false }
-              - name: plans
-                label: プラン（規模で変わらない項目）
-                label_singular: プラン
-                widget: list
-                required: false
-                summary: "{{fields.label}} {{fields.price}}円"
-                fields:
-                  - { name: k, label: 並び, widget: select, options: [ { label: "1つ目", value: s }, { label: "2つ目", value: m }, { label: "3つ目", value: l } ] }
-                  - { name: label, label: プラン名, widget: string, hint: "例：1時間" }
-                  - { name: price, label: 金額（円）, widget: number, value_type: int }
-              - { name: can, label: できること, widget: text, required: false }
-              - { name: ng, label: できないこと, widget: text, required: false }
-              - { name: at, label: ご注意, widget: text, required: false }
+        - name: show
+          label: 表示する
+          widget: boolean
+          default: true
+        - name: id
+          label: ページ内リンク用の名前
+          widget: string
+          required: false
+          hint: 半角英字。メニューの「#名前」で、ここに飛べます（例：games）
+        - name: title
+          label: 見出し
+          widget: text
+          hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: lead
+          label: 説明文
+          widget: text
+          required: false
+        - name: limit
+          label: 表示する件数
+          widget: number
+          value_type: int
+          default: 10
+          min: 1
+          max: 99
+        - name: bg
+          label: 背景色
+          widget: select
+          options:
+          - label: うすい青白（基本）
+            value: paper
+          - label: 白
+            value: white
+          - label: ピンク
+            value: pink
+          - label: 紺
+            value: navy
+          default: paper
+        - name: gen
+          label: げんちゃん
+          widget: object
+          fields:
+          - name: pose
+            label: ポーズ
+            widget: select
+            options:
+            - label: なし
+              value: none
+            - label: 指さし
+              value: point
+            - label: 肩をすくめる
+              value: shrug
+            - label: しょんぼり
+              value: tired
+            - label: 手を振る
+              value: wave
+            - label: 看板を持つ
+              value: sign
+            - label: 寝転がる
+              value: sleep
+            default: none
+          - name: say
+            label: セリフ
+            widget: string
+            required: false
+            hint: 短く。空欄なら吹き出しなし
+          - name: side
+            label: 位置
+            widget: select
+            options:
+            - label: 右
+              value: right
+            - label: 左
+              value: left
+            default: right
+          - name: size
+            label: 大きさ
+            widget: select
+            options:
+            - label: 小
+              value: s
+            - label: 中
+              value: m
+            - label: 大
+              value: l
+            default: m
+          - name: shift
+            label: 上下のずらし
+            widget: select
+            options:
+            - label: 少し上
+              value: up
+            - label: 普通
+              value: normal
+            - label: 少し下
+              value: down
+            default: normal
+          - name: flip
+            label: 左右反転
+            widget: boolean
+            default: false
+          required: false
+          collapsed: true
+      - name: work
+        label: お仕事依頼
+        widget: object
+        summary: お仕事依頼：{{fields.title}}
+        fields:
+        - name: show
+          label: 表示する
+          widget: boolean
+          default: true
+        - name: id
+          label: ページ内リンク用の名前
+          widget: string
+          required: false
+          hint: 半角英字。メニューの「#名前」で、ここに飛べます（例：games）
+        - name: bg
+          label: 背景色
+          widget: select
+          options:
+          - label: うすい青白（基本）
+            value: paper
+          - label: 白
+            value: white
+          - label: ピンク
+            value: pink
+          - label: 紺
+            value: navy
+          default: pink
+        - name: title
+          label: 見出し
+          widget: text
+          hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: body
+          label: 本文
+          widget: text
+          required: false
+          hint: 空行で段落が分かれます。「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: services
+          label: サービス一覧
+          widget: list
+          field:
+            name: v
+            label: サービス名
+            widget: string
+          required: false
+        - name: conds
+          label: 条件（小さい文字）
+          widget: text
+          required: false
+        - name: button
+          label: ボタン
+          widget: object
+          fields:
+          - name: label
+            label: ボタンの文字
+            widget: string
+            required: false
+            hint: 空欄ならボタンなし
+          - name: href
+            label: リンク先
+            widget: string
+            required: false
+            hint: 例：/estimate/ や https://〜
+          required: false
+          collapsed: true
+        - name: gen
+          label: げんちゃん
+          widget: object
+          fields:
+          - name: pose
+            label: ポーズ
+            widget: select
+            options:
+            - label: なし
+              value: none
+            - label: 指さし
+              value: point
+            - label: 肩をすくめる
+              value: shrug
+            - label: しょんぼり
+              value: tired
+            - label: 手を振る
+              value: wave
+            - label: 看板を持つ
+              value: sign
+            - label: 寝転がる
+              value: sleep
+            default: none
+          - name: say
+            label: セリフ
+            widget: string
+            required: false
+            hint: 短く。空欄なら吹き出しなし
+          - name: side
+            label: 位置
+            widget: select
+            options:
+            - label: 右
+              value: right
+            - label: 左
+              value: left
+            default: right
+          - name: size
+            label: 大きさ
+            widget: select
+            options:
+            - label: 小
+              value: s
+            - label: 中
+              value: m
+            - label: 大
+              value: l
+            default: m
+          - name: shift
+            label: 上下のずらし
+            widget: select
+            options:
+            - label: 少し上
+              value: up
+            - label: 普通
+              value: normal
+            - label: 少し下
+              value: down
+            default: normal
+          - name: flip
+            label: 左右反転
+            widget: boolean
+            default: false
+          required: false
+          collapsed: true
+      - name: about
+        label: G3について
+        widget: object
+        summary: G3について：{{fields.big}}
+        fields:
+        - name: show
+          label: 表示する
+          widget: boolean
+          default: true
+        - name: id
+          label: ページ内リンク用の名前
+          widget: string
+          required: false
+          hint: 半角英字。メニューの「#名前」で、ここに飛べます（例：games）
+        - name: bg
+          label: 背景色
+          widget: select
+          options:
+          - label: うすい青白（基本）
+            value: paper
+          - label: 白
+            value: white
+          - label: ピンク
+            value: pink
+          - label: 紺
+            value: navy
+          default: paper
+        - name: big
+          label: 大きい文字
+          widget: text
+          hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: title
+          label: 小見出し
+          widget: text
+          required: false
+        - name: body
+          label: 本文
+          widget: text
+          required: false
+          hint: 空行で段落が分かれます。「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: showSns
+          label: SNSのリンクを出す
+          widget: boolean
+          default: true
+        - name: gen
+          label: げんちゃん
+          widget: object
+          fields:
+          - name: pose
+            label: ポーズ
+            widget: select
+            options:
+            - label: なし
+              value: none
+            - label: 指さし
+              value: point
+            - label: 肩をすくめる
+              value: shrug
+            - label: しょんぼり
+              value: tired
+            - label: 手を振る
+              value: wave
+            - label: 看板を持つ
+              value: sign
+            - label: 寝転がる
+              value: sleep
+            default: none
+          - name: say
+            label: セリフ
+            widget: string
+            required: false
+            hint: 短く。空欄なら吹き出しなし
+          - name: side
+            label: 位置
+            widget: select
+            options:
+            - label: 右
+              value: right
+            - label: 左
+              value: left
+            default: right
+          - name: size
+            label: 大きさ
+            widget: select
+            options:
+            - label: 小
+              value: s
+            - label: 中
+              value: m
+            - label: 大
+              value: l
+            default: m
+          - name: shift
+            label: 上下のずらし
+            widget: select
+            options:
+            - label: 少し上
+              value: up
+            - label: 普通
+              value: normal
+            - label: 少し下
+              value: down
+            default: normal
+          - name: flip
+            label: 左右反転
+            widget: boolean
+            default: false
+          required: false
+          collapsed: true
+      - name: free
+        label: 自由ブロック（文章＋画像）
+        widget: object
+        summary: 自由：{{fields.title}}
+        fields:
+        - name: show
+          label: 表示する
+          widget: boolean
+          default: true
+        - name: id
+          label: ページ内リンク用の名前
+          widget: string
+          required: false
+          hint: 半角英字。メニューの「#名前」で、ここに飛べます（例：games）
+        - name: bg
+          label: 背景色
+          widget: select
+          options:
+          - label: うすい青白（基本）
+            value: paper
+          - label: 白
+            value: white
+          - label: ピンク
+            value: pink
+          - label: 紺
+            value: navy
+          default: paper
+        - name: title
+          label: 見出し
+          widget: text
+          required: false
+          hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: body
+          label: 本文
+          widget: text
+          required: false
+          hint: 空行で段落が分かれます。「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: image
+          label: 画像
+          widget: image
+          required: false
+        - name: imageAlt
+          label: 画像の説明（読み上げ用）
+          widget: string
+          required: false
+        - name: imagePos
+          label: 画像の位置
+          widget: select
+          options:
+          - label: 左
+            value: left
+          - label: 右
+            value: right
+          - label: 上
+            value: top
+          default: left
+        - name: imageSize
+          label: 画像の大きさ
+          widget: select
+          options:
+          - label: 小
+            value: s
+          - label: 中
+            value: m
+          - label: 大
+            value: l
+          default: m
+        - name: button
+          label: ボタン
+          widget: object
+          fields:
+          - name: label
+            label: ボタンの文字
+            widget: string
+            required: false
+            hint: 空欄ならボタンなし
+          - name: href
+            label: リンク先
+            widget: string
+            required: false
+            hint: 例：/estimate/ や https://〜
+          required: false
+          collapsed: true
+        - name: gen
+          label: げんちゃん
+          widget: object
+          fields:
+          - name: pose
+            label: ポーズ
+            widget: select
+            options:
+            - label: なし
+              value: none
+            - label: 指さし
+              value: point
+            - label: 肩をすくめる
+              value: shrug
+            - label: しょんぼり
+              value: tired
+            - label: 手を振る
+              value: wave
+            - label: 看板を持つ
+              value: sign
+            - label: 寝転がる
+              value: sleep
+            default: none
+          - name: say
+            label: セリフ
+            widget: string
+            required: false
+            hint: 短く。空欄なら吹き出しなし
+          - name: side
+            label: 位置
+            widget: select
+            options:
+            - label: 右
+              value: right
+            - label: 左
+              value: left
+            default: right
+          - name: size
+            label: 大きさ
+            widget: select
+            options:
+            - label: 小
+              value: s
+            - label: 中
+              value: m
+            - label: 大
+              value: l
+            default: m
+          - name: shift
+            label: 上下のずらし
+            widget: select
+            options:
+            - label: 少し上
+              value: up
+            - label: 普通
+              value: normal
+            - label: 少し下
+              value: down
+            default: normal
+          - name: flip
+            label: 左右反転
+            widget: boolean
+            default: false
+          required: false
+          collapsed: true
+  - name: games
+    label: 作品
+    file: content/games.json
+    fields:
+    - name: items
+      label: 作品一覧（この順番でトップに並び、テレビのチャンネルにもなります）
+      widget: list
+      fields:
+      - name: id
+        label: ID
+        widget: string
+        hint: 半角英数字。作品ごとに別の名前にする（例：guild）
+      - name: t
+        label: 作品名
+        widget: string
+      - name: s
+        label: 紹介文
+        widget: text
+        hint: 1〜2文。テレビの画面にも出ます
+      - name: st
+        label: 状況
+        widget: string
+        hint: 例：配信中 / 体験版配信中 / 2027.3.15 発売予定
+      - name: soon
+        label: 発売前（状況をピンクで表示）
+        widget: boolean
+        default: false
+      - name: plat
+        label: 対応機種
+        widget: string
+        hint: 例：Steam / 2〜4人協力
+      - name: shots
+        label: ゲーム画面（横長）
+        widget: list
+        field:
+          name: src
+          label: 画像
+          widget: image
+        label_singular: 画面
+        required: false
+        hint: PC向け作品はここに入れる。1枚目がトップとテレビに出ます
+      - name: phone
+        label: スマホ画面（縦長・3枚）
+        widget: list
+        field:
+          name: src
+          label: 画像
+          widget: image
+        label_singular: 画面
+        required: false
+        hint: スマホ作品だけ入れる（入れるとゲーム画面より優先）
+      - name: watch
+        label: アイコンだけで見せる場合の画像
+        widget: image
+        required: false
+        hint: 画面写真がない作品用（Watchなど）
+      - name: tagline
+        label: アイコンの下の小さい文字
+        widget: string
+        required: false
+        hint: アイコンで見せる場合だけ使います（例：体験する映画）
+      - name: thumb
+        label: チャンネルボタンの小さい画像
+        widget: image
+        hint: 横長（Steamのヘッダー画像など）
+      - name: links
+        label: リンク
+        widget: list
+        fields:
+        - name: label
+          label: ボタンの文字
+          widget: string
+          hint: 例：Steamでウィッシュリスト
+        - name: url
+          label: URL
+          widget: string
+        label_singular: リンク
+        summary: '{{fields.label}}'
+        hint: 1つ目のリンクがテレビのボタンになります
+      - name: gen
+        label: 横にいるげんちゃん
+        widget: select
+        options:
+        - label: 指さし
+          value: point
+        - label: 肩をすくめる
+          value: shrug
+        - label: しょんぼり
+          value: tired
+        - label: 手を振る
+          value: wave
+        default: point
+      - name: flip
+        label: げんちゃんを左右反転
+        widget: boolean
+        default: false
+      - name: say
+        label: げんちゃんの一言
+        widget: string
+        required: false
+        hint: 短く。例：積めば勝てる。…たぶん。
+      label_singular: 作品
+      summary: '{{fields.t}}（{{fields.st}}）'
+  - name: topics
+    label: お知らせ
+    file: content/topics.json
+    fields:
+    - name: items
+      label: お知らせ一覧（日付の新しい順に自動で並びます）
+      widget: list
+      fields:
+      - name: d
+        label: 日付
+        widget: string
+        hint: 「2026.11.06」の形で入力（ゼロ埋め）。この順で並びます
+      - name: p
+        label: 作品名
+        widget: string
+        hint: 例：がむしゃらギルド
+      - name: t
+        label: 内容
+        widget: string
+        hint: 例：東京ゲームショウ2026 に出展しました
+      label_singular: お知らせ
+      summary: '{{fields.d}}　{{fields.t}}'
+- name: estimate
+  label: 見積りページ
+  files:
+  - name: page
+    label: 見積りページの文章・条件・実績
+    file: content/estimate-page.json
+    fields:
+    - name: hero
+      label: 一番上
+      widget: object
+      fields:
+      - name: title
+        label: 見出し
+        widget: text
+        hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+      - name: lead
+        label: 説明文
+        widget: text
+        required: false
+      - name: badges
+        label: チェック付きの短い文
+        widget: list
+        field:
+          name: v
+          label: 文
+          widget: string
+        required: false
+      - name: gen
+        label: げんちゃん
+        widget: object
+        fields:
+        - name: pose
+          label: ポーズ
+          widget: select
+          options:
+          - label: なし
+            value: none
+          - label: 指さし
+            value: point
+          - label: 肩をすくめる
+            value: shrug
+          - label: しょんぼり
+            value: tired
+          - label: 手を振る
+            value: wave
+          - label: 看板を持つ
+            value: sign
+          - label: 寝転がる
+            value: sleep
+          default: point
+        - name: say
+          label: セリフ
+          widget: string
+          required: false
+    - name: steps
+      label: STEP 1〜3 の見出し（3つのまま使う）
+      widget: list
+      fields:
+      - name: title
+        label: 見出し
+        widget: text
+      - name: lead
+        label: 説明
+        widget: text
+        required: false
+      label_singular: STEP
+      summary: '{{fields.title}}'
+    - name: scales
+      label: ゲームの規模（小・中・大。3つのまま使う）
+      widget: list
+      fields:
+      - name: id
+        label: 種類（変えない）
+        widget: select
+        options:
+        - label: 小
+          value: s
+        - label: 中
+          value: m
+        - label: 大
+          value: l
+      - name: name
+        label: 表示名
+        widget: string
+      - name: tag
+        label: ひとこと
+        widget: string
+      - name: lines
+        label: 目安
+        widget: list
+        field:
+          name: v
+          label: 目安
+          widget: string
+      label_singular: 規模
+      summary: '{{fields.name}}：{{fields.tag}}'
+    - name: sources
+      label: 「どこで知りましたか」の選択肢
+      widget: list
+      field:
+        name: v
+        label: 選択肢
+        widget: string
+    - name: sendNote
+      label: 送信ボタンの下の注意書き
+      widget: text
+      hint: 「{mail}」と書いた所に、メールアドレスのリンクが入ります
+    - name: bar
+      label: 下の金額バー
+      widget: object
+      fields:
+      - name: caption
+        label: 小さい見出し
+        widget: string
+      - name: empty
+        label: 何も選んでいないときのつぶやき
+        widget: string
+      - name: button
+        label: ボタンの文字
+        widget: string
+      - name: mutters
+        label: 金額ごとのげんちゃんのつぶやき
+        widget: list
+        fields:
+        - name: under
+          label: この金額未満（円）。0 = それ以上すべて
+          widget: number
+          value_type: int
+        - name: text
+          label: つぶやき
+          widget: string
+        label_singular: つぶやき
+        summary: 〜{{fields.under}}円：{{fields.text}}
+        hint: 上から順に「この金額未満なら」で判定。最後は 0（それ以上）にする
+    - name: works
+      label: 制作実績
+      widget: object
+      fields:
+      - name: title
+        label: 見出し
+        widget: string
+      - name: lead
+        label: 説明
+        widget: text
+        required: false
+      - name: items
+        label: 実績
+        widget: list
+        fields:
+        - name: title
+          label: 作品名
+          widget: string
+        - name: meta
+          label: 小さい説明
+          widget: string
+          required: false
+        - name: desc
+          label: 説明文
+          widget: text
+          hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
+        - name: images
+          label: 画像
+          widget: list
+          field:
+            name: src
+            label: 画像
+            widget: image
+        - name: style
+          label: 画像の並べ方
+          widget: select
+          options:
+          - label: 横長1枚
+            value: wide
+          - label: スマホ画面を並べる
+            value: phone
+          default: wide
+        - name: links
+          label: リンク
+          widget: list
+          fields:
+          - name: label
+            label: 文字
+            widget: string
+          - name: url
+            label: URL
+            widget: string
+          summary: '{{fields.label}}'
+          required: false
+        label_singular: 実績
+        summary: '{{fields.title}}'
+    - name: terms
+      label: お受けする条件
+      widget: object
+      fields:
+      - name: title
+        label: 見出し
+        widget: string
+      - name: lead
+        label: 説明
+        widget: text
+        required: false
+      - name: items
+        label: 条件
+        widget: list
+        fields:
+        - name: k
+          label: 項目
+          widget: string
+        - name: v
+          label: 内容
+          widget: text
+        - name: tone
+          label: 色
+          widget: select
+          options:
+          - label: 普通
+            value: normal
+          - label: 緑（OK）
+            value: good
+          - label: 赤（できない）
+            value: bad
+          default: normal
+        label_singular: 条件
+        summary: '{{fields.k}}'
+      - name: notes
+        label: 注意書き
+        widget: list
+        fields:
+        - name: title
+          label: 見出し
+          widget: string
+        - name: body
+          label: 本文
+          widget: text
+          hint: 「*ここ*」で囲むと太字
+        label_singular: 注意書き
+        summary: '{{fields.title}}'
+    - name: footer
+      label: 一番下の文字
+      widget: string
+    - name: mail
+      label: 連絡先メールアドレス
+      widget: string
+    - name: form
+      label: Googleフォームの連携（わからなければ触らない）
+      widget: object
+      fields:
+      - name: baseUrl
+        label: フォームのURL（?usp=pp_url まで）
+        widget: string
+        required: false
+        hint: 空欄にすると、送信ボタンがメール送信に切り替わります
+      - name: entries
+        label: 各項目の entry 番号
+        widget: object
+        fields:
+        - name: name
+          label: お名前
+          widget: string
+        - name: email
+          label: メール
+          widget: string
+        - name: contact
+          label: その他の連絡手段
+          widget: string
+        - name: scale
+          label: 規模
+          widget: string
+        - name: items
+          label: 依頼項目
+          widget: string
+        - name: total
+          label: 概算合計
+          widget: string
+        - name: deadline
+          label: 希望納期
+          widget: string
+        - name: budget
+          label: 予算
+          widget: string
+        - name: source
+          label: どこで知ったか
+          widget: string
+        - name: detail
+          label: 詳細
+          widget: string
+      collapsed: true
+  - name: items
+    label: 依頼項目と料金
+    file: content/estimate.json
+    fields:
+    - name: items
+      label: 依頼項目（この順番で並びます）
+      widget: list
+      fields:
+      - name: id
+        label: ID
+        widget: string
+        hint: 半角英数字。一度決めたら変えない（例：prog）
+      - name: name
+        label: 項目名
+        widget: string
+      - name: scaled
+        label: ゲームの規模（小・中・大）で金額が変わる
+        widget: boolean
+        default: true
+        hint: オフにすると、下の「プラン」で金額を決めます
+      - name: price
+        label: 金額（規模で変わる項目）
+        widget: object
+        fields:
+        - name: s
+          label: 小（円）
+          widget: number
+          value_type: int
+          required: false
+        - name: m
+          label: 中（円）
+          widget: number
+          value_type: int
+          required: false
+        - name: l
+          label: 大（円）
+          widget: number
+          value_type: int
+          required: false
+        required: false
+      - name: unit
+        label: 規模ごとの単位・内容（任意）
+        widget: object
+        fields:
+        - name: s
+          label: 小
+          widget: string
+          required: false
+          hint: 例：小物1点
+        - name: m
+          label: 中
+          widget: string
+          required: false
+        - name: l
+          label: 大
+          widget: string
+          required: false
+        required: false
+        collapsed: true
+      - name: plans
+        label: プラン（規模で変わらない項目）
+        widget: list
+        fields:
+        - name: k
+          label: 並び
+          widget: select
+          options:
+          - label: 1つ目
+            value: s
+          - label: 2つ目
+            value: m
+          - label: 3つ目
+            value: l
+        - name: label
+          label: プラン名
+          widget: string
+          hint: 例：1時間
+        - name: price
+          label: 金額（円）
+          widget: number
+          value_type: int
+        label_singular: プラン
+        required: false
+        summary: '{{fields.label}} {{fields.price}}円'
+      - name: can
+        label: できること
+        widget: text
+        required: false
+      - name: ng
+        label: できないこと
+        widget: text
+        required: false
+      - name: at
+        label: ご注意
+        widget: text
+        required: false
+      label_singular: 依頼項目
+      summary: '{{fields.name}}'

@@ -1,0 +1,207 @@
+{
+  "hero": {
+    "title": "ゲーム制作、*いくらかかるか*\nその場でわかります。",
+    "lead": "Unityでのゲーム開発をお手伝いしています。依頼したい内容と規模を選ぶだけで概算金額が出て、そのままご相談まで進めます。もちろん、見積りだけで終わっても大丈夫です。",
+    "badges": [
+      "Unity専門",
+      "著作権譲渡OK",
+      "商用利用OK",
+      "リテイク無制限",
+      "Steamリリース実績あり"
+    ],
+    "gen": {
+      "pose": "point",
+      "say": "高いと思ったら、相談して。"
+    }
+  },
+  "steps": [
+    {
+      "title": "ゲームの規模を選ぶ",
+      "lead": "迷ったら近いほうで大丈夫です。あとで調整できます。"
+    },
+    {
+      "title": "依頼したい項目を選ぶ",
+      "lead": "複数選べます。チェックすると「どこまで対応できるか」が開きます。"
+    },
+    {
+      "title": "詳しい内容を入力する",
+      "lead": "わかる範囲で大丈夫です。空欄が多くても受け付けています。"
+    }
+  ],
+  "scales": [
+    {
+      "id": "s",
+      "name": "小",
+      "tag": "プロトタイプ / ゲームジャム規模",
+      "lines": [
+        "想定プレイ時間 10分以内",
+        "画面数 1〜3枚",
+        "期間 2週間以内"
+      ]
+    },
+    {
+      "id": "m",
+      "name": "中",
+      "tag": "個人〜少人数でのリリース規模",
+      "lines": [
+        "想定プレイ時間 1〜3時間",
+        "Steam・スマホでの配信を想定",
+        "期間 1〜3ヶ月"
+      ]
+    },
+    {
+      "id": "l",
+      "name": "大",
+      "tag": "商業規模",
+      "lines": [
+        "想定プレイ時間 5時間以上",
+        "チーム複数人で制作",
+        "期間 3ヶ月以上"
+      ]
+    }
+  ],
+  "sources": [
+    "X（旧Twitter）",
+    "Steam",
+    "ココナラ",
+    "知人・友人の紹介",
+    "学校・DreamCraft関係",
+    "イベント（TGSなど）",
+    "YouTube",
+    "検索エンジン",
+    "その他"
+  ],
+  "sendNote": "送信すると入力内容が入った状態のフォームが開きます。うまく開かない場合は「内容をコピー」して {mail} までお送りください。",
+  "bar": {
+    "caption": "概算金額の目安",
+    "empty": "…項目、選んで。",
+    "button": "相談へ進む",
+    "mutters": [
+      {
+        "under": 20000,
+        "text": "…お手頃。"
+      },
+      {
+        "under": 100000,
+        "text": "…まあ、そんなもんでしょ。"
+      },
+      {
+        "under": 400000,
+        "text": "…本気だね。"
+      },
+      {
+        "under": 0,
+        "text": "…大作の予感。"
+      }
+    ]
+  },
+  "works": {
+    "title": "制作実績",
+    "lead": "実際にリリース・配信準備まで通した作品です。",
+    "items": [
+      {
+        "title": "がむしゃらギルド -Scrappy Guild-",
+        "meta": "Steam / 2027年3月15日 発売予定 ・ オンライン協力 2〜4人",
+        "desc": "パーティ全員でエネルギーを共有する協力型デッキ構築ローグライク。作戦会議が勝敗を分けます。企画・プログラム・オンライン実装・ストアページまで担当。",
+        "images": [
+          "/img/guild_header.webp"
+        ],
+        "style": "wide",
+        "links": [
+          {
+            "label": "Steamストアページ",
+            "url": "https://store.steampowered.com/app/4842440/Scrappy_Guild/"
+          }
+        ]
+      },
+      {
+        "title": "MakeFALL",
+        "meta": "iOS / Android ・ リリース済み",
+        "desc": "スマートフォン向けにリリースしたタイトル。企画から制作、ストア申請・配信、広告実装までを一通り担当しました。",
+        "images": [
+          "/img/makefall_1.webp",
+          "/img/makefall_2.webp",
+          "/img/makefall_3.webp"
+        ],
+        "style": "phone",
+        "links": [
+          {
+            "label": "公式サイト",
+            "url": "https://sites.google.com/view/makefallsite/"
+          },
+          {
+            "label": "App Store",
+            "url": "https://apps.apple.com/jp/app/makefall/id6760619572"
+          },
+          {
+            "label": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=com.DefaultCompany.kzunokosi"
+          }
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "title": "お受けする条件",
+    "lead": "先に知っておいてほしいことをまとめました。",
+    "items": [
+      {
+        "k": "対応エンジン",
+        "v": "Unity のみ",
+        "tone": "normal"
+      },
+      {
+        "k": "著作権",
+        "v": "譲渡します / 商用利用OK",
+        "tone": "good"
+      },
+      {
+        "k": "修正・リテイク",
+        "v": "何度でも無料",
+        "tone": "good"
+      },
+      {
+        "k": "実績としての公開",
+        "v": "OK（非公開のご希望も相談できます）",
+        "tone": "normal"
+      },
+      {
+        "k": "稼働できる時間",
+        "v": "週 25〜35時間",
+        "tone": "normal"
+      },
+      {
+        "k": "対応できないもの",
+        "v": "シナリオ制作 / アダルト作品 / ノベルゲーム / イラストの描き起こし / サウンド制作 / 月額の運用保守",
+        "tone": "bad"
+      }
+    ],
+    "notes": [
+      {
+        "title": "金額について",
+        "body": "表示されるのはあくまで*概算の目安*です。正式なお見積りは、内容をうかがったうえで改めてお出しします。表示金額はすべて税込です。"
+      },
+      {
+        "title": "生成AIの利用について",
+        "body": "プログラム実装・3Dモデル制作では生成AIを活用して、費用と納期を抑えています。3Dモデルについては、*Steamで配信する場合にストアページでのAI生成コンテンツの申告対象*になります。ご了承のうえでご依頼ください。"
+      }
+    ]
+  },
+  "footer": "G3 -GenGorouGames- / 佐々木",
+  "mail": "gengorougames@gmail.com",
+  "form": {
+    "baseUrl": "https://docs.google.com/forms/d/e/1FAIpQLScIfFbDhM75f04zwuBBbw3KpbVSJtE4-QmT48UyfXC1ISZ8sA/viewform?usp=pp_url",
+    "entries": {
+      "name": "entry.750009393",
+      "email": "entry.772076747",
+      "contact": "entry.762788405",
+      "scale": "entry.1428991655",
+      "items": "entry.727097395",
+      "total": "entry.74222380",
+      "deadline": "entry.1358860953",
+      "budget": "entry.1148990644",
+      "source": "entry.48801565",
+      "detail": "entry.1593048339"
+    }
+  }
+}

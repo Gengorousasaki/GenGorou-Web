@@ -52,7 +52,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance}
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:20px;align-items:end;padding-block:28px 8px}
 .hero h1{font-size:clamp(28px,6vw,44px);line-height:1.25;margin:0 0 14px}
-.hero h1 span{color:var(--pink-ink)}
+.hero h1 span,.hero h1 em{color:var(--pink-ink);font-style:normal}
 .hero p{color:var(--ink-2);margin:0 0 18px;max-width:40em}
 .hero-gen{position:relative;padding-top:58px}
 .hero-gen .say{position:absolute;top:0;right:0;white-space:nowrap}
@@ -189,9 +189,9 @@ footer a{color:var(--ink)}
 
   <div class="hero">
    <div>
-    <h1>ゲーム制作、<span>いくらかかるか</span><br>その場でわかります。</h1>
-    <p>Unityでのゲーム開発をお手伝いしています。依頼したい内容と規模を選ぶだけで概算金額が出て、そのままご相談まで進めます。もちろん、見積りだけで終わっても大丈夫です。</p>
-    <div class="badges">
+    <h1 id="pHeroTitle">ゲーム制作、<span>いくらかかるか</span><br>その場でわかります。</h1>
+    <p id="pHeroLead">Unityでのゲーム開発をお手伝いしています。依頼したい内容と規模を選ぶだけで概算金額が出て、そのままご相談まで進めます。もちろん、見積りだけで終わっても大丈夫です。</p>
+    <div class="badges" id="pBadges">
       <span class="badge">Unity専門</span>
       <span class="badge">著作権譲渡OK</span>
       <span class="badge">商用利用OK</span>
@@ -199,27 +199,27 @@ footer a{color:var(--ink)}
       <span class="badge">Steamリリース実績あり</span>
     </div>
    </div>
-   <div class="hero-gen"><div class="say r">高いと思ったら、相談して。</div><img src="/img/pose_point.webp" alt="げんちゃん" width="480" height="698"></div>
+   <div class="hero-gen" id="pHeroGen"><div class="say r">高いと思ったら、相談して。</div><img src="/img/pose_point.webp" alt="げんちゃん" width="480" height="698"></div>
   </div>
 
   <!-- STEP 1 -->
   <section id="step1">
-    <div class="stephead"><span class="stepno">STEP 1</span><h2>ゲームの規模を選ぶ</h2></div>
-    <p class="sublead">迷ったら近いほうで大丈夫です。あとで調整できます。</p>
+    <div class="stephead"><span class="stepno">STEP 1</span><h2 id="pS1t">ゲームの規模を選ぶ</h2></div>
+    <p class="sublead" id="pS1l">迷ったら近いほうで大丈夫です。あとで調整できます。</p>
     <div class="scales" id="scales"></div>
   </section>
 
   <!-- STEP 2 -->
   <section id="step2">
-    <div class="stephead"><span class="stepno">STEP 2</span><h2>依頼したい項目を選ぶ</h2></div>
-    <p class="sublead">複数選べます。チェックすると「どこまで対応できるか」が開きます。</p>
+    <div class="stephead"><span class="stepno">STEP 2</span><h2 id="pS2t">依頼したい項目を選ぶ</h2></div>
+    <p class="sublead" id="pS2l">複数選べます。チェックすると「どこまで対応できるか」が開きます。</p>
     <div class="items" id="items"></div>
   </section>
 
   <!-- STEP 3 -->
   <section id="step3">
-    <div class="stephead"><span class="stepno">STEP 3</span><h2>詳しい内容を入力する</h2></div>
-    <p class="sublead">わかる範囲で大丈夫です。空欄が多くても受け付けています。</p>
+    <div class="stephead"><span class="stepno">STEP 3</span><h2 id="pS3t">詳しい内容を入力する</h2></div>
+    <p class="sublead" id="pS3l">わかる範囲で大丈夫です。空欄が多くても受け付けています。</p>
 
     <div class="grid2">
       <div class="f">
@@ -277,7 +277,7 @@ footer a{color:var(--ink)}
       <button class="btn primary" id="send">この内容で相談する</button>
       <button class="btn ghost" id="copy">内容をコピー</button>
     </div>
-    <p class="sublead" style="padding-left:0;margin-top:14px">
+    <p class="sublead" id="pSendNote" style="padding-left:0;margin-top:14px">
       送信すると入力内容が入った状態のフォームが開きます。うまく開かない場合は「内容をコピー」して
       <a href="mailto:gengorougames@gmail.com">gengorougames@gmail.com</a> までお送りください。
     </p>
@@ -285,9 +285,9 @@ footer a{color:var(--ink)}
 
   <!-- 実績 -->
   <section id="works">
-    <div class="stephead" style="gap:0"><h2>制作実績</h2></div>
-    <p class="sublead" style="padding-left:0">実際にリリース・配信準備まで通した作品です。</p>
-    <div class="works">
+    <div class="stephead" style="gap:0"><h2 id="pWt">制作実績</h2></div>
+    <p class="sublead" id="pWl" style="padding-left:0">実際にリリース・配信準備まで通した作品です。</p>
+    <div class="works" id="pWorks">
       <article class="work">
         <div class="ph">
           <img src="/img/guild_header.webp" alt="がむしゃらギルド -Scrappy Guild-" loading="lazy">
@@ -322,9 +322,9 @@ footer a{color:var(--ink)}
 
   <!-- 条件 -->
   <section id="terms">
-    <div class="stephead" style="gap:0"><h2>お受けする条件</h2></div>
-    <p class="sublead" style="padding-left:0">先に知っておいてほしいことをまとめました。</p>
-    <div class="terms">
+    <div class="stephead" style="gap:0"><h2 id="pTt">お受けする条件</h2></div>
+    <p class="sublead" id="pTl" style="padding-left:0">先に知っておいてほしいことをまとめました。</p>
+    <div class="terms" id="pTerms">
       <div class="term"><div class="k">対応エンジン</div><div class="v">Unity のみ</div></div>
       <div class="term"><div class="k">著作権</div><div class="v good">譲渡します / 商用利用OK</div></div>
       <div class="term"><div class="k">修正・リテイク</div><div class="v good">何度でも無料</div></div>
@@ -333,7 +333,7 @@ footer a{color:var(--ink)}
       <div class="term"><div class="k">対応できないもの</div><div class="v bad">シナリオ制作 / アダルト作品 / ノベルゲーム / イラストの描き起こし / サウンド制作 / 月額の運用保守</div></div>
     </div>
 
-    <div style="margin-top:16px">
+    <div style="margin-top:16px" id="pNotes">
       <div class="note">
         <b>金額について</b><br>
         表示されるのはあくまで<b>概算の目安</b>です。正式なお見積りは、内容をうかがったうえで改めてお出しします。表示金額はすべて税込です。
@@ -349,7 +349,7 @@ footer a{color:var(--ink)}
 
 <footer>
   <div class="wrap">
-    <span>G3 -GenGorouGames- / 佐々木</span>
+    <span id="pFoot">G3 -GenGorouGames- / 佐々木</span>
     <span><a href="mailto:gengorougames@gmail.com">gengorougames@gmail.com</a> ・ <a href="/">ホームページ</a></span>
   </div>
 </footer>
@@ -359,7 +359,7 @@ footer a{color:var(--ink)}
     <div class="l">
       <div class="face" aria-hidden="true"></div>
       <div style="min-width:0">
-        <div class="cap">概算金額の目安</div>
+        <div class="cap" id="pCap">概算金額の目安</div>
         <div class="amt" id="total">— <small>円</small></div>
         <div class="cnt" id="count">…項目、選んで。</div>
       </div>
@@ -373,10 +373,10 @@ footer a{color:var(--ink)}
 <script>
 /* content/*.json（管理画面で編集する中身）を読み込んでから、下のスクリプトを動かす */
 (function(){
-  var srcs = [["/content/estimate.json","__ITEMS"]], done = 0;
+  var srcs = [["/content/estimate.json","__ITEMS"],["/content/estimate-page.json","__EPAGE"]], done = 0;
   function run(){ var m=document.getElementById("est-main"); var s=document.createElement("script"); s.textContent=m.textContent; m.parentNode.insertBefore(s,m.nextSibling); }
   srcs.forEach(function(x){
-    fetch(x[0],{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){ if(j&&j.items&&j.items.length) window[x[1]]=j.items; })
+    fetch(x[0],{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){ if(!j) return; if(x[1]==="__EPAGE") window.__EPAGE=j; else if(j.items&&j.items.length) window[x[1]]=j.items; })
     .catch(function(){}).then(function(){ if(++done===srcs.length) run(); });
   });
 })();
@@ -404,8 +404,45 @@ var FORM_CONFIG = {
 };
 var MAIL_TO = "gengorougames@gmail.com";
 
+
+/* ========================= ページの文言（content/estimate-page.json） ========================= */
+var PG = window.__EPAGE || null;
+var esc = function(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); };
+var inl = function(s){ return esc(s).replace(/\*([^*\n]+)\*/g,"<em>$1</em>").replace(/\n/g,"<br>"); };
+var POSES = {point:"/img/pose_point.webp",shrug:"/img/pose_shrug.webp",tired:"/img/pose_tired.webp",wave:"/img/pose_wave.webp",sign:"/img/genchan_sign.webp",sleep:"/img/pose_sleep.webp"};
+function setH(id,html){ var el=document.getElementById(id); if(el && html!=null) el.innerHTML=html; }
+if(PG){
+  var H=PG.hero||{};
+  if(H.title) setH("pHeroTitle", inl(H.title));
+  if(H.lead) setH("pHeroLead", inl(H.lead));
+  if(H.badges) setH("pBadges", H.badges.map(function(b){return '<span class="badge">'+esc(b)+'</span>';}).join(""));
+  if(H.gen){ var gp=POSES[H.gen.pose]; setH("pHeroGen", gp ? (H.gen.say?'<div class="say r">'+inl(H.gen.say)+'</div>':'')+'<img src="'+gp+'" alt="げんちゃん">' : ""); document.getElementById("pHeroGen").hidden=!gp; }
+  (PG.steps||[]).forEach(function(s,i){ if(s.title) setH("pS"+(i+1)+"t", inl(s.title)); if(s.lead!=null) setH("pS"+(i+1)+"l", inl(s.lead)); });
+  if(PG.mail) MAIL_TO = PG.mail;
+  if(PG.sendNote) setH("pSendNote", inl(PG.sendNote).replace("{mail}",'<a href="mailto:'+esc(MAIL_TO)+'">'+esc(MAIL_TO)+'</a>'));
+  if(PG.sources && PG.sources.length) setH("f-source", '<option value="">選んでください</option>'+PG.sources.map(function(s){return '<option>'+esc(s)+'</option>';}).join(""));
+  var W=PG.works||{};
+  if(W.title) setH("pWt", inl(W.title)); if(W.lead!=null) setH("pWl", inl(W.lead));
+  if(W.items) setH("pWorks", W.items.map(function(w){
+    var imgs=(w.images||[]).map(function(s,k){return '<img src="'+esc(s)+'" alt="'+(k?"":esc(w.title))+'" loading="lazy">';}).join("");
+    return '<article class="work"><div class="ph'+(w.style==="phone"?" mf":"")+'">'+imgs+'</div><div class="bd"><h3>'+esc(w.title)+'</h3>'+
+      (w.meta?'<div class="meta">'+esc(w.meta)+'</div>':'')+'<p>'+inl(w.desc)+'</p><div class="lnks">'+
+      (w.links||[]).filter(function(l){return l.label&&l.url;}).map(function(l){return '<a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.label)+'</a>';}).join("")+'</div></div></article>';
+  }).join(""));
+  var T=PG.terms||{};
+  if(T.title) setH("pTt", inl(T.title)); if(T.lead!=null) setH("pTl", inl(T.lead));
+  if(T.items) setH("pTerms", T.items.map(function(t){ var c=t.tone==="good"?" good":t.tone==="bad"?" bad":""; return '<div class="term"><div class="k">'+esc(t.k)+'</div><div class="v'+c+'">'+inl(t.v)+'</div></div>'; }).join(""));
+  if(T.notes) setH("pNotes", T.notes.map(function(n){ return '<div class="note"><b>'+esc(n.title)+'</b><br>'+inl(n.body).replace(/<em>/g,"<b>").replace(/<\/em>/g,"</b>")+'</div>'; }).join(""));
+  if(PG.footer) document.getElementById("pFoot").textContent=PG.footer;
+  var B=PG.bar||{};
+  if(B.caption) document.getElementById("pCap").textContent=B.caption;
+  if(B.button) document.getElementById("jump").textContent=B.button;
+  if(B.empty) document.getElementById("count").textContent=B.empty;
+  if(PG.form && PG.form.entries){ FORM_CONFIG = { baseUrl: PG.form.baseUrl||"", entries: PG.form.entries }; }
+}
+
 /* ========================= データ ========================= */
-var SCALES = [
+var SCALES = (PG && PG.scales && PG.scales.length===3) ? PG.scales : [
   { id:"s", name:"小", tag:"プロトタイプ / ゲームジャム規模",
     lines:["想定プレイ時間 10分以内","画面数 1〜3枚","期間 2週間以内"] },
   { id:"m", name:"中", tag:"個人〜少人数でのリリース規模",
@@ -620,16 +657,17 @@ function update(){
   $("total").innerHTML = sel.length ? yen(sum)+' <small>円〜</small>' : '— <small>円</small>';
   $("count").textContent = sel.length
     ? "規模" + scaleObj().name + "・" + sel.length + "項目　" + mutter(sum)
-    : "…項目、選んで。";
+    : ((PG&&PG.bar&&PG.bar.empty)||"…項目、選んで。");
   $("preview").textContent = summary();
 }
 
 /* げんちゃんのつぶやき（金額で変わる。見た目だけで、計算には関係しない） */
 function mutter(sum){
-  if(sum < 20000)  return "…お手頃。";
-  if(sum < 100000) return "…まあ、そんなもんでしょ。";
-  if(sum < 400000) return "…本気だね。";
-  return "…大作の予感。";
+  var M = (PG && PG.bar && PG.bar.mutters && PG.bar.mutters.length) ? PG.bar.mutters
+    : [{under:20000,text:"…お手頃。"},{under:100000,text:"…まあ、そんなもんでしょ。"},{under:400000,text:"…本気だね。"},{under:0,text:"…大作の予感。"}];
+  for(var i=0;i<M.length;i++){ if(M[i].under && sum < M[i].under) return M[i].text; }
+  for(var j=M.length-1;j>=0;j--){ if(!M[j].under) return M[j].text; }
+  return "";
 }
 
 function summary(){

@@ -21,7 +21,7 @@
           "url": "https://store.steampowered.com/app/4842440/Scrappy_Guild/"
         }
       ],
-      "gen": "/img/pose_point.webp",
+      "gen": "point",
       "flip": false,
       "say": "作戦会議でケンカしないでね。"
     },
@@ -46,7 +46,7 @@
           "url": "https://store.steampowered.com/app/5213250/Final_Tower_VII/"
         }
       ],
-      "gen": "/img/pose_shrug.webp",
+      "gen": "shrug",
       "flip": false,
       "say": "積めば勝てる。…たぶん。"
     },
@@ -79,7 +79,7 @@
           "url": "https://sites.google.com/view/makefallsite/"
         }
       ],
-      "gen": "/img/pose_tired.webp",
+      "gen": "tired",
       "flip": false,
       "say": "落ちてくるの、だいたい食べた。"
     },
@@ -100,9 +100,10 @@
           "url": "https://unityroom.com/games/watch_game"
         }
       ],
-      "gen": "/img/pose_point.webp",
+      "gen": "point",
       "flip": true,
-      "say": "…ひとりで見ないほうがいい。"
+      "say": "…ひとりで見ないほうがいい。",
+      "tagline": "体験する映画"
     }
   ]
 }

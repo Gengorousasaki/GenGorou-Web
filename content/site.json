@@ -1,0 +1,51 @@
+{
+  "title": "G3 -GenGorouGames- | インディーゲームチーム",
+  "logo": "G3",
+  "logoSub": "GenGorouGames",
+  "nav": [
+    {
+      "label": "作品",
+      "href": "#games",
+      "accent": false
+    },
+    {
+      "label": "お知らせ",
+      "href": "#news",
+      "accent": false
+    },
+    {
+      "label": "G3について",
+      "href": "#about",
+      "accent": false
+    },
+    {
+      "label": "お仕事依頼",
+      "href": "#work",
+      "accent": true
+    }
+  ],
+  "sns": [
+    {
+      "label": "X",
+      "url": "https://x.com/gengorou__game"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@GenGorouGames"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/gengorougames/?hl=ja"
+    },
+    {
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@user7437230911988"
+    }
+  ],
+  "footer": {
+    "copy": "© G3 -GenGorouGames-",
+    "contact": "お仕事のご相談：gengorougames@gmail.com",
+    "sleeper": true,
+    "say": "おやすみ。"
+  }
+}
