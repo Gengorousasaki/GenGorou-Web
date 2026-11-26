@@ -1,0 +1,192 @@
+/* DomiDomiDomino プレスキット。
+   ゲームの子ども部屋の壁（本物の壁紙と床のテクスチャ）に、紙をテープで貼った形。
+   色はロゴの7色とゲームの部屋の色だけ。角は丸めない・ぼかした影は使わない（紙と積み木の固い影だけ） */
+:root {
+  --ink: #2a2320;
+  --paper: #fffdf6;
+  --line: #d8cdb4;
+  --green: #58D098; --blue: #2060C8; --yellow: #F0D070; --orange: #F09860; --red: #D02028; --sky: #70A0D0; --teal: #18B088;
+  --display: "Dela Gothic One", "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", "Malgun Gothic", "Microsoft YaHei", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+/* 横にはみ出す飾り（床の帯など）で横スクロールが出ないようにする。hidden だと縦のスクロールの親が変わるので clip */
+html { overflow-x: clip; }
+body {
+  margin: 0; color: var(--ink);
+  background: #8CC0F2 url("img/wallpaper.png") repeat; background-size: 420px auto;
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Meiryo", "Malgun Gothic", "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-weight: 500; font-size: 16px; line-height: 1.85;
+}
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { background: var(--yellow); }
+img { max-width: 100%; display: block; }
+p { margin: 0 0 12px; }
+b { font-weight: 900; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- 上の帯（テレビの枠と同じ色）---- */
+.bar { position: sticky; top: 0; z-index: 30; background: var(--ink); color: #fff; display: flex; align-items: center; gap: 18px; padding: 8px 18px; font-size: 14px; }
+.bar a { text-decoration: none; }
+.bar a:hover { background: none; color: var(--yellow); }
+.bar .mark img { height: 22px; width: auto; }
+.bar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px 16px; }
+.bar .nav { flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+.bar .nav::-webkit-scrollbar { display: none; }
+.bar .langs { gap: 10px; font-size: 13px; flex: none; }
+.bar .langs a.on { color: var(--yellow); border-bottom: 3px solid var(--yellow); }
+
+/* ---- いちばん上: 部屋の中のテレビ ---- */
+.room { text-align: center; padding: 40px 20px 0; position: relative; overflow: hidden; }
+.biglogo { width: min(860px, 94%); margin: 0 auto 18px;
+  filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(6px 8px 0 rgba(30, 60, 110, .28)); }
+.tagline { display: inline-block; margin: 0 0 22px; padding: 6px 20px; background: #fff; font-family: var(--display); font-size: clamp(16px, 2.4vw, 26px); line-height: 1.5; transform: rotate(-1.2deg); box-shadow: 5px 5px 0 rgba(30, 60, 110, .28); }
+.cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin: 0 0 30px; }
+/* 積み木のボタン（押すと沈む） */
+.block { display: inline-block; padding: 10px 22px; font-family: var(--display); font-size: 16px; text-decoration: none; background: var(--red); color: #fff; box-shadow: 0 7px 0 #8f1218; transition: transform .06s, box-shadow .06s; }
+.block:hover { background: var(--red); transform: translateY(-2px); box-shadow: 0 9px 0 #8f1218; }
+.block:active { transform: translateY(7px); box-shadow: 0 0 0 #8f1218; }
+.block.alt { background: var(--yellow); color: var(--ink); box-shadow: 0 7px 0 #b08f2c; }
+.block.alt:hover { background: var(--yellow); box-shadow: 0 9px 0 #b08f2c; }
+.block.alt:active { box-shadow: 0 0 0 #b08f2c; }
+
+.stage { position: relative; z-index: 1; display: flex; align-items: flex-end; justify-content: center; max-width: 1180px; margin: 0 auto; }
+.stage .w { height: 300px; width: auto; flex: none; position: relative; z-index: 2; }
+.stage .w.l { margin-right: -46px; }
+.stage .w.r { margin-left: -46px; }
+.tv { flex: 0 1 780px; min-width: 0; position: relative; margin-bottom: 58px; border: 16px solid var(--ink); border-bottom-width: 22px; background: #000; box-shadow: 8px 8px 0 rgba(30, 60, 110, .28); }
+.tv video { width: 100%; display: block; aspect-ratio: 16/9; background: #000; }
+/* テレビの支柱と台 */
+.tv::before { content: ""; position: absolute; left: 50%; bottom: -66px; width: 34px; height: 44px; margin-left: -17px; background: var(--ink); }
+.tv::after { content: ""; position: absolute; left: 50%; bottom: -80px; width: 260px; height: 14px; margin-left: -130px; background: var(--ink); }
+.floor { position: relative; z-index: 0; height: 96px; margin: -52px -20px 0; background: url("img/floor.jpg") repeat-x; background-size: auto 220px; border-top: 8px solid #f4efe4; }
+/* 狭い画面: 作業員は小さくして、テレビの下の角に重ねる。目次は2段目に回す */
+@media (max-width: 900px) {
+  .stage .w { position: absolute; bottom: 44px; height: 150px; z-index: 3; }
+  .stage .w.l { left: -14px; margin: 0; }
+  .stage .w.r { right: -14px; margin: 0; }
+  .bar { flex-wrap: wrap; gap: 4px 14px; }
+  .bar .langs { margin-left: auto; }
+  .bar .nav { order: 3; flex: 1 0 100%; }
+}
+
+/* ---- 倒れていくドミノの列（見える所まで来たら倒れる）---- */
+.chain { display: flex; justify-content: center; align-items: flex-end; gap: 13px; height: 64px; padding-bottom: 8px; overflow: hidden; }
+.chain span { width: 13px; height: 40px; flex: none; transform-origin: 100% 100%; transition: transform .32s cubic-bezier(.55, 0, .9, .55); transition-delay: calc(var(--i) * 75ms); box-shadow: 3px 0 0 rgba(0, 0, 0, .18); }
+.chain.fall span { transform: rotate(66deg); }
+.chain.fall span:last-child { transform: rotate(90deg); }
+
+/* ---- 紙 ---- */
+.wrap { max-width: 1000px; margin: 0 auto; padding: 8px 20px 70px; }
+.sheet { position: relative; background: var(--paper); margin: 46px 0 0; padding: 38px 36px 32px; box-shadow: 7px 7px 0 rgba(30, 60, 110, .3); }
+/* マスキングテープ */
+.sheet::before { content: ""; position: absolute; top: -14px; left: 50%; width: 150px; height: 30px; margin-left: -75px; background: var(--tape, var(--yellow)); opacity: .88; transform: rotate(-2deg); }
+.sheet:nth-of-type(7n+1) { --tape: var(--green); }
+.sheet:nth-of-type(7n+2) { --tape: var(--sky); }
+.sheet:nth-of-type(7n+3) { --tape: var(--yellow); }
+.sheet:nth-of-type(7n+4) { --tape: var(--orange); }
+.sheet:nth-of-type(7n+5) { --tape: var(--red); }
+.sheet:nth-of-type(7n+6) { --tape: var(--blue); }
+.sheet:nth-of-type(7n+7) { --tape: var(--teal); }
+.sheet:nth-of-type(even)::before { transform: rotate(1.6deg); left: 22%; }
+.sheet:nth-of-type(3n)::before { left: 76%; }
+
+h2 { display: inline-block; margin: 0 0 18px; font-family: var(--display); font-weight: 400; font-size: 27px; line-height: 1.35; scroll-margin-top: 80px;
+  /* 蛍光ペンで下半分を塗る */
+  background: linear-gradient(transparent 58%, var(--tape, var(--yellow)) 58%); padding: 0 6px; }
+h3 { font-family: var(--display); font-weight: 400; font-size: 17px; margin: 28px 0 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+/* 小見出しの前に立っているドミノ */
+h3::before { content: ""; width: 9px; height: 22px; flex: none; background: var(--tape, var(--red)); transform: rotate(9deg); box-shadow: 2px 1px 0 rgba(0, 0, 0, .2); }
+.note { font-size: 14px; color: #6b6055; }
+
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; vertical-align: top; padding: 7px 0; border-bottom: 2px dashed var(--line); font-weight: 500; }
+th { width: 150px; padding-right: 16px; color: #6b6055; white-space: nowrap; font-weight: 900; }
+table.keys th { width: 190px; color: var(--ink); font-weight: 900; }
+ul.list { margin: 0 0 12px; padding-left: 1.3em; }
+ul.list li { margin: 4px 0; }
+ul.list li::marker { color: var(--tape, var(--red)); }
+blockquote { margin: 0 0 6px; padding: 12px 16px; background: #fff6cf; border-left: 8px solid var(--yellow); }
+blockquote p:last-child { margin-bottom: 0; }
+.copy { font: inherit; font-size: 13px; font-weight: 900; background: #fff; color: var(--ink); border: 2px solid var(--ink); padding: 0 10px; cursor: pointer; box-shadow: 0 3px 0 var(--ink); }
+.copy:hover { background: var(--yellow); }
+.copy:active { transform: translateY(3px); box-shadow: none; }
+
+.with-char { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; align-items: end; }
+.with-char > img { width: 220px; margin-bottom: -32px; }
+@media (max-width: 780px) { .with-char { grid-template-columns: 1fr; } .with-char > img { width: 150px; justify-self: end; } }
+
+/* 特徴: 写真を紙に貼る */
+.feats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 22px; }
+@media (max-width: 780px) { .feats { grid-template-columns: 1fr; } }
+.feats .pic { aspect-ratio: 16/9; background: #BFDCF3; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; border: 6px solid #fff; box-shadow: 4px 4px 0 rgba(0, 0, 0, .22); transform: rotate(-.7deg); }
+.feats > div:nth-child(even) .pic { transform: rotate(.8deg); }
+.feats .pic > img.fill { width: 100%; height: 100%; object-fit: cover; }
+.feats .pic > img.char { height: 92%; width: auto; margin: 0 -8px; }
+.feats p { margin: 10px 0 0; }
+
+video { width: 100%; background: #000; display: block; }
+.sheet > video { border: 10px solid var(--ink); }
+
+/* スクリーンショット: 写真のように白いふちを付けて、少し傾けて貼る */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px 14px; }
+.grid a { display: block; aspect-ratio: 16/9; background: #eee; border: 5px solid #fff; box-shadow: 3px 3px 0 rgba(0, 0, 0, .25); transition: transform .12s; }
+.grid a:nth-child(3n+1) { transform: rotate(-1.1deg); }
+.grid a:nth-child(3n+2) { transform: rotate(.7deg); }
+.grid a:nth-child(3n) { transform: rotate(-.4deg); }
+.grid a:hover { transform: rotate(0) scale(1.05); background: #eee; position: relative; z-index: 2; }
+.grid img { width: 100%; height: 100%; object-fit: cover; }
+.figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px 12px; }
+.figs figure { margin: 0; font-size: 13px; }
+.figs .box { height: 150px; display: flex; align-items: center; justify-content: center; padding: 14px; background: #eef2f6; margin-bottom: 4px; }
+.figs .box.dark { background: var(--ink); }
+.figs .box.tall { height: 240px; background: #BFDCF3; align-items: flex-end; padding: 12px 12px 0; }
+.figs .box img { max-height: 100%; width: auto; }
+.figs .box.cover { padding: 0; }
+.figs .box.cover img { width: 100%; height: 100%; object-fit: cover; }
+.colors { font-family: Consolas, "Courier New", monospace; font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.colors button { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 7px; color: var(--ink); }
+.colors i { width: 14px; height: 30px; display: block; box-shadow: 2px 1px 0 rgba(0, 0, 0, .2); }
+
+/* 作業員が床に並ぶ帯（紙と紙の間） */
+.parade { margin: 46px -20px 0; height: 270px; display: flex; align-items: flex-end; justify-content: space-around; padding: 0 20px 30px; background: url("img/floor.jpg") 0 100% repeat-x; background-size: auto 64px; overflow: hidden; }
+.parade img { height: 215px; width: auto; }
+.parade img.big { height: 236px; }
+@media (max-width: 780px) { .parade { height: 170px; padding-bottom: 22px; background-size: auto 44px; } .parade img { height: 130px; } .parade img.big { height: 144px; } }
+
+/* 開発者 */
+.dev { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 26px; align-items: end; }
+.dev img { width: 200px; }
+.dev .name { font-family: var(--display); font-size: 24px; margin: 0 0 2px; }
+@media (max-width: 780px) { .dev { grid-template-columns: 1fr; } .dev img { width: 140px; } }
+
+.todo { background: #ffe94d; font-weight: 900; padding: 0 6px; }
+#draft { background: #ffe94d; padding: 6px 20px; font-size: 13px; }
+footer { margin: 40px auto 0; padding: 10px 18px; background: var(--ink); color: #fff; font-size: 13px; text-align: center; }
+#toast { position: fixed; right: 16px; bottom: 16px; z-index: 50; background: var(--ink); color: #fff; padding: 4px 14px; font-size: 13px; display: none; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .chain span, .grid a, .block { transition: none; } }
+
+/* ---- 動き（最初の数秒と、マウスを乗せたとき）---- */
+/* ロゴ: 上からポンと落ちてきて止まる */
+@keyframes logoDrop { 0% { translate: 0 -60px; scale: .92; opacity: 0; } 60% { translate: 0 8px; scale: 1.02; opacity: 1; } 100% { translate: 0 0; scale: 1; } }
+.biglogo { animation: logoDrop .7s cubic-bezier(.3, .8, .4, 1) both; }
+/* 左の作業員: 走ってきて、テレビの前で止まる（横の動きと、はねる動きを別々に重ねる） */
+@keyframes runIn { 0% { translate: -75vw 0; } 86% { translate: 22px 0; } 100% { translate: 0 0; } }
+@keyframes hop { 0%, 100% { transform: translateY(0) rotate(6deg); } 50% { transform: translateY(-18px) rotate(9deg); } }
+.stage .w.l { animation: runIn 1.5s cubic-bezier(.25, .6, .35, 1) .3s both, hop .25s linear .3s 6; }
+/* 右の作業員: 走ってきたのに驚いて跳ねる */
+@keyframes startle { 0%, 100% { transform: none; } 30% { transform: translateY(-38px) rotate(-7deg); } 60% { transform: translateY(0) rotate(0); } 80% { transform: translateY(-10px); } }
+.stage .w.r { animation: startle .7s ease-out 1.7s both; }
+/* ボタンの下の小さなドミノの列: ダウンロードのボタンに乗せると倒れ、離すと立ち直る */
+/* 白い棚の上に立たせる（壁紙の上に浮いて見えないように） */
+.chain.mini { height: 46px; gap: 9px; padding: 0 16px; margin: -10px auto 22px; width: fit-content; max-width: 100%; border-bottom: 7px solid #fff; box-shadow: 0 5px 0 rgba(30, 60, 110, .28); overflow: visible; }
+.chain.mini span { width: 9px; height: 28px; transition-duration: .2s; transition-delay: calc(var(--i) * 45ms); }
+/* 帯のキャラ: 乗せるとぴょんと跳ねる */
+.parade img { transition: transform .18s cubic-bezier(.3, 1.6, .6, 1); }
+.parade img:hover { transform: translateY(-22px) rotate(-3deg); }
+.with-char > img, .dev img { transition: transform .18s cubic-bezier(.3, 1.6, .6, 1); transform-origin: 50% 100%; }
+.with-char > img:hover, .dev img:hover { transform: rotate(-4deg) scale(1.04); }
+@media (prefers-reduced-motion: reduce) {
+  .biglogo, .stage .w.l, .stage .w.r { animation: none; }
+  .parade img, .with-char > img, .dev img, .chain.mini span { transition: none; }
+}
