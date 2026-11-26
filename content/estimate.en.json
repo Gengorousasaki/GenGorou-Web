@@ -1,0 +1,218 @@
+{
+  "items": [
+    {
+      "id": "prog",
+      "name": "Game dev support (Programming)",
+      "scaled": true,
+      "price": {
+        "s": 15000,
+        "m": 55000,
+        "l": 200000
+      },
+      "can": "General feature implementation in Unity. We use generative AI to move fast, and include a ReadMe (spec and handover notes). No spec document needed — tell us the gist of what you want and we'll shape it together as we go.",
+      "ng": "We can't work with engines other than Unity."
+    },
+    {
+      "id": "plan",
+      "name": "Game dev support (Planning & specs)",
+      "scaled": true,
+      "price": {
+        "s": 10000,
+        "m": 33000,
+        "l": 120000
+      },
+      "can": "Game concept planning and spec documents. Specs are shared in Excel, ready to use for production as-is.",
+      "ng": "We don't do scenario or story writing."
+    },
+    {
+      "id": "ui",
+      "name": "Game dev support (UI design)",
+      "scaled": true,
+      "price": {
+        "s": 7500,
+        "m": 27000,
+        "l": 100000
+      },
+      "can": "Simple, readable UI parts — buttons, frames, panels — made in Photoshop. We can also integrate them into Unity.",
+      "ng": "We can't draw illustrations. UI that needs character art or elaborate decoration is out of scope."
+    },
+    {
+      "id": "consult",
+      "name": "Game design consultation",
+      "scaled": false,
+      "plans": [
+        {
+          "k": "s",
+          "label": "1 hour",
+          "price": 2500
+        },
+        {
+          "k": "m",
+          "label": "3 hours",
+          "price": 10000
+        },
+        {
+          "k": "l",
+          "label": "Monthly",
+          "price": 30000
+        }
+      ],
+      "can": "How to make the systems fun, how to present your theme — we'll think it through together on an online call. Half-finished ideas, or none at all yet, are both fine.",
+      "ng": "We don't take adult (erotic) titles or visual novels."
+    },
+    {
+      "id": "model",
+      "name": "3D models for games",
+      "scaled": true,
+      "price": {
+        "s": 4000,
+        "m": 20000,
+        "l": 80000
+      },
+      "unit": {
+        "s": "One small prop",
+        "m": "One character",
+        "l": "Character + animations"
+      },
+      "can": "Models made with generative AI, adjusted in Blender, then delivered. Simple shapes only.",
+      "ng": "High-poly models and complex rigging or animation are out of scope.",
+      "at": "Because generative AI is used, they must be disclosed as AI-generated content if you release on Steam."
+    },
+    {
+      "id": "img",
+      "name": "Images for Steam and other stores",
+      "scaled": true,
+      "price": {
+        "s": 5000,
+        "m": 17000,
+        "l": 50000
+      },
+      "unit": {
+        "s": "Capsule image set",
+        "m": "+ Banners",
+        "l": "Full store page image set"
+      },
+      "can": "We take in-game screenshots and edit them in Photoshop and similar tools into capsule images and banners, all sized to Steam's requirements.",
+      "ng": "We can't draw illustrations. Hand-drawn key visuals are out of scope."
+    },
+    {
+      "id": "pv",
+      "name": "Trailer",
+      "scaled": true,
+      "price": {
+        "s": 15000,
+        "m": 40000,
+        "l": 120000
+      },
+      "unit": {
+        "s": "30 sec",
+        "m": "1 min",
+        "l": "1 min + capture assets made for it"
+      },
+      "can": "We capture your game and edit it in Premiere Pro into a simple, easy-to-follow trailer.",
+      "ng": "Elaborate motion graphics, live-action filming, and original music are out of scope. Music will be royalty-free tracks or assets you provide."
+    },
+    {
+      "id": "debug",
+      "name": "Debugging & playtesting",
+      "scaled": true,
+      "price": {
+        "s": 2500,
+        "m": 10000,
+        "l": 40000
+      },
+      "can": "We actually play your game to find bugs and report them with steps to reproduce. We'll also point out spots that could be better, from a game creator's point of view.",
+      "ng": "Please ask separately about setting up automated tests."
+    },
+    {
+      "id": "full",
+      "name": "All-in: planning → development → release",
+      "scaled": true,
+      "price": {
+        "s": 75000,
+        "m": 270000,
+        "l": 800000
+      },
+      "can": "Everything from planning and Unity development to release on Steam / iOS / Google Play. Ad implementation and placement are available too.",
+      "ng": "Scenario writing and full-scale illustration or sound are out of scope (please provide them, or outsource them separately).",
+      "at": "Because of scheduling, we can only take a limited number of these at a time. Please get in touch first."
+    },
+    {
+      "id": "net",
+      "name": "Online multiplayer implementation",
+      "scaled": true,
+      "price": {
+        "s": 25000,
+        "m": 80000,
+        "l": 300000
+      },
+      "can": "Online versus and co-op in Unity. We use generative AI, backed by our experience actually shipping an online co-op game.",
+      "at": "The work involved in networking varies a lot with the spec. Treat the price as a rough guide."
+    },
+    {
+      "id": "fix",
+      "name": "Bug fixing & optimization for existing games",
+      "scaled": true,
+      "price": {
+        "s": 5000,
+        "m": 20000,
+        "l": 80000
+      },
+      "unit": {
+        "s": "Investigation & root cause only",
+        "m": "Investigation + fix",
+        "l": "Investigation + fix + optimization"
+      },
+      "can": "Investigating and fixing bugs in Unity projects, and optimizing slow parts, with the help of generative AI.",
+      "at": "You'll need to share the full project. “Small” covers investigation and finding the cause only; fixes are charged separately."
+    },
+    {
+      "id": "lesson",
+      "name": "Technical lessons & mentoring",
+      "scaled": false,
+      "plans": [
+        {
+          "k": "s",
+          "label": "1 hour",
+          "price": 3000
+        },
+        {
+          "k": "m",
+          "label": "4 times / month",
+          "price": 13000
+        },
+        {
+          "k": "l",
+          "label": "8 times / month",
+          "price": 40000
+        }
+      ],
+      "can": "How to use Unity, how to think about implementation, and how to run solo development — taught from our own hands-on experience, over online calls.",
+      "ng": "We won't do school assignments for you."
+    },
+    {
+      "id": "steam",
+      "name": "Steam release: done for you or with you",
+      "scaled": false,
+      "plans": [
+        {
+          "k": "s",
+          "label": "Guided support",
+          "price": 10000
+        },
+        {
+          "k": "m",
+          "label": "Done for you",
+          "price": 17000
+        },
+        {
+          "k": "l",
+          "label": "All-in, from sign-up to release",
+          "price": 50000
+        }
+      ],
+      "can": "Steamworks setup, store page creation, build submission, and review handling. We can do it for you, or work through it together over screen share so you learn how.",
+      "at": "You'll need to pay the Steam Direct fee and register your own bank account and tax information."
+    }
+  ]
+}

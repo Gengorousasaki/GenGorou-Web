@@ -1,0 +1,207 @@
+{
+  "hero": {
+    "title": "Find out *what your game will cost*\nright here.",
+    "lead": "We help with game development in Unity. Just pick what you need and how big your project is to get a rough estimate, then go straight on to an inquiry. It's totally fine to just check the price and leave.",
+    "badges": [
+      "Unity specialists",
+      "Copyright transfer OK",
+      "Commercial use OK",
+      "Unlimited revisions",
+      "Shipped on Steam"
+    ],
+    "gen": {
+      "pose": "point",
+      "say": "Too pricey? Let's talk."
+    }
+  },
+  "steps": [
+    {
+      "title": "Choose your game's size",
+      "lead": "If you're not sure, just pick the closest one. You can adjust it later."
+    },
+    {
+      "title": "Choose what you need",
+      "lead": "You can pick more than one. Checking an item shows exactly what's included."
+    },
+    {
+      "title": "Tell us the details",
+      "lead": "Fill in whatever you can. It's fine to leave a lot blank."
+    }
+  ],
+  "scales": [
+    {
+      "id": "s",
+      "name": "Small",
+      "tag": "Prototype / game jam size",
+      "lines": [
+        "Play time under 10 minutes",
+        "1–3 screens",
+        "Within 2 weeks"
+      ]
+    },
+    {
+      "id": "m",
+      "name": "Medium",
+      "tag": "Solo or small-team release",
+      "lines": [
+        "Play time 1–3 hours",
+        "Planned release on Steam / mobile",
+        "1–3 months"
+      ]
+    },
+    {
+      "id": "l",
+      "name": "Large",
+      "tag": "Commercial scale",
+      "lines": [
+        "Play time 5+ hours",
+        "Made by a team of several people",
+        "3+ months"
+      ]
+    }
+  ],
+  "sources": [
+    "X (Twitter)",
+    "Steam",
+    "Coconala",
+    "Referral from a friend or acquaintance",
+    "School / DreamCraft",
+    "Event (TGS, etc.)",
+    "YouTube",
+    "Search engine",
+    "Other"
+  ],
+  "sendNote": "Pressing send opens a Google Form (in Japanese) with your answers already filled in — just press the 送信 (Submit) button at the bottom. If it doesn't open, use “Copy details” and email it to {mail}.",
+  "bar": {
+    "caption": "Estimate (JPY, tax incl.)",
+    "empty": "…pick something.",
+    "button": "Continue to inquiry",
+    "mutters": [
+      {
+        "under": 20000,
+        "text": "…affordable."
+      },
+      {
+        "under": 100000,
+        "text": "…yeah, about what I'd expect."
+      },
+      {
+        "under": 400000,
+        "text": "…you're serious."
+      },
+      {
+        "under": 0,
+        "text": "…smells like a big one."
+      }
+    ]
+  },
+  "works": {
+    "title": "Portfolio",
+    "lead": "Titles we've taken all the way to release or release prep.",
+    "items": [
+      {
+        "title": "Scrappy Guild",
+        "meta": "Steam / Releasing March 15, 2027 · Online co-op, 2–4 players",
+        "desc": "A co-op deckbuilding roguelike where the whole party shares one pool of energy, so strategy meetings decide who wins. Handled planning, programming, online implementation, and the store page.",
+        "images": [
+          "/img/guild_header.webp"
+        ],
+        "style": "wide",
+        "links": [
+          {
+            "label": "Steam store page",
+            "url": "https://store.steampowered.com/app/4842440/Scrappy_Guild/"
+          }
+        ]
+      },
+      {
+        "title": "MakeFALL",
+        "meta": "iOS / Android · Released",
+        "desc": "A smartphone title. Handled everything from planning and development to store submission, release, and ad integration.",
+        "images": [
+          "/img/makefall_1.webp",
+          "/img/makefall_2.webp",
+          "/img/makefall_3.webp"
+        ],
+        "style": "phone",
+        "links": [
+          {
+            "label": "Official site",
+            "url": "https://sites.google.com/view/makefallsite/"
+          },
+          {
+            "label": "App Store",
+            "url": "https://apps.apple.com/jp/app/makefall/id6760619572"
+          },
+          {
+            "label": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=com.DefaultCompany.kzunokosi"
+          }
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "title": "Terms",
+    "lead": "A few things we'd like you to know up front.",
+    "items": [
+      {
+        "k": "Engine",
+        "v": "Unity only",
+        "tone": "normal"
+      },
+      {
+        "k": "Copyright",
+        "v": "Transferred to you / Commercial use OK",
+        "tone": "good"
+      },
+      {
+        "k": "Revisions",
+        "v": "Free, as many as you need",
+        "tone": "good"
+      },
+      {
+        "k": "Portfolio use",
+        "v": "OK (we can talk about keeping it private)",
+        "tone": "normal"
+      },
+      {
+        "k": "Availability",
+        "v": "25–35 hours per week",
+        "tone": "normal"
+      },
+      {
+        "k": "What we don't do",
+        "v": "Scenario writing / Adult content / Visual novels / Original illustration / Sound production / Monthly maintenance contracts",
+        "tone": "bad"
+      }
+    ],
+    "notes": [
+      {
+        "title": "About prices",
+        "body": "Prices shown are *rough estimates only*. We'll send a formal quote after hearing the details. All prices are in Japanese yen (JPY), tax included."
+      },
+      {
+        "title": "About generative AI",
+        "body": "We use generative AI for programming and 3D models to keep costs and turnaround down. For 3D models, *if you release on Steam, they must be disclosed as AI-generated content on your store page*. Please keep this in mind when ordering."
+      }
+    ]
+  },
+  "footer": "G3 -GenGorouGames- / Sasaki",
+  "mail": "gengorougames@gmail.com",
+  "form": {
+    "baseUrl": "https://docs.google.com/forms/d/e/1FAIpQLScIfFbDhM75f04zwuBBbw3KpbVSJtE4-QmT48UyfXC1ISZ8sA/viewform?usp=pp_url",
+    "entries": {
+      "name": "entry.750009393",
+      "email": "entry.772076747",
+      "contact": "entry.762788405",
+      "scale": "entry.1428991655",
+      "items": "entry.727097395",
+      "total": "entry.74222380",
+      "deadline": "entry.1358860953",
+      "budget": "entry.1148990644",
+      "source": "entry.48801565",
+      "detail": "entry.1593048339"
+    }
+  }
+}

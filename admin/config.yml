@@ -877,34 +877,46 @@ collections:
       summary: '{{fields.d}}　{{fields.t}}'
 - name: estimate
   label: 見積りページ
+  i18n:
+    locales:
+    - ja
+    - en
   files:
   - name: page
     label: 見積りページの文章・条件・実績
-    file: content/estimate-page.json
+    file: content/estimate-page.{{locale}}.json
+    i18n:
+      omit_default_locale_from_file_path: true
     fields:
     - name: hero
       label: 一番上
       widget: object
+      i18n: duplicate
       fields:
       - name: title
         label: 見出し
         widget: text
+        i18n: true
         hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
       - name: lead
         label: 説明文
         widget: text
+        i18n: true
         required: false
       - name: badges
         label: チェック付きの短い文
         widget: list
+        i18n: true
         field:
           name: v
           label: 文
           widget: string
+          i18n: true
         required: false
       - name: gen
         label: げんちゃん
         widget: object
+        i18n: duplicate
         fields:
         - name: pose
           label: ポーズ
@@ -928,23 +940,28 @@ collections:
         - name: say
           label: セリフ
           widget: string
+          i18n: true
           required: false
     - name: steps
       label: STEP 1〜3 の見出し（3つのまま使う）
       widget: list
+      i18n: duplicate
       fields:
       - name: title
         label: 見出し
         widget: text
+        i18n: true
       - name: lead
         label: 説明
         widget: text
+        i18n: true
         required: false
       label_singular: STEP
       summary: '{{fields.title}}'
     - name: scales
       label: ゲームの規模（小・中・大。3つのまま使う）
       widget: list
+      i18n: duplicate
       fields:
       - name: id
         label: 種類（変えない）
@@ -959,45 +976,57 @@ collections:
       - name: name
         label: 表示名
         widget: string
+        i18n: true
       - name: tag
         label: ひとこと
         widget: string
+        i18n: true
       - name: lines
         label: 目安
         widget: list
+        i18n: true
         field:
           name: v
           label: 目安
           widget: string
+          i18n: true
       label_singular: 規模
       summary: '{{fields.name}}：{{fields.tag}}'
     - name: sources
       label: 「どこで知りましたか」の選択肢
       widget: list
+      i18n: true
       field:
         name: v
         label: 選択肢
         widget: string
+        i18n: true
     - name: sendNote
       label: 送信ボタンの下の注意書き
       widget: text
+      i18n: true
       hint: 「{mail}」と書いた所に、メールアドレスのリンクが入ります
     - name: bar
       label: 下の金額バー
       widget: object
+      i18n: duplicate
       fields:
       - name: caption
         label: 小さい見出し
         widget: string
+        i18n: true
       - name: empty
         label: 何も選んでいないときのつぶやき
         widget: string
+        i18n: true
       - name: button
         label: ボタンの文字
         widget: string
+        i18n: true
       - name: mutters
         label: 金額ごとのげんちゃんのつぶやき
         widget: list
+        i18n: duplicate
         fields:
         - name: under
           label: この金額未満（円）。0 = それ以上すべて
@@ -1006,34 +1035,42 @@ collections:
         - name: text
           label: つぶやき
           widget: string
+          i18n: true
         label_singular: つぶやき
         summary: 〜{{fields.under}}円：{{fields.text}}
         hint: 上から順に「この金額未満なら」で判定。最後は 0（それ以上）にする
     - name: works
       label: 制作実績
       widget: object
+      i18n: duplicate
       fields:
       - name: title
         label: 見出し
         widget: string
+        i18n: true
       - name: lead
         label: 説明
         widget: text
+        i18n: true
         required: false
       - name: items
         label: 実績
         widget: list
+        i18n: duplicate
         fields:
         - name: title
           label: 作品名
           widget: string
+          i18n: true
         - name: meta
           label: 小さい説明
           widget: string
+          i18n: true
           required: false
         - name: desc
           label: 説明文
           widget: text
+          i18n: true
           hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: images
           label: 画像
@@ -1054,10 +1091,12 @@ collections:
         - name: links
           label: リンク
           widget: list
+          i18n: duplicate
           fields:
           - name: label
             label: 文字
             widget: string
+            i18n: true
           - name: url
             label: URL
             widget: string
@@ -1068,24 +1107,30 @@ collections:
     - name: terms
       label: お受けする条件
       widget: object
+      i18n: duplicate
       fields:
       - name: title
         label: 見出し
         widget: string
+        i18n: true
       - name: lead
         label: 説明
         widget: text
+        i18n: true
         required: false
       - name: items
         label: 条件
         widget: list
+        i18n: duplicate
         fields:
         - name: k
           label: 項目
           widget: string
+          i18n: true
         - name: v
           label: 内容
           widget: text
+          i18n: true
         - name: tone
           label: 色
           widget: select
@@ -1102,25 +1147,31 @@ collections:
       - name: notes
         label: 注意書き
         widget: list
+        i18n: duplicate
         fields:
         - name: title
           label: 見出し
           widget: string
+          i18n: true
         - name: body
           label: 本文
           widget: text
+          i18n: true
           hint: 「*ここ*」で囲むと太字
         label_singular: 注意書き
         summary: '{{fields.title}}'
     - name: footer
       label: 一番下の文字
       widget: string
+      i18n: true
     - name: mail
       label: 連絡先メールアドレス
       widget: string
+      i18n: duplicate
     - name: form
       label: Googleフォームの連携（わからなければ触らない）
       widget: object
+      i18n: duplicate
       fields:
       - name: baseUrl
         label: フォームのURL（?usp=pp_url まで）
@@ -1164,11 +1215,14 @@ collections:
       collapsed: true
   - name: items
     label: 依頼項目と料金
-    file: content/estimate.json
+    file: content/estimate.{{locale}}.json
+    i18n:
+      omit_default_locale_from_file_path: true
     fields:
     - name: items
       label: 依頼項目（この順番で並びます）
       widget: list
+      i18n: duplicate
       fields:
       - name: id
         label: ID
@@ -1177,6 +1231,7 @@ collections:
       - name: name
         label: 項目名
         widget: string
+        i18n: true
       - name: scaled
         label: ゲームの規模（小・中・大）で金額が変わる
         widget: boolean
@@ -1205,25 +1260,30 @@ collections:
       - name: unit
         label: 規模ごとの単位・内容（任意）
         widget: object
+        i18n: duplicate
         fields:
         - name: s
           label: 小
           widget: string
+          i18n: true
           required: false
           hint: 例：小物1点
         - name: m
           label: 中
           widget: string
+          i18n: true
           required: false
         - name: l
           label: 大
           widget: string
+          i18n: true
           required: false
         required: false
         collapsed: true
       - name: plans
         label: プラン（規模で変わらない項目）
         widget: list
+        i18n: duplicate
         fields:
         - name: k
           label: 並び
@@ -1238,6 +1298,7 @@ collections:
         - name: label
           label: プラン名
           widget: string
+          i18n: true
           hint: 例：1時間
         - name: price
           label: 金額（円）
@@ -1249,14 +1310,17 @@ collections:
       - name: can
         label: できること
         widget: text
+        i18n: true
         required: false
       - name: ng
         label: できないこと
         widget: text
+        i18n: true
         required: false
       - name: at
         label: ご注意
         widget: text
+        i18n: true
         required: false
       label_singular: 依頼項目
       summary: '{{fields.name}}'

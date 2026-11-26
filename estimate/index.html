@@ -48,6 +48,21 @@ h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance}
 .brand i{font-style:normal;font-family:var(--f-dot);font-size:.75rem;color:var(--ink-2)}
 .top a.back{font-size:13px;font-weight:700;color:var(--ink-2);text-decoration:none}
 .top a.back:hover{color:var(--pink-ink)}
+.hdr-r{display:flex;align-items:center;gap:16px}
+
+/* 言語切り替え（トップページと同じ見た目）。見積りページは日本語・英語 */
+.lang{position:relative;flex:none}
+.lang-btn{font:inherit;font-family:var(--f-dot);font-size:.8rem;letter-spacing:.06em;line-height:1;display:flex;align-items:center;gap:6px;padding:6px 10px 6px 8px;border:2px solid var(--ink);border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer;transition:background .2s}
+.lang-btn:hover{background:var(--pink)}
+.lang-btn svg{width:16px;height:16px;flex:none}
+.lang-btn .car{width:9px;height:9px;transition:transform .2s}
+.lang-btn[aria-expanded="true"] .car{transform:rotate(180deg)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:60;margin:0;padding:6px;list-style:none;min-width:150px;background:var(--card);border:2px solid var(--ink);border-radius:14px;box-shadow:0 6px 0 rgba(38,43,94,.12)}
+.lang-menu a{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 12px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.92rem;line-height:1.3;color:var(--ink)}
+.lang-menu a small{font-family:"DotGothic16",monospace;font-weight:400;font-size:.72rem;color:var(--ink-2)}
+.lang-menu a:hover{background:var(--paper)}
+.lang-menu a[aria-current="true"]{background:var(--pink)}
+.lang-menu a[aria-current="true"] small{color:var(--ink)}
 
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:20px;align-items:end;padding-block:28px 8px}
@@ -181,7 +196,17 @@ footer a{color:var(--ink)}
 <header class="top">
   <div class="wrap">
     <a class="brand" href="/">G3<i>GenGorouGames</i></a>
-    <a class="back" href="/">← ホームページに戻る</a>
+    <div class="hdr-r">
+      <a class="back" href="/" data-t="back">← ホームページに戻る</a>
+      <div class="lang" id="lang">
+        <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" aria-label="言語 / Language">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z"/></svg>
+          <span id="langCur">JA</span>
+          <svg class="car" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><path d="M0 2.5h10L5 8.5z"/></svg>
+        </button>
+        <ul class="lang-menu" id="langMenu" hidden></ul>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -223,29 +248,29 @@ footer a{color:var(--ink)}
 
     <div class="grid2">
       <div class="f">
-        <label for="f-name">お名前 / 会社名・チーム名<span class="req">必須</span></label>
-        <input id="f-name" type="text" placeholder="例：佐々木 / 〇〇スタジオ" autocomplete="name">
+        <label for="f-name" data-t="nameL">お名前 / 会社名・チーム名<span class="req">必須</span></label>
+        <input id="f-name" type="text" placeholder="例：佐々木 / 〇〇スタジオ" data-tp="namePh" autocomplete="name">
       </div>
       <div class="f">
-        <label for="f-mail">メールアドレス<span class="req">必須</span></label>
-        <input id="f-mail" type="email" placeholder="例：you@example.com" autocomplete="email">
+        <label for="f-mail" data-t="mailL">メールアドレス<span class="req">必須</span></label>
+        <input id="f-mail" type="email" placeholder="例：you@example.com" data-tp="mailPh" autocomplete="email">
       </div>
       <div class="f">
-        <label for="f-contact">その他の連絡手段</label>
-        <input id="f-contact" type="text" placeholder="例：X @xxxx / Discord xxxx">
-        <span class="hint">メールより連絡が取りやすい場合はこちらへ</span>
+        <label for="f-contact" data-t="contactL">その他の連絡手段</label>
+        <input id="f-contact" type="text" placeholder="例：X @xxxx / Discord xxxx" data-tp="contactPh">
+        <span class="hint" data-t="contactH">メールより連絡が取りやすい場合はこちらへ</span>
       </div>
       <div class="f">
-        <label for="f-deadline">希望納期</label>
-        <input id="f-deadline" type="text" placeholder="例：2026年12月末 / 急ぎではない">
+        <label for="f-deadline" data-t="deadlineL">希望納期</label>
+        <input id="f-deadline" type="text" placeholder="例：2026年12月末 / 急ぎではない" data-tp="deadlinePh">
       </div>
       <div class="f">
-        <label for="f-budget">ご予算</label>
-        <input id="f-budget" type="text" placeholder="例：10万円くらい / 未定">
-        <span class="hint">概算と合わなくても大丈夫です。調整できる場合があります</span>
+        <label for="f-budget" data-t="budgetL">ご予算</label>
+        <input id="f-budget" type="text" placeholder="例：10万円くらい / 未定" data-tp="budgetPh">
+        <span class="hint" data-t="budgetH">概算と合わなくても大丈夫です。調整できる場合があります</span>
       </div>
       <div class="f">
-        <label for="f-source">どこで知りましたか<span class="req">必須</span></label>
+        <label for="f-source" data-t="sourceL">どこで知りましたか<span class="req">必須</span></label>
         <select id="f-source">
           <option value="">選んでください</option>
           <option>X（旧Twitter）</option>
@@ -260,22 +285,22 @@ footer a{color:var(--ink)}
         </select>
       </div>
       <div class="f full">
-        <label for="f-detail">ご依頼の詳細<span class="req">必須</span></label>
-        <textarea id="f-detail" placeholder="例：Unityで作っている2Dアクションのボス戦を実装したいです。プレイヤー側はできていて、ボスのAIと攻撃パターンが未実装です。3体分お願いしたいです。&#10;&#10;・使用エンジン / バージョン：&#10;・現在の進捗：&#10;・お願いしたいこと："></textarea>
-        <span class="hint">仕様書がなくても大丈夫です。やりたいことの概要だけでも構いません。</span>
+        <label for="f-detail" data-t="detailL">ご依頼の詳細<span class="req">必須</span></label>
+        <textarea id="f-detail" data-tp="detailPh" placeholder="例：Unityで作っている2Dアクションのボス戦を実装したいです。プレイヤー側はできていて、ボスのAIと攻撃パターンが未実装です。3体分お願いしたいです。&#10;&#10;・使用エンジン / バージョン：&#10;・現在の進捗：&#10;・お願いしたいこと："></textarea>
+        <span class="hint" data-t="detailH">仕様書がなくても大丈夫です。やりたいことの概要だけでも構いません。</span>
       </div>
     </div>
 
     <div class="err" id="err"></div>
 
     <div class="preview">
-      <h3>送信される内容</h3>
+      <h3 data-t="previewH">送信される内容</h3>
       <pre id="preview"></pre>
     </div>
 
     <div class="actions">
-      <button class="btn primary" id="send">この内容で相談する</button>
-      <button class="btn ghost" id="copy">内容をコピー</button>
+      <button class="btn primary" id="send" data-t="send">この内容で相談する</button>
+      <button class="btn ghost" id="copy" data-t="copy">内容をコピー</button>
     </div>
     <p class="sublead" id="pSendNote" style="padding-left:0;margin-top:14px">
       送信すると入力内容が入った状態のフォームが開きます。うまく開かない場合は「内容をコピー」して
@@ -350,7 +375,7 @@ footer a{color:var(--ink)}
 <footer>
   <div class="wrap">
     <span id="pFoot">G3 -GenGorouGames- / 佐々木</span>
-    <span><a href="mailto:gengorougames@gmail.com">gengorougames@gmail.com</a> ・ <a href="/">ホームページ</a></span>
+    <span><a href="mailto:gengorougames@gmail.com">gengorougames@gmail.com</a> ・ <a href="/" data-t="home">ホームページ</a></span>
   </div>
 </footer>
 
@@ -371,13 +396,106 @@ footer a{color:var(--ink)}
 <textarea class="sr" id="clip" aria-hidden="true" tabindex="-1"></textarea>
 
 <script>
+/* =====================================================================
+   言語。見積りページは日本語(ja)と英語(en)。英語の文章は content/〇〇.en.json（管理画面で編集）。
+   トップで中国語・韓国語を選んでいる人には英語を出す。
+   ===================================================================== */
+var EST_LANGS=[{code:"ja",label:"日本語",short:"JA"},{code:"en",label:"English",short:"EN"}];
+var EST_PREF="ja"; /* トップページで使う言語（中国語・韓国語もあり得る） */
+var EST_LANG=(function(){
+  var ALL=["ja","en","zh","ko"], ok=function(c){return ALL.indexOf(c)>=0;}, fit=function(c){EST_PREF=c; return c==="ja"?"ja":"en";};
+  var q=new URLSearchParams(location.search).get("lang");
+  if(ok(q)){ try{localStorage.setItem("g3-lang",q)}catch(e){} return fit(q); }
+  try{ var s=localStorage.getItem("g3-lang"); if(ok(s)) return fit(s); }catch(e){}
+  if(/bot|crawl|spider|slurp|lighthouse/i.test(navigator.userAgent)) return "ja";
+  var ns=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||"ja"];
+  for(var i=0;i<ns.length;i++){ var p=String(ns[i]).toLowerCase().split("-")[0]; if(ok(p)) return fit(p); }
+  return fit("en");
+})();
+/* 画面の決まった文言（管理画面に出さないもの） */
+var EST_UI={
+  ja:{gen:"げんちゃん",pick:"選んでください",can:"できること",ng:"できないこと",at:"ご注意",planLbl:"プランを選んでください（ゲームの規模とは別です）",select:"{n}を選択",
+      copied:"コピーしました",copy:"内容をコピー",copyFail:"コピーできませんでした",missing:"次の項目が未入力です：",
+      need:{items:"依頼したい項目",name:"お名前",mail:"メールアドレス",source:"どこで知ったか",detail:"ご依頼の詳細"}},
+  en:{back:"← Back to home",nameL:"Name / Company or team",namePh:"e.g. Alex Kim / Studio Example",mailL:"Email",mailPh:"e.g. you@example.com",
+      contactL:"Other ways to reach you",contactPh:"e.g. X @xxxx / Discord xxxx",contactH:"If that's easier than email",
+      deadlineL:"Preferred deadline",deadlinePh:"e.g. end of December 2026 / no rush",
+      budgetL:"Budget",budgetPh:"e.g. around ¥100,000 / undecided",budgetH:"It's fine if it doesn't match the estimate. We may be able to adjust.",
+      sourceL:"How did you hear about us?",detailL:"Project details",
+      detailPh:"e.g. I'm making a 2D action game in Unity and need boss fights. The player side is done; boss AI and attack patterns aren't. I'd like 3 bosses.\n\n- Engine / version:\n- Current progress:\n- What you'd like us to do:",
+      detailH:"No spec document needed. A rough outline of what you want is enough.",
+      previewH:"What will be sent",send:"Send this inquiry",copy:"Copy details",home:"Home",req:"Required",
+      gen:"Genchan",pick:"Select one",can:"What's included",ng:"Not included",at:"Note",planLbl:"Choose a plan (separate from game size)",select:"Select {n}",
+      copied:"Copied",copyFail:"Couldn't copy",missing:"Please fill in: ",
+      need:{items:"Items",name:"Name",mail:"Email",source:"How you heard about us",detail:"Project details"},
+      title:"Quick Estimate | G3 -GenGorouGames-",
+      desc:"Game development help in Unity. Pick what you need and your project size to get a rough price right away."}
+};
+document.documentElement.lang=EST_LANG;
+if(EST_LANG!=="ja"){ document.title=EST_UI[EST_LANG].title; document.querySelector('meta[name="description"]').content=EST_UI[EST_LANG].desc; }
+
+/* 翻訳を日本語版に重ねる。翻訳するのは下の項目だけで、金額・ID・画像・フォーム設定は常に日本語版を使う */
+var EST_TR=["hero.title","hero.lead","hero.badges","hero.gen.say","steps.*.title","steps.*.lead","scales.*.name","scales.*.tag","scales.*.lines",
+  "sources","sendNote","bar.caption","bar.empty","bar.button","bar.mutters.*.text","works.title","works.lead","works.items.*.title","works.items.*.meta",
+  "works.items.*.desc","works.items.*.links.*.label","terms.title","terms.lead","terms.items.*.k","terms.items.*.v","terms.notes.*.title","terms.notes.*.body","footer",
+  "items.*.name","items.*.unit.s","items.*.unit.m","items.*.unit.l","items.*.plans.*.label","items.*.can","items.*.ng","items.*.at"];
+function estOverlay(base,loc,path){
+  path=path||"";
+  var isObj=function(x){return x&&typeof x==="object"&&!Array.isArray(x);};
+  if(EST_TR.indexOf(path)>=0){
+    if(Array.isArray(base)){ var v=Array.isArray(loc)?loc.filter(function(x){return typeof x==="string"&&x.trim();}):[]; return v.length?v:base; }
+    return (typeof loc==="string"&&loc.trim())?loc:base;
+  }
+  if(Array.isArray(base)){
+    if(!Array.isArray(loc)) return base;
+    return base.map(function(b,i){
+      var l=null;
+      if(isObj(b)&&b.id!=null&&b.id!==""){ for(var j=0;j<loc.length;j++) if(isObj(loc[j])&&loc[j].id===b.id){l=loc[j];break;} }
+      else l=loc[i];
+      return estOverlay(b,l,(path?path+".":"")+"*");
+    });
+  }
+  if(!isObj(base)||!isObj(loc)) return base;
+  var o={}; for(var k in base) o[k]=estOverlay(base[k],loc[k],(path?path+".":"")+k);
+  return o;
+}
+
+/* ヘッダーの言語メニュー */
+(function(){
+  var btn=document.getElementById("langBtn"), menu=document.getElementById("langMenu");
+  var cur=EST_LANGS.filter(function(l){return l.code===EST_LANG;})[0];
+  document.getElementById("langCur").textContent=cur.short;
+  menu.innerHTML=EST_LANGS.map(function(l){return '<li><a href="?lang='+l.code+'" hreflang="'+l.code+'" lang="'+l.code+'" data-lang="'+l.code+'"'+(l.code===EST_LANG?' aria-current="true"':'')+'>'+l.label+'<small>'+l.code.toUpperCase()+'</small></a></li>';}).join("");
+  var open=function(v){menu.hidden=!v; btn.setAttribute("aria-expanded",v);};
+  btn.addEventListener("click",function(e){e.stopPropagation(); open(menu.hidden); if(!menu.hidden) menu.querySelector("a").focus();});
+  menu.addEventListener("click",function(e){var a=e.target.closest("a[data-lang]"); if(a){try{localStorage.setItem("g3-lang",a.dataset.lang)}catch(_){}}});
+  document.addEventListener("click",function(e){if(!e.target.closest("#lang")) open(false);});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!menu.hidden){open(false);btn.focus();}});
+  /* トップへ戻るリンクにも言語を引き継ぐ */
+  if(EST_PREF!=="ja") Array.prototype.forEach.call(document.querySelectorAll('a[href="/"]'),function(a){a.href="/?lang="+EST_PREF;});
+})();
+
+/* 画面の決まった文言を差し替え */
+if(EST_LANG!=="ja"){
+  var U0=EST_UI[EST_LANG];
+  Array.prototype.forEach.call(document.querySelectorAll("[data-t]"),function(el){
+    var v=U0[el.dataset.t]; if(v==null) return; var req=el.querySelector(".req");
+    el.textContent=v; if(req){ req.textContent=U0.req; el.appendChild(req); }
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-tp]"),function(el){ var v=U0[el.dataset.tp]; if(v!=null) el.placeholder=v; });
+}
+
 /* content/*.json（管理画面で編集する中身）を読み込んでから、下のスクリプトを動かす */
 (function(){
-  var srcs = [["/content/estimate.json","__ITEMS"],["/content/estimate-page.json","__EPAGE"]], done = 0;
-  function run(){ var m=document.getElementById("est-main"); var s=document.createElement("script"); s.textContent=m.textContent; m.parentNode.insertBefore(s,m.nextSibling); }
-  srcs.forEach(function(x){
-    fetch(x[0],{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){ if(!j) return; if(x[1]==="__EPAGE") window.__EPAGE=j; else if(j.items&&j.items.length) window[x[1]]=j.items; })
-    .catch(function(){}).then(function(){ if(++done===srcs.length) run(); });
+  var get=function(u){ return fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}); };
+  var en=EST_LANG!=="ja";
+  Promise.all([get("/content/estimate.json"),get("/content/estimate-page.json"),
+    en?get("/content/estimate."+EST_LANG+".json"):null, en?get("/content/estimate-page."+EST_LANG+".json"):null])
+  .then(function(r){
+    var items=r[0], page=r[1];
+    if(page){ window.__EPAGE_JA=page; window.__EPAGE=en?estOverlay(page,r[3]):page; }
+    if(items&&items.items&&items.items.length){ window.__ITEMS_JA=items.items; window.__ITEMS=en?estOverlay(items,r[2]).items:items.items; }
+    var m=document.getElementById("est-main"); var s=document.createElement("script"); s.textContent=m.textContent; m.parentNode.insertBefore(s,m.nextSibling);
   });
 })();
 </script>
@@ -405,6 +523,12 @@ var FORM_CONFIG = {
 var MAIL_TO = "gengorougames@gmail.com";
 
 
+/* ========================= 言語 ========================= */
+var LANG = window.EST_LANG || "ja", EN = LANG !== "ja";
+var U = EST_UI[LANG] || EST_UI.ja;
+for(var _k in EST_UI.ja) if(U[_k]==null) U[_k]=EST_UI.ja[_k];
+var PG_JA = window.__EPAGE_JA || null;   /* フォームには日本語の値を送る（フォーム側の選択肢と合わせるため） */
+
 /* ========================= ページの文言（content/estimate-page.json） ========================= */
 var PG = window.__EPAGE || null;
 var esc = function(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); };
@@ -416,11 +540,11 @@ if(PG){
   if(H.title) setH("pHeroTitle", inl(H.title));
   if(H.lead) setH("pHeroLead", inl(H.lead));
   if(H.badges) setH("pBadges", H.badges.map(function(b){return '<span class="badge">'+esc(b)+'</span>';}).join(""));
-  if(H.gen){ var gp=POSES[H.gen.pose]; setH("pHeroGen", gp ? (H.gen.say?'<div class="say r">'+inl(H.gen.say)+'</div>':'')+'<img src="'+gp+'" alt="げんちゃん">' : ""); document.getElementById("pHeroGen").hidden=!gp; }
+  if(H.gen){ var gp=POSES[H.gen.pose]; setH("pHeroGen", gp ? (H.gen.say?'<div class="say r">'+inl(H.gen.say)+'</div>':'')+'<img src="'+gp+'" alt="'+esc(U.gen)+'">' : ""); document.getElementById("pHeroGen").hidden=!gp; }
   (PG.steps||[]).forEach(function(s,i){ if(s.title) setH("pS"+(i+1)+"t", inl(s.title)); if(s.lead!=null) setH("pS"+(i+1)+"l", inl(s.lead)); });
   if(PG.mail) MAIL_TO = PG.mail;
   if(PG.sendNote) setH("pSendNote", inl(PG.sendNote).replace("{mail}",'<a href="mailto:'+esc(MAIL_TO)+'">'+esc(MAIL_TO)+'</a>'));
-  if(PG.sources && PG.sources.length) setH("f-source", '<option value="">選んでください</option>'+PG.sources.map(function(s){return '<option>'+esc(s)+'</option>';}).join(""));
+  if(PG.sources && PG.sources.length) setH("f-source", '<option value="">'+esc(U.pick)+'</option>'+PG.sources.map(function(s){return '<option>'+esc(s)+'</option>';}).join(""));
   var W=PG.works||{};
   if(W.title) setH("pWt", inl(W.title)); if(W.lead!=null) setH("pWl", inl(W.lead));
   if(W.items) setH("pWorks", W.items.map(function(w){
@@ -544,6 +668,29 @@ var state = { scale:"m", picked:{}, plans:{} };
 ITEMS.forEach(function(it){ if(!it.scaled) state.plans[it.id] = "s"; });
 
 var yen = function(n){ return n.toLocaleString("ja-JP"); };
+/* 金額の表示。日本語「15,000円〜」／英語「¥15,000+」 */
+var money = function(n, from){ return EN ? "¥"+yen(n)+(from?"+":"") : yen(n)+"円"+(from?"〜":""); };
+var moneyH = function(n, bar){ return EN ? "¥"+yen(n)+(bar?"<small>+</small>":"<small>and up</small>") : yen(n)+(bar?" ":"")+"<small>円〜</small>"; };
+var paren = function(u){ return u ? (EN ? " ("+u+")" : "（"+u+"）") : ""; };
+/* 日本語版の項目（フォーム送信用） */
+var ITEMS_JA = window.__ITEMS_JA || ITEMS;
+function jaItem(it){ for(var i=0;i<ITEMS_JA.length;i++) if(ITEMS_JA[i].id===it.id) return ITEMS_JA[i]; return it; }
+function unitJa(it){
+  var j = jaItem(it);
+  if(it.scaled) return j.unit ? j.unit[state.scale] : "";
+  var k = state.plans[it.id], ps = j.plans || [];
+  for(var i=0;i<ps.length;i++) if(ps[i].k===k) return ps[i].label;
+  return "";
+}
+function scaleJa(){
+  var ss = (PG_JA && PG_JA.scales) || [];
+  for(var i=0;i<ss.length;i++) if(ss[i].id===state.scale) return ss[i];
+  return scaleObj();
+}
+function sourceJa(){
+  var sel = $("f-source"), i = sel.selectedIndex - 1, js = (PG_JA && PG_JA.sources) || [];
+  return (i >= 0 && js[i]) ? js[i] : sel.value;
+}
 var $ = function(id){ return document.getElementById(id); };
 
 function priceOf(it){
@@ -589,8 +736,8 @@ function scaleObj(){ for(var i=0;i<SCALES.length;i++) if(SCALES[i].id===state.sc
     var head = document.createElement("label");
     head.className = "itemhead";
     head.innerHTML =
-      '<input type="checkbox" aria-label="'+it.name+'を選択">'+
-      '<div class="itmain"><div class="itname">'+it.name+'</div>'+
+      '<input type="checkbox" aria-label="'+esc(U.select.replace("{n}",it.name))+'">'+
+      '<div class="itmain"><div class="itname">'+esc(it.name)+'</div>'+
         '<div class="itunit" data-unit></div></div>'+
       '<div class="itprice" data-price></div>';
     head.querySelector("input").addEventListener("change", function(e){
@@ -603,21 +750,21 @@ function scaleObj(){ for(var i=0;i<SCALES.length;i++) if(SCALES[i].id===state.sc
     var body = document.createElement("div");
     body.className = "itbody"; body.hidden = true;
     var dl = '<dl>';
-    if(it.can) dl += '<dt>できること</dt><dd>'+it.can+'</dd>';
-    if(it.ng)  dl += '<dt class="ng">できないこと</dt><dd>'+it.ng+'</dd>';
-    if(it.at)  dl += '<dt class="at">ご注意</dt><dd>'+it.at+'</dd>';
+    if(it.can) dl += '<dt>'+esc(U.can)+'</dt><dd>'+esc(it.can)+'</dd>';
+    if(it.ng)  dl += '<dt class="ng">'+esc(U.ng)+'</dt><dd>'+esc(it.ng)+'</dd>';
+    if(it.at)  dl += '<dt class="at">'+esc(U.at)+'</dt><dd>'+esc(it.at)+'</dd>';
     dl += '</dl>';
     body.innerHTML = dl;
 
     if(!it.scaled){
       var pw = document.createElement("div");
       pw.className = "plans";
-      pw.innerHTML = '<span class="lbl">プランを選んでください（ゲームの規模とは別です）</span>';
+      pw.innerHTML = '<span class="lbl">'+esc(U.planLbl)+'</span>';
       it.plans.forEach(function(p){
         var pb = document.createElement("button");
         pb.type="button"; pb.className="plan";
         pb.setAttribute("aria-pressed", p.k===state.plans[it.id]);
-        pb.textContent = p.label+"　"+yen(p.price)+"円";
+        pb.textContent = p.label+"　"+money(p.price);
         pb.addEventListener("click", function(){
           state.plans[it.id] = p.k;
           Array.prototype.forEach.call(pw.querySelectorAll(".plan"), function(x,i){
@@ -640,11 +787,10 @@ function refreshItems(){
   ITEMS.forEach(function(it){
     var card = document.querySelector('.item[data-id="'+it.id+'"]');
     if(!card) return;
-    card.querySelector("[data-price]").innerHTML =
-      yen(priceOf(it))+"<small>円〜</small>";
+    card.querySelector("[data-price]").innerHTML = moneyH(priceOf(it));
     var u = unitOf(it);
     var ue = card.querySelector("[data-unit]");
-    ue.textContent = u ? "（"+u+"）" : "";
+    ue.textContent = u ? (EN ? "("+u+")" : "（"+u+"）") : "";
   });
 }
 
@@ -654,9 +800,10 @@ function selected(){ return ITEMS.filter(function(it){ return state.picked[it.id
 function update(){
   var sel = selected();
   var sum = sel.reduce(function(a,it){ return a + priceOf(it); }, 0);
-  $("total").innerHTML = sel.length ? yen(sum)+' <small>円〜</small>' : '— <small>円</small>';
+  $("total").innerHTML = sel.length ? moneyH(sum, true) : (EN ? '— <small>JPY</small>' : '— <small>円</small>');
   $("count").textContent = sel.length
-    ? "規模" + scaleObj().name + "・" + sel.length + "項目　" + mutter(sum)
+    ? (EN ? "Size: " + scaleObj().name + " · " + sel.length + (sel.length>1?" items":" item") + "  "
+          : "規模" + scaleObj().name + "・" + sel.length + "項目　") + mutter(sum)
     : ((PG&&PG.bar&&PG.bar.empty)||"…項目、選んで。");
   $("preview").textContent = summary();
 }
@@ -671,6 +818,7 @@ function mutter(sum){
 }
 
 function summary(){
+  if(EN) return summaryEn();
   var sel = selected();
   var L = [];
   L.push("【お見積り内容】");
@@ -699,6 +847,32 @@ function summary(){
   return L.join("\n");
 }
 
+/* 英語ページの「送信される内容」「コピー」用 */
+function summaryEn(){
+  var sel = selected(), sc = scaleObj(), L = [], v = function(id){ return $(id).value || "(blank)"; };
+  L.push("[Estimate]");
+  L.push("Game size: " + sc.name + " (" + sc.tag + ")");
+  if(sel.length){
+    L.push("Items:");
+    sel.forEach(function(it){ L.push("  - " + it.name + paren(unitOf(it)) + " ... " + money(priceOf(it))); });
+    L.push("Estimated total: " + money(sel.reduce(function(a,it){return a+priceOf(it);},0), true) + " (JPY, tax incl.)");
+  } else {
+    L.push("Items: (none selected)");
+  }
+  L.push("");
+  L.push("[Contact]");
+  L.push("Name: " + v("f-name"));
+  L.push("Email: " + v("f-mail"));
+  L.push("Other contact: " + v("f-contact"));
+  L.push("Preferred deadline: " + v("f-deadline"));
+  L.push("Budget: " + v("f-budget"));
+  L.push("How you heard about us: " + v("f-source"));
+  L.push("");
+  L.push("[Project details]");
+  L.push(v("f-detail"));
+  return L.join("\n");
+}
+
 ["f-name","f-mail","f-contact","f-deadline","f-budget","f-source","f-detail"].forEach(function(id){
   $(id).addEventListener("input", update);
   $(id).addEventListener("change", update);
@@ -707,14 +881,14 @@ function summary(){
 /* ========================= 送信 ========================= */
 function validate(){
   var miss = [];
-  if(!selected().length) miss.push("依頼したい項目");
-  if(!$("f-name").value.trim()) miss.push("お名前");
-  if(!$("f-mail").value.trim()) miss.push("メールアドレス");
-  if(!$("f-source").value) miss.push("どこで知ったか");
-  if(!$("f-detail").value.trim()) miss.push("ご依頼の詳細");
+  if(!selected().length) miss.push(U.need.items);
+  if(!$("f-name").value.trim()) miss.push(U.need.name);
+  if(!$("f-mail").value.trim()) miss.push(U.need.mail);
+  if(!$("f-source").value) miss.push(U.need.source);
+  if(!$("f-detail").value.trim()) miss.push(U.need.detail);
   var e = $("err");
   if(miss.length){
-    e.textContent = "次の項目が未入力です：" + miss.join(" / ");
+    e.textContent = U.missing + miss.join(" / ");
     e.classList.add("show");
     return false;
   }
@@ -730,16 +904,16 @@ function formUrl(){
     name:     $("f-name").value,
     email:    $("f-mail").value,
     contact:  $("f-contact").value,
-    scale:    scaleObj().name,
+    scale:    scaleJa().name,
     items:    sel.map(function(it){
-                var u = unitOf(it);
-                return "・" + it.name + (u ? "（"+u+"）" : "") + " … " + yen(priceOf(it)) + "円";
+                var u = unitJa(it);
+                return "・" + jaItem(it).name + (u ? "（"+u+"）" : "") + " … " + yen(priceOf(it)) + "円";
               }).join("\n"),
     total:    yen(sel.reduce(function(a,it){return a+priceOf(it);},0)) + "円",
     deadline: $("f-deadline").value,
     budget:   $("f-budget").value,
-    source:   $("f-source").value,
-    detail:   $("f-detail").value
+    source:   sourceJa(),
+    detail:   (EN ? "【英語ページからの依頼】\n" : "") + $("f-detail").value
   };
   var q = [];
   Object.keys(c.entries).forEach(function(k){
@@ -752,7 +926,8 @@ $("send").addEventListener("click", function(){
   if(!validate()){ $("err").scrollIntoView({behavior:"smooth", block:"center"}); return; }
   var url = formUrl();
   if(url){ window.open(url, "_blank", "noopener"); return; }
-  var sub = "【お見積り相談】" + ($("f-name").value || "お問い合わせ");
+  var sub = EN ? "[Estimate inquiry] " + ($("f-name").value || "Inquiry")
+               : "【お見積り相談】" + ($("f-name").value || "お問い合わせ");
   window.location.href = "mailto:" + MAIL_TO +
     "?subject=" + encodeURIComponent(sub) +
     "&body=" + encodeURIComponent(summary());
@@ -760,15 +935,15 @@ $("send").addEventListener("click", function(){
 
 $("copy").addEventListener("click", function(){
   var t = summary(), btn = $("copy"), ok = function(){
-    btn.textContent = "コピーしました";
-    setTimeout(function(){ btn.textContent = "内容をコピー"; }, 1800);
+    btn.textContent = U.copied;
+    setTimeout(function(){ btn.textContent = U.copy; }, 1800);
   };
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(t).then(ok).catch(fallback);
   } else { fallback(); }
   function fallback(){
     var ta = $("clip"); ta.value = t; ta.select();
-    try{ document.execCommand("copy"); ok(); }catch(e){ btn.textContent = "コピーできませんでした"; }
+    try{ document.execCommand("copy"); ok(); }catch(e){ btn.textContent = U.copyFail; }
   }
 });
 
