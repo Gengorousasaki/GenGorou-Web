@@ -1,0 +1,104 @@
+{
+  "blocks": [
+    {
+      "type": "tv",
+      "show": true,
+      "id": "top",
+      "title": "今天，玩点什么？",
+      "lead": "这里摆着G3（GenGorouGames）做的游戏。一个人玩也好，和朋友一起也好。",
+      "sleep": [
+        "…呼。",
+        "…好困。",
+        "再睡5分钟…"
+      ],
+      "wake": [
+        "…干嘛。",
+        "别吵醒我。",
+        "今天也在修bug。",
+        "别乱换台。",
+        "报价？…在下面。"
+      ],
+      "hint": "点击叫醒",
+      "interval": 6
+    },
+    {
+      "type": "games",
+      "show": true,
+      "id": "games",
+      "title": "作品",
+      "lead": "用Unity制作。每一款游戏里，Genchan都会在某个地方出现。",
+      "bg": "paper"
+    },
+    {
+      "type": "news",
+      "show": true,
+      "id": "news",
+      "title": "动态",
+      "lead": "参展与发布记录",
+      "bg": "paper",
+      "limit": 10,
+      "gen": {
+        "pose": "sign",
+        "say": "最近参展也太多了。",
+        "side": "right",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      }
+    },
+    {
+      "type": "work",
+      "show": true,
+      "id": "work",
+      "title": "做游戏，我们来帮忙",
+      "bg": "pink",
+      "gen": {
+        "pose": "wave",
+        "say": "报价免费。…真的。",
+        "side": "left",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      },
+      "body": "个人、企业、独立开发者均可委托。从策划、开发到Steam及手机平台上架，我们都有完整经验，任何阶段都可以来咨询。",
+      "services": [
+        "程序开发",
+        "策划·规格书",
+        "UI设计",
+        "策划咨询",
+        "3D模型",
+        "商店图片·横幅",
+        "宣传片制作",
+        "调试·试玩测试",
+        "从策划到上线全包",
+        "在线多人联机",
+        "Bug修复·优化",
+        "技术讲解",
+        "Steam发行代理"
+      ],
+      "conds": "专注Unity ／ 可转让著作权 ／ 可商用 ／ 免费修改",
+      "button": {
+        "label": "选择项目进行报价",
+        "href": "/estimate/"
+      }
+    },
+    {
+      "type": "about",
+      "show": true,
+      "id": "about",
+      "title": "",
+      "bg": "paper",
+      "gen": {
+        "pose": "none",
+        "say": "",
+        "side": "right",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      },
+      "body": "G3（GenGorouGames）是一支在东京做游戏的小团队。\n我们想做出那种大家聚在朋友家、围着一台机器一起玩的感觉。\n\n吉祥物Genchan大多时候都很困，大多时候都在抱怨些什么。",
+      "big": "把胡闹，\n*认真*做出来。",
+      "showSns": true
+    }
+  ]
+}

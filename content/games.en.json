@@ -1,0 +1,112 @@
+{
+  "items": [
+    {
+      "id": "guild",
+      "t": "Scrappy Guild",
+      "s": "Pool your wits with friends and take on the Demon Lord with the strongest deck. A co-op deckbuilding roguelike where talking it out with your friends is what makes you strong.",
+      "st": "Coming 2027.3.16 [Demo available]",
+      "soon": true,
+      "plat": "Steam / 2–4 player co-op",
+      "shots": [
+        "/img/guild_ss0.webp",
+        "/img/guild_ss1.webp",
+        "/img/guild_ss3.webp"
+      ],
+      "phone": [],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/guild_header.webp",
+      "links": [
+        {
+          "label": "Play the demo on Steam",
+          "url": "https://store.steampowered.com/app/4842440/Scrappy_Guild/"
+        }
+      ],
+      "gen": "point",
+      "flip": false,
+      "say": "Try not to fight during strategy meetings."
+    },
+    {
+      "id": "tower",
+      "t": "Final Tower Ⅶ",
+      "s": "The tower you build becomes the battlefield. Drop blocks to build your tower, connect the power, and fire up your weapons in this physics tower defense.",
+      "st": "Demo available",
+      "soon": true,
+      "plat": "Steam",
+      "shots": [
+        "/img/tower_ss3.webp",
+        "/img/tower_ss2.webp",
+        "/img/tower_ss0.webp"
+      ],
+      "phone": [],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/tower_header.webp",
+      "links": [
+        {
+          "label": "Play the demo on Steam",
+          "url": "https://store.steampowered.com/app/5213250/Final_Tower_VII/"
+        }
+      ],
+      "gen": "shrug",
+      "flip": false,
+      "say": "Stack it and you win. …probably."
+    },
+    {
+      "id": "makefall",
+      "t": "MakeFALL",
+      "s": "Eat what falls, dodge the rest, rack up coins. Just the right length for waiting on a train.",
+      "st": "Available now",
+      "soon": false,
+      "plat": "iOS / Android",
+      "shots": [],
+      "phone": [
+        "/img/makefall_1.webp",
+        "/img/makefall_2.webp",
+        "/img/makefall_3.webp"
+      ],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/makefall_0.webp",
+      "links": [
+        {
+          "label": "App Store",
+          "url": "https://apps.apple.com/jp/app/makefall/id6760619572"
+        },
+        {
+          "label": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.DefaultCompany.kzunokosi"
+        },
+        {
+          "label": "Official site",
+          "url": "https://sites.google.com/view/makefallsite/"
+        }
+      ],
+      "gen": "tired",
+      "flip": false,
+      "say": "I've eaten most of what fell."
+    },
+    {
+      "id": "watch",
+      "t": "Watch",
+      "s": "A horror game built around the idea of “a movie you experience.” Play it right away in your browser.",
+      "st": "Demo available",
+      "soon": false,
+      "plat": "unityroom (browser)",
+      "shots": [],
+      "phone": [],
+      "watch": "/img/watch_og.webp",
+      "tagline": "A movie you experience",
+      "thumb": "/img/watch_og.webp",
+      "links": [
+        {
+          "label": "Play on unityroom",
+          "url": "https://unityroom.com/games/watch_game"
+        }
+      ],
+      "gen": "point",
+      "flip": true,
+      "say": "…better not watch this alone."
+    }
+  ]
+}

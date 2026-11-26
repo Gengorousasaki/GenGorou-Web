@@ -1,0 +1,104 @@
+{
+  "blocks": [
+    {
+      "type": "tv",
+      "show": true,
+      "id": "top",
+      "title": "What are we playing today?",
+      "lead": "Games made by G3 (GenGorouGames). Play solo, or with friends.",
+      "sleep": [
+        "…zzz.",
+        "…sleepy.",
+        "Five more minutes…"
+      ],
+      "wake": [
+        "…what.",
+        "Don't wake me up.",
+        "Fixing bugs again today.",
+        "Stop changing the channel.",
+        "A quote? …it's further down."
+      ],
+      "hint": "Click to wake up",
+      "interval": 6
+    },
+    {
+      "type": "games",
+      "show": true,
+      "id": "games",
+      "title": "Games",
+      "lead": "Made with Unity. Genchan shows up somewhere in every single one.",
+      "bg": "paper"
+    },
+    {
+      "type": "news",
+      "show": true,
+      "id": "news",
+      "title": "News",
+      "lead": "Events and releases",
+      "bg": "paper",
+      "limit": 10,
+      "gen": {
+        "pose": "sign",
+        "say": "Too many events lately.",
+        "side": "right",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      }
+    },
+    {
+      "type": "work",
+      "show": true,
+      "id": "work",
+      "title": "We'll help you make your game",
+      "bg": "pink",
+      "gen": {
+        "pose": "wave",
+        "say": "Quotes are free. …really.",
+        "side": "left",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      },
+      "body": "We take on work from individuals, companies, and indie developers alike. We've done everything from planning and implementation to releasing on Steam and mobile, so you can come to us at any stage.",
+      "services": [
+        "Programming",
+        "Game design & specs",
+        "UI design",
+        "Planning consultation",
+        "3D models",
+        "Store images & banners",
+        "Trailers",
+        "Debugging & playtesting",
+        "Full production, concept to release",
+        "Online multiplayer",
+        "Bug fixes & optimization",
+        "Technical lessons",
+        "Steam release support"
+      ],
+      "conds": "Unity specialists / Copyright transfer OK / Commercial use OK / Free revisions",
+      "button": {
+        "label": "Get a quote",
+        "href": "/estimate/"
+      }
+    },
+    {
+      "type": "about",
+      "show": true,
+      "id": "about",
+      "title": "",
+      "bg": "paper",
+      "gen": {
+        "pose": "none",
+        "say": "",
+        "side": "right",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      },
+      "body": "G3 (GenGorouGames) is a small game team based in Tokyo.\nWe're chasing that feeling of crowding around one screen at a friend's place.\n\nOur mascot, Genchan, is usually sleepy and usually complaining about something.",
+      "big": "Messing around,\n*seriously.*",
+      "showSns": true
+    }
+  ]
+}

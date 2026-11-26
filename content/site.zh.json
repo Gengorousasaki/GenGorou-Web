@@ -1,0 +1,51 @@
+{
+  "title": "G3 -GenGorouGames- | 独立游戏团队",
+  "logo": "G3",
+  "logoSub": "GenGorouGames",
+  "nav": [
+    {
+      "label": "作品",
+      "href": "#games",
+      "accent": false
+    },
+    {
+      "label": "动态",
+      "href": "#news",
+      "accent": false
+    },
+    {
+      "label": "关于G3",
+      "href": "#about",
+      "accent": false
+    },
+    {
+      "label": "委托合作",
+      "href": "#work",
+      "accent": true
+    }
+  ],
+  "sns": [
+    {
+      "label": "X",
+      "url": "https://x.com/gengorou__game"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@GenGorouGames"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/gengorougames/?hl=ja"
+    },
+    {
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@user7437230911988"
+    }
+  ],
+  "footer": {
+    "copy": "© G3 -GenGorouGames-",
+    "contact": "工作洽谈：gengorougames@gmail.com",
+    "sleeper": true,
+    "say": "晚安。"
+  }
+}

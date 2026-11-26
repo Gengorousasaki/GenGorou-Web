@@ -1,0 +1,112 @@
+{
+  "items": [
+    {
+      "id": "guild",
+      "t": "Scrappy Guild",
+      "s": "和伙伴集思广益，用最强卡组挑战魔王的合作卡组构筑肉鸽游戏。和朋友的讨论，就是你的力量。",
+      "st": "2027.3.16 发售 【试玩版已上线】",
+      "soon": true,
+      "plat": "Steam / 2〜4人合作",
+      "shots": [
+        "/img/guild_ss0.webp",
+        "/img/guild_ss1.webp",
+        "/img/guild_ss3.webp"
+      ],
+      "phone": [],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/guild_header.webp",
+      "links": [
+        {
+          "label": "在Steam上试玩",
+          "url": "https://store.steampowered.com/app/4842440/Scrappy_Guild/"
+        }
+      ],
+      "gen": "point",
+      "flip": false,
+      "say": "开作战会议可别吵架哦。"
+    },
+    {
+      "id": "tower",
+      "t": "Final Tower Ⅶ",
+      "s": "堆起来的塔，就是战场。落下方块搭建高塔，接通动力启动武器的物理塔防游戏。",
+      "st": "试玩版已上线",
+      "soon": true,
+      "plat": "Steam",
+      "shots": [
+        "/img/tower_ss3.webp",
+        "/img/tower_ss2.webp",
+        "/img/tower_ss0.webp"
+      ],
+      "phone": [],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/tower_header.webp",
+      "links": [
+        {
+          "label": "在Steam上试玩",
+          "url": "https://store.steampowered.com/app/5213250/Final_Tower_VII/"
+        }
+      ],
+      "gen": "shrug",
+      "flip": false,
+      "say": "堆就能赢。…大概吧。"
+    },
+    {
+      "id": "makefall",
+      "t": "MakeFALL",
+      "s": "吃掉掉下来的东西，躲开，赚金币。长度刚好适合等电车的时候玩。",
+      "st": "已上线",
+      "soon": false,
+      "plat": "iOS / Android",
+      "shots": [],
+      "phone": [
+        "/img/makefall_1.webp",
+        "/img/makefall_2.webp",
+        "/img/makefall_3.webp"
+      ],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/makefall_0.webp",
+      "links": [
+        {
+          "label": "App Store",
+          "url": "https://apps.apple.com/jp/app/makefall/id6760619572"
+        },
+        {
+          "label": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.DefaultCompany.kzunokosi"
+        },
+        {
+          "label": "官方网站",
+          "url": "https://sites.google.com/view/makefallsite/"
+        }
+      ],
+      "gen": "tired",
+      "flip": false,
+      "say": "掉下来的，基本都吃了。"
+    },
+    {
+      "id": "watch",
+      "t": "Watch",
+      "s": "以“体验式电影”为概念的恐怖游戏。在浏览器中即可马上游玩。",
+      "st": "试玩版已上线",
+      "soon": false,
+      "plat": "unityroom（浏览器）",
+      "shots": [],
+      "phone": [],
+      "watch": "/img/watch_og.webp",
+      "tagline": "体验式电影",
+      "thumb": "/img/watch_og.webp",
+      "links": [
+        {
+          "label": "在unityroom游玩",
+          "url": "https://unityroom.com/games/watch_game"
+        }
+      ],
+      "gen": "point",
+      "flip": true,
+      "say": "…最好别一个人看。"
+    }
+  ]
+}

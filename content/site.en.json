@@ -1,0 +1,51 @@
+{
+  "title": "G3 -GenGorouGames- | Indie Game Team",
+  "logo": "G3",
+  "logoSub": "GenGorouGames",
+  "nav": [
+    {
+      "label": "Games",
+      "href": "#games",
+      "accent": false
+    },
+    {
+      "label": "News",
+      "href": "#news",
+      "accent": false
+    },
+    {
+      "label": "About",
+      "href": "#about",
+      "accent": false
+    },
+    {
+      "label": "Work with us",
+      "href": "#work",
+      "accent": true
+    }
+  ],
+  "sns": [
+    {
+      "label": "X",
+      "url": "https://x.com/gengorou__game"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@GenGorouGames"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/gengorougames/?hl=ja"
+    },
+    {
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@user7437230911988"
+    }
+  ],
+  "footer": {
+    "copy": "© G3 -GenGorouGames-",
+    "contact": "Work inquiries: gengorougames@gmail.com",
+    "sleeper": true,
+    "say": "Good night."
+  }
+}

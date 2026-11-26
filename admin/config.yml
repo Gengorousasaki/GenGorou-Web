@@ -16,32 +16,51 @@ media_folder: img/uploads
 public_folder: /img/uploads
 site_url: https://gengorougames.com
 display_url: https://gengorougames.com
+# 多言語（日本語が基本。en=英語 / zh=中国語（簡体字）/ ko=韓国語）。
+# 翻訳は content/〇〇.en.json のように言語ごとのファイルに保存される。
+# 空欄の項目はサイト上で日本語が出る。
+i18n:
+  structure: multiple_files
+  locales:
+  - ja
+  - en
+  - zh
+  - ko
+  default_locale: ja
 collections:
 - name: home
   label: トップページ
+  i18n: true
   files:
   - name: site
     label: サイト全体（メニュー・SNS・フッター）
-    file: content/site.json
+    file: content/site.{{locale}}.json
+    i18n:
+      omit_default_locale_from_file_path: true
     fields:
     - name: title
       label: ブラウザのタブに出るサイト名
       widget: string
+      i18n: true
     - name: logo
       label: ロゴの文字
       widget: string
+      i18n: duplicate
       default: G3
     - name: logoSub
       label: ロゴの横の小さい文字
       widget: string
+      i18n: duplicate
       required: false
     - name: nav
       label: 上部メニュー
       widget: list
+      i18n: duplicate
       fields:
       - name: label
         label: 文字
         widget: string
+        i18n: true
       - name: href
         label: リンク先
         widget: string
@@ -55,6 +74,7 @@ collections:
     - name: sns
       label: SNSのリンク
       widget: list
+      i18n: duplicate
       fields:
       - name: label
         label: 名前
@@ -68,14 +88,17 @@ collections:
     - name: footer
       label: フッター
       widget: object
+      i18n: duplicate
       fields:
       - name: copy
         label: 左の文字
         widget: string
+        i18n: true
         required: false
       - name: contact
         label: 右の文字
         widget: string
+        i18n: true
         required: false
       - name: sleeper
         label: 寝転がるげんちゃんを出す
@@ -84,14 +107,18 @@ collections:
       - name: say
         label: げんちゃんのセリフ
         widget: string
+        i18n: true
         required: false
   - name: layout
     label: トップページの構成と文章
-    file: content/home.json
+    file: content/home.{{locale}}.json
+    i18n:
+      omit_default_locale_from_file_path: true
     fields:
     - name: blocks
       label: トップページの構成（上から順に表示。ドラッグで並び替え）
       widget: list
+      i18n: duplicate
       label_singular: ブロック
       typeKey: type
       summary: '{{fields.title}}'
@@ -113,30 +140,37 @@ collections:
         - name: title
           label: 見出し
           widget: text
+          i18n: true
           hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: lead
           label: 説明文
           widget: text
+          i18n: true
           required: false
         - name: sleep
           label: 寝ているときのセリフ
           widget: list
+          i18n: true
           field:
             name: v
             label: セリフ
             widget: string
+            i18n: true
           hint: ランダムで1つ出ます
         - name: wake
           label: 起こしたときのセリフ
           widget: list
+          i18n: true
           field:
             name: v
             label: セリフ
             widget: string
+            i18n: true
           hint: ランダムで1つ出ます
         - name: hint
           label: げんちゃんの下の小さい案内
           widget: string
+          i18n: true
           required: false
         - name: interval
           label: チャンネルが切り替わる間隔（秒）
@@ -162,10 +196,12 @@ collections:
         - name: title
           label: 見出し
           widget: text
+          i18n: true
           hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: lead
           label: 説明文
           widget: text
+          i18n: true
           required: false
         - name: bg
           label: 背景色
@@ -197,10 +233,12 @@ collections:
         - name: title
           label: 見出し
           widget: text
+          i18n: true
           hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: lead
           label: 説明文
           widget: text
+          i18n: true
           required: false
         - name: limit
           label: 表示する件数
@@ -225,6 +263,7 @@ collections:
         - name: gen
           label: げんちゃん
           widget: object
+          i18n: duplicate
           fields:
           - name: pose
             label: ポーズ
@@ -248,6 +287,7 @@ collections:
           - name: say
             label: セリフ
             widget: string
+            i18n: true
             required: false
             hint: 短く。空欄なら吹き出しなし
           - name: side
@@ -317,31 +357,38 @@ collections:
         - name: title
           label: 見出し
           widget: text
+          i18n: true
           hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: body
           label: 本文
           widget: text
+          i18n: true
           required: false
           hint: 空行で段落が分かれます。「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: services
           label: サービス一覧
           widget: list
+          i18n: true
           field:
             name: v
             label: サービス名
             widget: string
+            i18n: true
           required: false
         - name: conds
           label: 条件（小さい文字）
           widget: text
+          i18n: true
           required: false
         - name: button
           label: ボタン
           widget: object
+          i18n: duplicate
           fields:
           - name: label
             label: ボタンの文字
             widget: string
+            i18n: true
             required: false
             hint: 空欄ならボタンなし
           - name: href
@@ -354,6 +401,7 @@ collections:
         - name: gen
           label: げんちゃん
           widget: object
+          i18n: duplicate
           fields:
           - name: pose
             label: ポーズ
@@ -377,6 +425,7 @@ collections:
           - name: say
             label: セリフ
             widget: string
+            i18n: true
             required: false
             hint: 短く。空欄なら吹き出しなし
           - name: side
@@ -446,14 +495,17 @@ collections:
         - name: big
           label: 大きい文字
           widget: text
+          i18n: true
           hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: title
           label: 小見出し
           widget: text
+          i18n: true
           required: false
         - name: body
           label: 本文
           widget: text
+          i18n: true
           required: false
           hint: 空行で段落が分かれます。「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: showSns
@@ -463,6 +515,7 @@ collections:
         - name: gen
           label: げんちゃん
           widget: object
+          i18n: duplicate
           fields:
           - name: pose
             label: ポーズ
@@ -486,6 +539,7 @@ collections:
           - name: say
             label: セリフ
             widget: string
+            i18n: true
             required: false
             hint: 短く。空欄なら吹き出しなし
           - name: side
@@ -555,11 +609,13 @@ collections:
         - name: title
           label: 見出し
           widget: text
+          i18n: true
           required: false
           hint: 「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: body
           label: 本文
           widget: text
+          i18n: true
           required: false
           hint: 空行で段落が分かれます。「*ここ*」で囲むとピンクの強調。改行もそのまま反映されます
         - name: image
@@ -569,6 +625,7 @@ collections:
         - name: imageAlt
           label: 画像の説明（読み上げ用）
           widget: string
+          i18n: true
           required: false
         - name: imagePos
           label: 画像の位置
@@ -595,10 +652,12 @@ collections:
         - name: button
           label: ボタン
           widget: object
+          i18n: duplicate
           fields:
           - name: label
             label: ボタンの文字
             widget: string
+            i18n: true
             required: false
             hint: 空欄ならボタンなし
           - name: href
@@ -611,6 +670,7 @@ collections:
         - name: gen
           label: げんちゃん
           widget: object
+          i18n: duplicate
           fields:
           - name: pose
             label: ポーズ
@@ -634,6 +694,7 @@ collections:
           - name: say
             label: セリフ
             widget: string
+            i18n: true
             required: false
             hint: 短く。空欄なら吹き出しなし
           - name: side
@@ -675,11 +736,14 @@ collections:
           collapsed: true
   - name: games
     label: 作品
-    file: content/games.json
+    file: content/games.{{locale}}.json
+    i18n:
+      omit_default_locale_from_file_path: true
     fields:
     - name: items
       label: 作品一覧（この順番でトップに並び、テレビのチャンネルにもなります）
       widget: list
+      i18n: duplicate
       fields:
       - name: id
         label: ID
@@ -688,13 +752,16 @@ collections:
       - name: t
         label: 作品名
         widget: string
+        i18n: true
       - name: s
         label: 紹介文
         widget: text
+        i18n: true
         hint: 1〜2文。テレビの画面にも出ます
       - name: st
         label: 状況
         widget: string
+        i18n: true
         hint: 例：配信中 / 体験版配信中 / 2027.3.15 発売予定
       - name: soon
         label: 発売前（状況をピンクで表示）
@@ -703,6 +770,7 @@ collections:
       - name: plat
         label: 対応機種
         widget: string
+        i18n: true
         hint: 例：Steam / 2〜4人協力
       - name: shots
         label: ゲーム画面（横長）
@@ -732,6 +800,7 @@ collections:
       - name: tagline
         label: アイコンの下の小さい文字
         widget: string
+        i18n: true
         required: false
         hint: アイコンで見せる場合だけ使います（例：体験する映画）
       - name: thumb
@@ -741,10 +810,12 @@ collections:
       - name: links
         label: リンク
         widget: list
+        i18n: duplicate
         fields:
         - name: label
           label: ボタンの文字
           widget: string
+          i18n: true
           hint: 例：Steamでウィッシュリスト
         - name: url
           label: URL
@@ -772,17 +843,21 @@ collections:
       - name: say
         label: げんちゃんの一言
         widget: string
+        i18n: true
         required: false
         hint: 短く。例：積めば勝てる。…たぶん。
       label_singular: 作品
       summary: '{{fields.t}}（{{fields.st}}）'
   - name: topics
     label: お知らせ
-    file: content/topics.json
+    file: content/topics.{{locale}}.json
+    i18n:
+      omit_default_locale_from_file_path: true
     fields:
     - name: items
       label: お知らせ一覧（日付の新しい順に自動で並びます）
       widget: list
+      i18n: duplicate
       fields:
       - name: d
         label: 日付
@@ -791,10 +866,12 @@ collections:
       - name: p
         label: 作品名
         widget: string
+        i18n: true
         hint: 例：がむしゃらギルド
       - name: t
         label: 内容
         widget: string
+        i18n: true
         hint: 例：東京ゲームショウ2026 に出展しました
       label_singular: お知らせ
       summary: '{{fields.d}}　{{fields.t}}'

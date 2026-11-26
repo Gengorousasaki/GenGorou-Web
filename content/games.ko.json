@@ -1,0 +1,112 @@
+{
+  "items": [
+    {
+      "id": "guild",
+      "t": "Scrappy Guild",
+      "s": "동료와 머리를 맞대고 최강의 덱으로 마왕에 도전하는 협력 덱빌딩 로그라이크. 친구와의 작전 회의가 그대로 힘이 된다.",
+      "st": "2027.3.16 발매 예정 【체험판 배포 중】",
+      "soon": true,
+      "plat": "Steam / 2~4인 협력",
+      "shots": [
+        "/img/guild_ss0.webp",
+        "/img/guild_ss1.webp",
+        "/img/guild_ss3.webp"
+      ],
+      "phone": [],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/guild_header.webp",
+      "links": [
+        {
+          "label": "Steam에서 체험판 플레이",
+          "url": "https://store.steampowered.com/app/4842440/Scrappy_Guild/"
+        }
+      ],
+      "gen": "point",
+      "flip": false,
+      "say": "작전 회의하다 싸우지 마."
+    },
+    {
+      "id": "tower",
+      "t": "Final Tower Ⅶ",
+      "s": "쌓아 올린 탑이 그대로 전장이 된다. 블록을 떨어뜨려 탑을 쌓고, 동력을 연결해 무기를 가동하는 물리 타워 디펜스.",
+      "st": "체험판 배포 중",
+      "soon": true,
+      "plat": "Steam",
+      "shots": [
+        "/img/tower_ss3.webp",
+        "/img/tower_ss2.webp",
+        "/img/tower_ss0.webp"
+      ],
+      "phone": [],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/tower_header.webp",
+      "links": [
+        {
+          "label": "Steam에서 체험판 플레이",
+          "url": "https://store.steampowered.com/app/5213250/Final_Tower_VII/"
+        }
+      ],
+      "gen": "shrug",
+      "flip": false,
+      "say": "쌓으면 이겨. …아마도."
+    },
+    {
+      "id": "makefall",
+      "t": "MakeFALL",
+      "s": "떨어지는 걸 먹고, 피하고, 코인을 번다. 전철 기다리는 시간에 딱 좋은 길이.",
+      "st": "배포 중",
+      "soon": false,
+      "plat": "iOS / Android",
+      "shots": [],
+      "phone": [
+        "/img/makefall_1.webp",
+        "/img/makefall_2.webp",
+        "/img/makefall_3.webp"
+      ],
+      "watch": "",
+      "tagline": "",
+      "thumb": "/img/makefall_0.webp",
+      "links": [
+        {
+          "label": "App Store",
+          "url": "https://apps.apple.com/jp/app/makefall/id6760619572"
+        },
+        {
+          "label": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.DefaultCompany.kzunokosi"
+        },
+        {
+          "label": "공식 사이트",
+          "url": "https://sites.google.com/view/makefallsite/"
+        }
+      ],
+      "gen": "tired",
+      "flip": false,
+      "say": "떨어지는 거, 거의 다 먹었어."
+    },
+    {
+      "id": "watch",
+      "t": "Watch",
+      "s": "‘체험하는 영화’를 콘셉트로 한 호러 게임. 브라우저에서 바로 플레이할 수 있어요.",
+      "st": "체험판 배포 중",
+      "soon": false,
+      "plat": "unityroom(브라우저)",
+      "shots": [],
+      "phone": [],
+      "watch": "/img/watch_og.webp",
+      "tagline": "체험하는 영화",
+      "thumb": "/img/watch_og.webp",
+      "links": [
+        {
+          "label": "unityroom에서 플레이",
+          "url": "https://unityroom.com/games/watch_game"
+        }
+      ],
+      "gen": "point",
+      "flip": true,
+      "say": "…혼자 보지 않는 게 좋아."
+    }
+  ]
+}

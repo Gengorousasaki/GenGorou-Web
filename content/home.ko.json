@@ -1,0 +1,104 @@
+{
+  "blocks": [
+    {
+      "type": "tv",
+      "show": true,
+      "id": "top",
+      "title": "오늘은 뭐 하고 놀까?",
+      "lead": "G3(겐고로게임즈)가 만든 게임들을 모아 뒀어요. 혼자서도, 친구랑도.",
+      "sleep": [
+        "…쿨.",
+        "…졸려.",
+        "5분만 더…"
+      ],
+      "wake": [
+        "…뭐.",
+        "깨우지 마.",
+        "오늘도 버그 잡는 중.",
+        "채널 맘대로 돌리지 마.",
+        "견적? …아래에 있어."
+      ],
+      "hint": "클릭해서 깨우기",
+      "interval": 6
+    },
+    {
+      "type": "games",
+      "show": true,
+      "id": "games",
+      "title": "작품",
+      "lead": "Unity로 만들고 있어요. 모든 게임 어딘가에 겐짱이 나와요.",
+      "bg": "paper"
+    },
+    {
+      "type": "news",
+      "show": true,
+      "id": "news",
+      "title": "소식",
+      "lead": "출전·출시 기록",
+      "bg": "paper",
+      "limit": 10,
+      "gen": {
+        "pose": "sign",
+        "say": "요즘 행사 너무 많이 나가.",
+        "side": "right",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      }
+    },
+    {
+      "type": "work",
+      "show": true,
+      "id": "work",
+      "title": "게임 개발, 도와드려요",
+      "bg": "pink",
+      "gen": {
+        "pose": "wave",
+        "say": "견적은 무료. …진짜로.",
+        "side": "left",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      },
+      "body": "개인·법인·인디 상관없이 받고 있어요. 기획부터 구현, Steam·모바일 출시까지 전부 해 봤기 때문에 어느 단계에서든 상담할 수 있어요.",
+      "services": [
+        "프로그래밍",
+        "기획·사양서",
+        "UI 디자인",
+        "기획 상담",
+        "3D 모델",
+        "스토어 이미지·배너",
+        "PV 제작",
+        "디버깅·플레이테스트",
+        "기획부터 출시까지 일괄",
+        "온라인 멀티 구현",
+        "버그 수정·최적화",
+        "기술 강의",
+        "Steam 출시 대행"
+      ],
+      "conds": "Unity 전문 ／ 저작권 양도 OK ／ 상업적 이용 OK ／ 무료 수정",
+      "button": {
+        "label": "항목을 골라 견적 내기",
+        "href": "/estimate/"
+      }
+    },
+    {
+      "type": "about",
+      "show": true,
+      "id": "about",
+      "title": "",
+      "bg": "paper",
+      "gen": {
+        "pose": "none",
+        "say": "",
+        "side": "right",
+        "size": "m",
+        "shift": "normal",
+        "flip": false
+      },
+      "body": "G3(GenGorouGames)는 도쿄에서 게임을 만드는 작은 팀이에요.\n친구 집에 모여 한 대를 둘러싸고 놀던 그 느낌을 목표로 하고 있어요.\n\n마스코트 겐짱은 대체로 졸려 하고, 대체로 뭔가에 투덜대고 있어요.",
+      "big": "장난을,\n*진심으로* 만든다.",
+      "showSns": true
+    }
+  ]
+}
