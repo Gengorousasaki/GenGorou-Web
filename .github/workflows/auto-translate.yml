@@ -1,0 +1,64 @@
+# 自動翻訳
+# 管理画面などで content/ の日本語が保存されたら、英語・中国語・韓国語（見積りページは英語）の空いている所を翻訳して保存し直す。
+# 翻訳サービスのキーは GitHub の Settings → Secrets and variables → Actions に入れる：
+#   ANTHROPIC_API_KEY（Claude。おすすめ）か DEEPL_API_KEY（DeepL。無料枠あり）のどちらか1つ
+# 手動で動かすときは Actions タブ → 自動翻訳 → Run workflow
+name: 自動翻訳
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/*.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: auto-translate
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 翻訳
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: python3 tools/auto_translate.py
+
+      - name: 保存
+        id: save
+        run: |
+          if [ -z "$(git status --porcelain content tools/i18n-sources.json)" ]; then
+            echo "変更なし"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add content tools/i18n-sources.json
+          git commit -m "自動翻訳：日本語の更新に合わせて翻訳を追加"
+          for i in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              echo "pushed=1" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep 10
+          done
+          echo "::error::保存に失敗しました（同時に管理画面で保存された可能性）。次の保存のときにもう一度翻訳されます"
+          exit 1
+
+      # ロボットの保存ではサイトの公開が自動で走らないことがあるので、念のため公開し直す
+      - name: サイトを公開し直す
+        if: steps.save.outputs.pushed == '1'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds"
